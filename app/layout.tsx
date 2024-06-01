@@ -1,5 +1,3 @@
-import Navbar from 'components/layout/navbar';
-import { GeistSans } from 'geist/font/sans';
 import { ensureStartsWith } from 'lib/utils';
 import { ReactNode } from 'react';
 import './globals.css';
@@ -15,28 +13,27 @@ export const metadata = {
   metadataBase: new URL(baseUrl),
   title: {
     default: SITE_NAME!,
-    template: `%s | ${SITE_NAME}`
+    template: `%s | ${SITE_NAME}`,
   },
   robots: {
     follow: true,
-    index: true
+    index: true,
   },
   ...(twitterCreator &&
     twitterSite && {
       twitter: {
         card: 'summary_large_image',
         creator: twitterCreator,
-        site: twitterSite
-      }
-    })
+        site: twitterSite,
+      },
+    }),
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={GeistSans.variable}>
-      <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
-        <Navbar />
-        <main>{children}</main>
+    <html lang="en" className="h-full">
+      <body className="h-full">
+        <main className="h-full">{children}</main>
       </body>
     </html>
   );
