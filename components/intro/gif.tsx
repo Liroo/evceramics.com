@@ -30,7 +30,7 @@ export default function IntroGif() {
   }, []);
 
   return (
-    <div className="absolute left-0 top-0 z-10 flex h-[90%] w-full items-center justify-center">
+    <div className="flex h-[90%] w-full items-center justify-center">
       <div
         ref={ref}
         className="absolute aspect-[216/286] w-[55vw] tablet:w-[40vw] laptop:w-[25vw] desktop:w-[15vw]"

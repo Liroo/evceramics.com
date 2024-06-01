@@ -31,7 +31,23 @@ export default function Intro({ children }: Props) {
           }}
           onAnimationComplete={() => setAnimationCompleted(true)}
         >
-          <IntroGif />
+          <motion.div
+            className="absolute left-0 top-0 z-10 h-full w-full"
+            initial={{
+              y: 0,
+            }}
+            animate={{
+              y: '-30%',
+            }}
+            transition={{
+              delay: 4.45,
+              duration: 0.7,
+              ease: 'easeInOut',
+            }}
+          >
+            <IntroGif />
+          </motion.div>
+
           <div className="mx-auto mt-auto w-screen max-w-desktop px-[16px] laptop:px-[32px]">
             <AnimationTransformIn className="mb-[30px] laptop:mb-[50px]" delay={1}>
               <EvCeramicsVerticalSvg className="w-full fill-current text-clay-dark" />
