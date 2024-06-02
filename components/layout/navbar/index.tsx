@@ -47,7 +47,7 @@ export default function LayoutNavbar() {
         y: pathname === '/' ? '100dvh' : 0,
       }}
     >
-      <div className="grid w-full max-w-desktop grid-cols-12 items-center gap-[16px] px-[32px]">
+      <div className="grid w-full grid-cols-12 items-center gap-[16px] px-[32px]">
         <EVCeramicsHorizontalSvg className="col-span-2" />
 
         <div className="col-span-3 col-start-4">

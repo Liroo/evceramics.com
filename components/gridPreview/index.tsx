@@ -21,7 +21,7 @@ export default function GridPreview() {
 
   return (
     <div className="fixed left-0 top-0 z-50 flex h-dvh w-full justify-center">
-      <div className="grid h-full w-full max-w-desktop grid-cols-12 items-center gap-[16px] px-[32px]">
+      <div className="grid h-full w-full grid-cols-12 items-center gap-[16px] px-[32px]">
         {Array.from({ length: 12 })
           .fill(null)
           .map((_, index) => (

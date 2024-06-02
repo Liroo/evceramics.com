@@ -100,7 +100,7 @@ export default function Intro({ children }: Props) {
             <IntroGif />
           </motion.div>
 
-          <div className="mx-auto mt-auto w-screen max-w-desktop px-[16px] laptop:px-[32px]">
+          <div className="mx-auto mt-auto w-screen px-[16px] laptop:px-[32px]">
             <AnimationTransformIn className="mb-[30px] laptop:mb-[50px]" delay={1}>
               <EvCeramicsVerticalSvg className="w-full fill-current text-clay-dark" />
             </AnimationTransformIn>
