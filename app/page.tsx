@@ -11,7 +11,7 @@ export default async function HomePage() {
   return (
     <>
       <Intro>
-        <div className="h-full w-full bg-[#ff00ff]"></div>
+        <div className="min-h-full"></div>
       </Intro>
     </>
   );

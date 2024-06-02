@@ -1,58 +1,72 @@
-import Cart from 'components/cart';
-import OpenCart from 'components/cart/open-cart';
-import LogoSquare from 'components/logo-square';
-import { getMenu } from 'lib/shopify';
-import { Menu } from 'lib/shopify/types';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import MobileMenu from './mobile-menu';
-import Search, { SearchSkeleton } from './search';
-const { SITE_NAME } = process.env;
+'use client';
 
-export default async function Navbar() {
-  const menu = await getMenu('next-js-frontend-header-menu');
+import { cubicBezier, motion, useAnimate } from 'framer-motion';
+
+import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
+import { SessionStorage } from 'lib/storage';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
+
+export default function LayoutNavbar() {
+  const pathname = usePathname();
+  const [scope, animate] = useAnimate();
+
+  useEffect(() => {
+    // JIC the user navigates away before the intro is completed
+    // Or if the user is coming from another page than the homepage
+    setTimeout(() => {
+      SessionStorage.set('introCompleted', true);
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    const onIntroAnimation = (event: CustomEvent<boolean>) => {
+      animate(
+        scope.current,
+        {
+          y: 0,
+        },
+        {
+          delay: event.detail ? 4.5 : 0,
+          duration: event.detail ? 0.7 : 0,
+          ease: cubicBezier(0.76, 0, 0.24, 1),
+        },
+      );
+    };
+    window.addEventListener<any>('intro:animation', onIntroAnimation);
+    return () => {
+      window.removeEventListener<any>('intro:animation', onIntroAnimation);
+    };
+  }, []);
 
   return (
-    <nav className="relative flex items-center justify-between p-4 lg:px-6">
-      <div className="block flex-none md:hidden">
-        <Suspense fallback={null}>
-          <MobileMenu menu={menu} />
-        </Suspense>
-      </div>
-      <div className="flex w-full items-center">
-        <div className="flex w-full md:w-1/3">
-          <Link href="/" className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6">
-            <LogoSquare />
-            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-              {SITE_NAME}
-            </div>
-          </Link>
-          {menu.length ? (
-            <ul className="hidden gap-6 text-sm md:flex md:items-center">
-              {menu.map((item: Menu) => (
-                <li key={item.title}>
-                  <Link
-                    href={item.path}
-                    className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
-                  >
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : null}
+    <motion.nav
+      ref={scope}
+      className="text-menu fixed left-0 top-0 z-50 flex h-[74px] w-full justify-center bg-white"
+      initial={{
+        y: pathname === '/' ? '100dvh' : 0,
+      }}
+    >
+      <div className="grid w-full max-w-desktop grid-cols-12 items-center gap-[16px] px-[32px]">
+        <EVCeramicsHorizontalSvg className="col-span-2" />
+
+        <div className="col-span-3 col-start-4">
+          <p>EVCERAMICS</p>
         </div>
-        <div className="hidden justify-center md:flex md:w-1/3">
-          <Suspense fallback={<SearchSkeleton />}>
-            <Search />
-          </Suspense>
+
+        <div className="col-span-3 col-start-7">
+          <p>HANDMADE CERAMICS</p>
+          <p>BASED IN FRANCE</p>
         </div>
-        <div className="flex justify-end md:w-1/3">
-          <Suspense fallback={<OpenCart />}>
-            <Cart />
-          </Suspense>
+
+        <div className="col-span-1 col-start-10">
+          <p>INSTAGRAM</p>
+        </div>
+
+        <div className="col-span-1 col-start-12 justify-self-end">
+          <p>CART</p>
         </div>
       </div>
-    </nav>
+    </motion.nav>
   );
 }
