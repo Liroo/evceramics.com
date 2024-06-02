@@ -10,15 +10,15 @@ type Props = {
   delay?: number;
 };
 
-export default function AnimationTransformIn({ className, children, delay }: Props) {
+export default function AnimationOpacityIn({ className, children, delay }: Props) {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
     animate(
       scope.current,
-      { y: ['101%', 0] },
+      { opacity: [0, 1] },
       {
-        duration: 0.5,
+        duration: 0.3,
         delay,
         ease: cubicBezier(0.65, 0, 0.35, 1),
       },
@@ -27,7 +27,7 @@ export default function AnimationTransformIn({ className, children, delay }: Pro
 
   return (
     <div className={twMerge('h-full w-full overflow-hidden', className)}>
-      <div ref={scope} className="h-full w-full translate-y-[101%]">
+      <div ref={scope} className="h-full w-full opacity-0">
         {children}
       </div>
     </div>

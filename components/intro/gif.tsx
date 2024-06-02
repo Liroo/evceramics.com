@@ -1,6 +1,6 @@
 'use client';
 
-import AnimationTransformIn from 'components/animation/transformIn';
+import AnimationOpacityIn from 'components/animation/opacityIn';
 import { animate, motion } from 'framer-motion';
 import useResizeObserver from 'hooks/useResizeObserver';
 import Image from 'next/image';
@@ -35,7 +35,7 @@ export default function IntroGif() {
         ref={ref}
         className="absolute aspect-[216/286] w-[55vw] tablet:w-[40vw] laptop:w-[25vw] desktop:w-[15vw]"
       >
-        <AnimationTransformIn delay={1.5}>
+        <AnimationOpacityIn delay={1.5}>
           <motion.div
             initial={{
               height: 0,
@@ -59,7 +59,7 @@ export default function IntroGif() {
               />
             ))}
           </motion.div>
-        </AnimationTransformIn>
+        </AnimationOpacityIn>
       </div>
     </div>
   );

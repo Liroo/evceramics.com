@@ -1,6 +1,6 @@
 'use client';
 
-import AnimationTransformIn from 'components/animation/transformIn';
+import AnimationOpacityIn from 'components/animation/opacityIn';
 import IntroGif from 'components/intro/gif';
 import { cubicBezier, motion, useAnimate } from 'framer-motion';
 import EvCeramicsVerticalSvg from 'icons/evceramics-vertical.svg';
@@ -101,9 +101,9 @@ export default function Intro({ children }: Props) {
           </motion.div>
 
           <div className="mx-auto mt-auto w-screen px-[16px] laptop:px-[32px]">
-            <AnimationTransformIn className="mb-[30px] laptop:mb-[50px]" delay={1}>
+            <AnimationOpacityIn className="mb-[30px] laptop:mb-[50px]" delay={1}>
               <EvCeramicsVerticalSvg className="w-full fill-current text-clay-dark" />
-            </AnimationTransformIn>
+            </AnimationOpacityIn>
           </div>
         </motion.div>
       )}
