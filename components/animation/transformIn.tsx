@@ -1,6 +1,6 @@
 'use client';
 
-import { cubicBezier, useAnimate, useInView } from 'framer-motion';
+import { cubicBezier, useAnimate } from 'framer-motion';
 import { useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -12,25 +12,22 @@ type Props = {
 
 export default function AnimationTransformIn({ className, children, delay }: Props) {
   const [scope, animate] = useAnimate();
-  const isInView = useInView(scope, { once: true });
 
   useEffect(() => {
-    if (isInView) {
-      animate(
-        scope.current,
-        { y: ['101%', 0] },
-        {
-          duration: 0.5,
-          delay,
-          ease: cubicBezier(0.65, 0, 0.35, 1),
-        },
-      );
-    }
-  }, [isInView]);
+    animate(
+      scope.current,
+      { y: ['101%', 0] },
+      {
+        duration: 0.5,
+        delay,
+        ease: cubicBezier(0.65, 0, 0.35, 1),
+      },
+    );
+  }, []);
 
   return (
     <div className={twMerge('h-full w-full overflow-hidden', className)}>
-      <div ref={scope} className="h-full w-full translate-y-full">
+      <div ref={scope} className="h-full w-full translate-y-[101%]">
         {children}
       </div>
     </div>

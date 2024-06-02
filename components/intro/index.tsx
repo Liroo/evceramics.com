@@ -4,7 +4,7 @@ import AnimationTransformIn from 'components/animation/transformIn';
 import IntroGif from 'components/intro/gif';
 import { cubicBezier, motion } from 'framer-motion';
 import EvCeramicsVerticalSvg from 'icons/evceramics-vertical.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type Props = {
   children: React.ReactNode;
@@ -12,6 +12,16 @@ type Props = {
 
 export default function Intro({ children }: Props) {
   const [animationCompleted, setAnimationCompleted] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!animationCompleted) {
+      document.body.classList.add('overflow-y-hidden');
+      document.documentElement.classList.add('overflow-y-hidden');
+    } else {
+      document.body.classList.remove('overflow-y-hidden');
+      document.documentElement.classList.remove('overflow-y-hidden');
+    }
+  }, [animationCompleted]);
 
   return (
     <>
