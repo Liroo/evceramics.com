@@ -1,5 +1,6 @@
 import GridPreview from 'components/gridPreview';
 import LayoutNavbar from 'components/layout/navbar';
+import { getMenu } from 'lib/shopify';
 import { ensureStartsWith } from 'lib/utils';
 import localFont from 'next/font/local';
 import { ReactNode } from 'react';
@@ -59,10 +60,12 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
+  const mainMenu = await getMenu('main-menu');
+
   return (
     <html lang="en" className="h-full">
-      <body className={`${brutGrotesque.variable} h-full font-sans`}>
-        <LayoutNavbar />
+      <body className={`${brutGrotesque.variable} h-full font-sans text-mud`}>
+        <LayoutNavbar menu={mainMenu} />
         <main className="h-full">{children}</main>
         <GridPreview />
       </body>

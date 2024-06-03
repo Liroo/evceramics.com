@@ -3,11 +3,35 @@
 import { cubicBezier, motion, useAnimate } from 'framer-motion';
 
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
+import { Menu } from 'lib/shopify/types';
 import { SessionStorage } from 'lib/storage';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-export default function LayoutNavbar() {
+type Props = {
+  menu: Menu[];
+};
+
+function MainMenu({ menu }: Props) {
+  const pathName = usePathname();
+
+  return (
+    <div className="flex select-none text-clay-dark">
+      {menu.map((item, index) => (
+        <>
+          {index > 0 ? <p className="mx-[10px]">/</p> : null}
+          <Link href={item.path} key={index} className="uppercase">
+            <p className={twMerge(pathName === item.path ? 'text-mud' : '')}>{item.title}</p>
+          </Link>
+        </>
+      ))}
+    </div>
+  );
+}
+
+export default function LayoutNavbar({ menu }: Props) {
   const pathname = usePathname();
   const [scope, animate] = useAnimate();
 
@@ -50,21 +74,24 @@ export default function LayoutNavbar() {
       <div className="grid w-full grid-cols-12 items-center gap-[16px] px-[32px]">
         <EVCeramicsHorizontalSvg className="col-span-2" />
 
-        <div className="col-span-3 col-start-4">
+        <div className="col-span-3 col-start-4 flex flex-col gap-[2px]">
           <p>EVCERAMICS</p>
+          <MainMenu menu={menu} />
         </div>
 
-        <div className="col-span-3 col-start-7">
+        <div className="col-span-3 col-start-7 flex flex-col gap-[2px]">
           <p>HANDMADE CERAMICS</p>
           <p>BASED IN FRANCE</p>
         </div>
 
-        <div className="col-span-1 col-start-10">
+        <div className="col-span-2 col-start-10 flex flex-col gap-[2px]">
+          <p>EN / FR (ou alors pas de langage hein)</p>
           <p>INSTAGRAM</p>
         </div>
 
-        <div className="col-span-1 col-start-12 justify-self-end">
+        <div className="col-span-1 col-start-12 flex flex-col gap-[2px] justify-self-end">
           <p>CART</p>
+          <p>(0)</p>
         </div>
       </div>
     </motion.nav>

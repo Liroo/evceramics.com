@@ -64,6 +64,8 @@ export default async function ProductPage({ params }: { params: { handle: string
     },
   };
 
+  console.log(product);
+
   return (
     <>
       <script

@@ -9,10 +9,6 @@
 }
 
 @layer base {
-  body {
-    @apply text-mud;
-  }
-
   .text-menu {
     @apply text-[12px] font-medium leading-[110%];
   }
