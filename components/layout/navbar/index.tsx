@@ -7,7 +7,7 @@ import { Menu } from 'lib/shopify/types';
 import { SessionStorage } from 'lib/storage';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type Props = {
@@ -20,12 +20,12 @@ function MainMenu({ menu }: Props) {
   return (
     <div className="flex select-none text-clay-dark">
       {menu.map((item, index) => (
-        <>
+        <Fragment key={index}>
           {index > 0 ? <p className="mx-[10px]">/</p> : null}
-          <Link href={item.path} key={index} className="uppercase">
+          <Link href={item.path} className="uppercase">
             <p className={twMerge(pathName === item.path ? 'text-mud' : '')}>{item.title}</p>
           </Link>
-        </>
+        </Fragment>
       ))}
     </div>
   );
