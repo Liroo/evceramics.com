@@ -74,6 +74,15 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd),
         }}
       />
+      <div className="w-90 h-60 laptop:h-40 laptop:w-20">
+        <div className="w-100 h-80">
+          <img src={productJsonLd.image[0]} alt={productJsonLd.name} className="w-auto" />
+        </div>
+        <div className="w-100 h-auto">
+          <p>{productJsonLd.name}</p>
+          <p>{productJsonLd.offers.priceCurrency}</p>
+        </div>
+      </div>
     </>
   );
 }
