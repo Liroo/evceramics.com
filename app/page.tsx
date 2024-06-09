@@ -1,18 +1,6 @@
-import Intro from 'components/intro';
+import { redirect } from 'next/navigation';
 
-export const metadata = {
-  description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
-  openGraph: {
-    type: 'website',
-  },
-};
-
-export default async function HomePage() {
-  return (
-    <>
-      <Intro>
-        <div className="min-h-full"></div>
-      </Intro>
-    </>
-  );
+// This page only renders when the app is built statically (output: 'export')
+export default function RootPage() {
+  redirect('/en');
 }

@@ -10,6 +10,6 @@
 
 @layer base {
   .text-menu {
-    @apply text-[12px] font-medium leading-[110%];
+    @apply text-[11px] font-medium leading-[110%] laptop:text-[12px];
   }
 }
