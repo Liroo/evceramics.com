@@ -120,13 +120,13 @@ export default function LayoutNavbar({ menu }: Props) {
     >
       <div className="mx-[10px] grid grid-cols-4 items-center gap-[10px] laptop:hidden">
         <div className="col-span-2">
-          <p>EVCERAMICS</p>
+          <p className="uppercase">EVCERAMICS</p>
         </div>
         <div className="col-span-1">
-          <p>{t('cart')} (0)</p>
+          <p className="uppercase">{t('cart')} (0)</p>
         </div>
         <div className="col-span-1 m-[-10px] justify-self-end p-[10px]" onClick={toggleMobileMenu}>
-          <p>MENU</p>
+          <p className="uppercase">MENU</p>
         </div>
       </div>
       <div
@@ -156,8 +156,8 @@ export default function LayoutNavbar({ menu }: Props) {
         </div>
 
         <div className="col-span-3 col-start-7 flex flex-col gap-[2px]">
-          <p>{t('handmade-ceramics')}</p>
-          <p>{t('based-in-france')}</p>
+          <p className="uppercase">{t('handmade-ceramics')}</p>
+          <p className="uppercase">{t('based-in-france')}</p>
         </div>
 
         <div className="col-span-2 col-start-10 flex flex-col gap-[2px]">

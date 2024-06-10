@@ -1,4 +1,4 @@
-import GridPreview from 'components/gridPreview';
+import GridPreview from 'components/grid/preview';
 import LayoutNavbar from 'components/layout/navbar';
 import { getMenu } from 'lib/shopify';
 import { ensureStartsWith } from 'lib/utils';
@@ -70,7 +70,7 @@ export default async function RootLayout({
 }) {
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
-  const mainMenu = await getMenu('main-menu');
+  const mainMenu = await getMenu('main-menu', locale.toUpperCase());
 
   return (
     <html lang={locale} className="h-full">

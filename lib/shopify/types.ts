@@ -215,6 +215,7 @@ export type ShopifyCollectionsOperation = {
 export type ShopifyMenuOperation = {
   data: {
     menu?: {
+      id: string;
       items: {
         title: string;
         url: string;
@@ -223,6 +224,7 @@ export type ShopifyMenuOperation = {
   };
   variables: {
     handle: string;
+    locale: string;
   };
 };
 
