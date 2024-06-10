@@ -131,19 +131,21 @@ export default function LayoutNavbar({ menu }: Props) {
       </div>
       <div
         className={twMerge(
-          'fixed left-0 top-[40px] grid w-full transition-all',
+          'fixed left-0 top-[40px] grid w-full bg-white transition-all laptop:hidden',
           mobileMenuOpen ? 'grid grid-rows-[1fr]' : 'grid-rows-[0fr]',
         )}
       >
-        <div className="mx-[10px] mt-[6px] grid grid-cols-4 items-center gap-[10px] overflow-hidden laptop:hidden">
-          <div className="col-span-2 col-start-1 flex flex-col">
-            <MainMenu menu={menu} />
-          </div>
-          <div className="col-span-2 col-start-3 flex flex-col gap-[6px]">
-            <LocaleSwitcher />
-            <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
-              INSTAGRAM
-            </a>
+        <div className="overflow-hidden">
+          <div className="mx-[10px] mb-[6px] mt-[6px] grid grid-cols-4 items-start gap-[10px]">
+            <div className="col-span-2 col-start-1 flex flex-col">
+              <MainMenu menu={menu} />
+            </div>
+            <div className="col-span-2 col-start-3 flex flex-col gap-[6px]">
+              <LocaleSwitcher />
+              <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
+                INSTAGRAM
+              </a>
+            </div>
           </div>
         </div>
       </div>
