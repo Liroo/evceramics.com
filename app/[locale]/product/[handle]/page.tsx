@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct } from 'lib/shopify';
-
 export async function generateMetadata({
   params,
 }: {
@@ -74,13 +73,33 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className="w-90 h-60 laptop:h-40 laptop:w-20">
-        <div className="w-100 h-80">
-          <img src={productJsonLd.image[0]} alt={productJsonLd.name} className="w-auto" />
-        </div>
+      <div className=" laptop:h-40 laptop:w-20">
         <div className="w-100 h-auto">
-          <p>{productJsonLd.name}</p>
-          <p>{productJsonLd.offers.priceCurrency}</p>
+          <p>{product.title}</p>
+        </div>
+
+        <div className="w-90 h-80">
+          <img src={product.images[0]?.url} alt={product.title} className="w-90" />
+        </div>
+
+        <div>
+          <div>
+            {product.availableForSale ? '/ READY TO SHIP /' : '/ OUT OF STOCK /'}
+            <p>€{product.priceRange.minVariantPrice.amount}</p>
+            <a href="#">Add to cart</a>
+          </div>
+          <div>
+            <h2>DESCRIPTION :</h2>
+            <p>{product.description}</p>
+          </div>
+          <div>
+            <p>DROP / {}</p>
+            <p>MODEL / {}</p>
+            <p>CATEGORY / {}</p>
+            <p>COLOR / {}</p>
+            <p>MATERIAL / {}</p>
+            <p>DIMENSIONS / {}</p>
+          </div>
         </div>
       </div>
     </>
