@@ -1,0 +1,36 @@
+{
+  "menu": {
+    "cart": "PANIER",
+    "handmade-ceramics": "céramiques artisanales",
+    "based-in-france": "faites en france"
+  },
+  "infos": {
+    "about": {
+      "title": "+à propos",
+      "content": "EV Ceramics est un atelier et studio de céramique fondé par Emilie Vizcano. Toutes les pièces qu'elle réalise sont faites à la main, une à une via la technique du modelage. Inspirée par le concept japonais de Wabi Sabi, elle aime que l'objet ne perde pas son caractère naturel et que l'on puisse voir les traces du processus de création. Un autre de ses objectifs est que l'objet lui-même soit beau, et elle aime le fait qu'il puisse être un un élément de décoration si il ne remplit pas sa fonction principale."
+    },
+    "wabi-sabi": {
+      "title": "+wabi sabi",
+      "content-1": "Le wabi-sabi est un concept japonais qui célèbre la beauté de l'imperfection, l'éphémère, la simplicité dans la vie et dans l'art. Il trouve ses racines dans le bouddhisme zen et la traditionnelle cérémonie du thé japonaise. Cette philosophie encourage à trouver la beauté dans les objets et les expériences modestes, souvent marqués par le temps et l'usage.",
+      "content-2": "Le wabi-sabi valorise les imperfections, les irrégularités et les asymétries, considérant qu'elles ajoutent de la profondeur et de l'authenticité. Il invite à embrasser le changement et à accepter l'inéluctable passage du temps. La simplicité, la sobriété et la modestie en sont des éléments clés, encourageant à se détourner du faste et de l'ostentation."
+    },
+    "terms-conditions": {
+      "title": "+TERMeS et conditions",
+      "1": "Les conditions générales énoncées ci-dessous s'appliquent à l'utilisation de ce site web. En utilisant ce site, vous acceptez d'être lié par ces termes et conditions. Si vous n'acceptez pas d'être lié par ces conditions, vous ne pouvez pas utiliser ce site web.",
+      "2": "En passant une commande, vous acceptez d'acheter un produit selon les conditions suivantes. Toutes les commandes sont soumises à la disponibilité et à la confirmation du prix de la commande.",
+      "3": "Nous vous communiquerons l'acceptation de votre achat après avoir reçu la confirmation du traitement de votre paiement. Nous vous enverrons un accusé de réception par courrier électronique confirmant l'acceptation de votre commande.",
+      "4": "Tous les prix indiqués sur le site sont en France, en euros (EUR).",
+      "5": "EV Ceramics® n'accepte pas les retours.",
+      "6": "Toutes les ventes sont définitives. Les échanges et les annulations ne sont pas autorisés."
+    },
+    "shipping": {
+      "title": "+Envois",
+      "1": "Tous les frais de douane et taxes sont à la charge de l'acheteur et ne sont pas inclus dans les frais d'expédition. ",
+      "2": "L'expédition internationale n'est pas disponible pour nos articles pour le moment.",
+      "3": "Le délai de traitement de toutes les commandes standard prêtes à être expédiées est d'environ de 1 à 5 jours ouvrables.",
+      "4": "Nous ne pouvons pas garantir les délais de livraison car ils dépendent du fournisseur de services d'expédition. Nous ne sommes pas responsables des retards causés par le transport. Les délais de livraison peuvent dépasser l'estimation en raison de facteurs indépendants de notre volonté.",
+      "5": "Les informations de suivi sont fournies avec chaque commande, mais l'acheteur accepte d’assumer toute la responsabilité une fois que la commande a été traitée et a quitté nos locaux.",
+      "6": "Si un colis est perdu, volé ou endommagé lors de l'expédition, une réclamation doit être déposée auprès du prestataire de services d'expédition utilisé et non auprès d'EV Ceramics®. Si un colis indique qu'il a été livré grâce au numéro de suivi et que le client ne parvient pas à localiser son colis, nous ne sommes pas responsables et n'émettrons pas de remboursement ou de crédit sur le site. Les produits couverts par chaque contrat (c'est-à-dire la commande acceptée) sont à vos risques et périls dès la remise de la commande au transporteur. Nous ne pouvons être tenus responsables des retards ou des absences de livraison."
+    }
+  }
+}

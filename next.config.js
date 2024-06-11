@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   experimental: {
     turbo: {
       rules: {
@@ -59,3 +59,9 @@ module.exports = {
     ];
   },
 };
+
+const createNextIntlPlugin = require('next-intl/plugin');
+
+const withNextIntl = createNextIntlPlugin();
+
+module.exports = withNextIntl(config);

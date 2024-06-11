@@ -1,0 +1,36 @@
+{
+  "menu": {
+    "cart": "CART",
+    "handmade-ceramics": "HANDMADE CERAMICS",
+    "based-in-france": "BASED IN FRANCE"
+  },
+  "infos": {
+    "about": {
+      "title": "+about",
+      "content": "EV Ceramics is a ceramic studio run by Emilie Vizcano. All the pieces she makes are handmade, one by one, using the modelling technique. What she likes is for the object not to lose its natural character and for us to see the traces of the creation process, inspired by the japanese Wabi Sabi concept. Another of her aims is for the object itself to be beautiful, and she likes to think that if it doesn't fulfil its main function, it becomes a piece of decoration."
+    },
+    "wabi-sabi": {
+      "title": "+wabi sabi",
+      "content-1": "Wabi-sabi is a Japanese concept that celebrates the beauty of imperfection, transience and simplicity in life and art. It has its roots in Zen Buddhism and the Japanese tea tradition. This philosophy encourages us to find beauty in modest objects and experiences, often marked by time and use.",
+      "content-2": "Wabi-sabi values imperfections, irregularities and asymmetries, believing they add depth and authenticity. It invites us to embrace change and accept the inevitable passage of time. Simplicity, sobriety and modesty are key elements, encouraging us to turn away from pomp and ostentation."
+    },
+    "terms-conditions": {
+      "title": "+TERMS and conditions",
+      "1": "The terms and conditions set out below are to be applied to the use of this website. By using this website, you agree to be bound by these terms and conditions. If you do not agree to be bound by these terms and conditions, you may not use this website.",
+      "2": "By placing an order you are offering to purchase a product on and subject to the following terms and conditions. All orders are subject to availability and confirmation of the order price.",
+      "3": "We will communicate acceptance of your offer after we receive confirmation of your payment being processed. We will send you an acknowledgement e-mail confirming acceptance of your order.",
+      "4": "All prices stated on the website are in France, Euros (EUR).",
+      "5": "EV Ceramics® does not accept returns.",
+      "6": "All sales are final. Exchanges and cancellations are not permitted."
+    },
+    "shipping": {
+      "title": "+Shipping",
+      "1": "All taxes and duties are the sole responsibility of the purchaser, these fees are not included in the shipping costs.",
+      "2": "International shipping is not available for our items.",
+      "3": "Processing time for all standard ready to ship orders is approximately 1-5 business days.",
+      "4": "We cannot guarantee delivery times as it depends of the shipping service provider. We are not responsible for delays caused in transit. Shipping times may exceed the estimate due to factors outside of our control.",
+      "5": "Tracking info will be provided with every order, though the buyer assumes all responsibility once the order has left our premises.",
+      "6": "If a package is lost, stolen or damaged in shipment a claim needs to be filed with the shipping service provider used and not with EV Ceramics®. If a package shows that it has been delivered through the tracking number and the customer is unable to locate their package, we are not responsible and will not issue a refund or store credit. The products covered by each contract (i.e. accepted order) are at your risk upon delivery of the order to the carrier. We cannot be held responsible for late or missing deliveries."
+    }
+  }
+}

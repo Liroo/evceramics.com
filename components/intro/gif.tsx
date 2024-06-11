@@ -4,10 +4,10 @@ import AnimationOpacityIn from 'components/animation/opacityIn';
 import { animate, motion } from 'framer-motion';
 import useResizeObserver from 'hooks/useResizeObserver';
 import Image from 'next/image';
-import IntroGif1Jpg from 'public/intro-gif-1.jpg';
-import IntroGif2Jpg from 'public/intro-gif-2.jpg';
-import IntroGif3Jpg from 'public/intro-gif-3.jpg';
-import IntroGif4Jpg from 'public/intro-gif-4.jpg';
+import IntroGif1Jpg from 'public/images/intro/intro-gif-1.jpg';
+import IntroGif2Jpg from 'public/images/intro/intro-gif-2.jpg';
+import IntroGif3Jpg from 'public/images/intro/intro-gif-3.jpg';
+import IntroGif4Jpg from 'public/images/intro/intro-gif-4.jpg';
 import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
