@@ -57,8 +57,6 @@ function MainMenu({ menu }: Props) {
   let pathname = usePathname();
   const locale = useLocale();
 
-  console.log(pathname, menu);
-
   return (
     <div className="flex select-none flex-col gap-[6px] text-clay-dark laptop:flex-row laptop:gap-0">
       {menu.map((item, index) => (
