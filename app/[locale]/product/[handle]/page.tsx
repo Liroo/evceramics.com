@@ -43,7 +43,6 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: { params: { handle: string } }) {
   const product = await getProduct(params.handle);
-
   if (!product) return notFound();
 
   const productJsonLd = {
@@ -73,26 +72,26 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className=" laptop:h-40 laptop:w-20">
+      <div className="grid laptop:h-40 laptop:w-20">
         <div className="w-100 h-auto">
           <p>{product.title}</p>
         </div>
 
         <div className="w-90 h-80">
-          <img src={product.images[0]?.url} alt={product.title} className="w-90" />
+          <img src={product.images[0]?.url} alt={product.title} className="w-90 object-cover" />
         </div>
 
-        <div>
+        <div className="">
           <div>
             {product.availableForSale ? '/ READY TO SHIP /' : '/ OUT OF STOCK /'}
             <p>€{product.priceRange.minVariantPrice.amount}</p>
             <a href="#">Add to cart</a>
           </div>
-          <div>
+          <div className="">
             <h2>DESCRIPTION :</h2>
             <p>{product.description}</p>
           </div>
-          <div>
+          <div className="">
             <p>DROP / {}</p>
             <p>MODEL / {}</p>
             <p>CATEGORY / {}</p>

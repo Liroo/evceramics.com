@@ -83,6 +83,14 @@ export type ProductVariant = {
   price: Money;
 };
 
+export type ProductMetafield = {
+  description: string;
+  id: string;
+  key: string;
+  value: string;
+  nameSpace: string;
+};
+
 export type SEO = {
   title: string;
   description: string;
@@ -126,6 +134,7 @@ export type ShopifyProduct = {
   seo: SEO;
   tags: string[];
   updatedAt: string;
+  metafield: Connection<ProductMetafield>;
 };
 
 export type ShopifyCartOperation = {
