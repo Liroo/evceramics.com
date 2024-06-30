@@ -77,7 +77,7 @@ export default async function RootLayout({
       <body className={`${brutGrotesque.variable} h-full font-sans text-mud`}>
         <NextIntlClientProvider messages={messages}>
           <LayoutNavbar menu={mainMenu} />
-          <main className="h-full">{children}</main>
+          <main className="h-full overflow-x-hidden">{children}</main>
           <GridPreview />
         </NextIntlClientProvider>
       </body>

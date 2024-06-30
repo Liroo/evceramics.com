@@ -8,6 +8,13 @@ export type Edge<T> = {
   node: T;
 };
 
+export type Metafield = {
+  id: string;
+  namespace: string;
+  key: string;
+  value: string;
+};
+
 export type Cart = Omit<ShopifyCart, 'lines'> & {
   lines: CartItem[];
 };
@@ -125,6 +132,8 @@ export type ShopifyProduct = {
   images: Connection<Image>;
   seo: SEO;
   tags: string[];
+  metafields: Metafield[];
+  totalInventory: number;
   updatedAt: string;
 };
 
@@ -203,6 +212,7 @@ export type ShopifyCollectionProductsOperation = {
     handle: string;
     reverse?: boolean;
     sortKey?: string;
+    locale?: string;
   };
 };
 
