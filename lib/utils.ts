@@ -1,14 +1,4 @@
 import { ReadonlyURLSearchParams } from 'next/navigation';
-import { Product } from './shopify/types';
-
-export const getProductMetafieldByIdentifier = (product: Product, identifier: string) => {
-  const namespace = identifier.split('.')[0];
-  const key = identifier.split('.')[1];
-
-  return product.metafields.find(
-    (metafield) => metafield && metafield.namespace === namespace && metafield.key === key,
-  );
-};
 
 export const createUrl = (
   pathname: string,

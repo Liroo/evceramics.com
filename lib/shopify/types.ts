@@ -132,7 +132,11 @@ export type ShopifyProduct = {
   images: Connection<Image>;
   seo: SEO;
   tags: string[];
-  metafields: Metafield[];
+  type?: Metafield;
+  color?: Metafield;
+  size?: Metafield;
+  material?: Metafield;
+  drop?: Metafield;
   totalInventory: number;
   updatedAt: string;
 };

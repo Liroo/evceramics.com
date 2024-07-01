@@ -64,15 +64,31 @@ const productFragment = /* GraphQL */ `
     availableForSale
     totalInventory
     tags
-    metafields(
-      identifiers: [
-        { namespace: "custom", key: "type" }
-        { namespace: "custom", key: "color" }
-        { namespace: "custom", key: "size" }
-        { namespace: "custom", key: "material" }
-        { namespace: "custom", key: "drop" }
-      ]
-    ) {
+    type: metafield(namespace: "custom", key: "type") {
+      namespace
+      key
+      value
+      id
+    }
+    color: metafield(namespace: "custom", key: "color") {
+      namespace
+      key
+      value
+      id
+    }
+    size: metafield(namespace: "custom", key: "size") {
+      namespace
+      key
+      value
+      id
+    }
+    material: metafield(namespace: "custom", key: "material") {
+      namespace
+      key
+      value
+      id
+    }
+    drop: metafield(namespace: "custom", key: "drop") {
       namespace
       key
       value

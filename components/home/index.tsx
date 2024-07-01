@@ -5,7 +5,7 @@ import CollectionMenu from 'components/collection/menu';
 import CollectionProducts from 'components/collection/products';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
 import { Product } from 'lib/shopify/types';
-import { createUrl, getProductMetafieldByIdentifier } from 'lib/utils';
+import { createUrl } from 'lib/utils';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
@@ -21,7 +21,7 @@ export default function Home({ products }: { products: Product[] }) {
 
   // Filter by type
   const productsTypes = products.reduce((acc, product) => {
-    let productType = getProductMetafieldByIdentifier(product, 'custom.type')?.value;
+    let productType = product.type?.value;
     if (a !== 'all' && !product.availableForSale) return acc;
     if (productType) {
       if (!acc.includes(productType)) acc.push(productType);
@@ -37,9 +37,7 @@ export default function Home({ products }: { products: Product[] }) {
     if (foundType) serializedType = foundType;
   }
   filteredProducts = filteredProducts.filter((product) =>
-    serializedType
-      ? getProductMetafieldByIdentifier(product, 'custom.type')?.value === serializedType
-      : true,
+    serializedType ? product.type?.value === serializedType : true,
   );
 
   // Filter by availability
