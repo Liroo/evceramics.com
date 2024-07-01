@@ -60,8 +60,8 @@ const productFragment = /* GraphQL */ `
       description
       id
       key
-      namespace
       value
+      namespace
     }
   }
   ${imageFragment}
