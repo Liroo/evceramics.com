@@ -3,7 +3,7 @@
 import Grid from 'components/grid';
 import ArrowRightSvg from 'icons/arrow-right.svg';
 import { createUrl } from 'lib/utils';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 
@@ -18,13 +18,14 @@ export default function CollectionBreadcrumb({ prefix, name, onClick }: Collecti
   const all = searchParams.get('a') === 'all';
   const router = useRouter();
 
+  const locale = useLocale();
   const changeASearchParams = (a: string) => {
     const newParams = new URLSearchParams(searchParams.toString());
 
     newParams.delete('a');
     newParams.delete('t');
     if (a) newParams.set('a', a);
-    router.push(createUrl('/', newParams));
+    router.push(createUrl('/', newParams, locale));
   };
 
   const t = useTranslations('product');

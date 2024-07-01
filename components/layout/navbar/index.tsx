@@ -8,7 +8,7 @@ import { Menu } from 'lib/shopify/types';
 import { SessionStorage } from 'lib/storage';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -21,14 +21,22 @@ function LocaleSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
+  const searchParams = useSearchParams();
+
+  console.log(params);
 
   const switchLocale = (nextLocale: string) => {
     if (locale !== nextLocale) {
+      const queryObject: any = {};
+      Array.from(searchParams.entries()).forEach(([key, value]) => {
+        queryObject[key] = value;
+      });
       router.replace(
-        // @ts-expect-error -- TypeScript will validate that only known `params`
-        // are used in combination with a given `pathname`. Since the two will
-        // always match for the current route, we can skip runtime checks.
-        { pathname, params },
+        {
+          pathname,
+          params,
+          query: queryObject,
+        } as any,
         { locale: nextLocale },
       );
     }

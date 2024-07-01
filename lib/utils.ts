@@ -10,11 +10,17 @@ export const getProductMetafieldByIdentifier = (product: Product, identifier: st
   );
 };
 
-export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
+export const createUrl = (
+  pathname: string,
+  params: URLSearchParams | ReadonlyURLSearchParams,
+  locale?: string,
+) => {
   const paramsString = params.toString();
   const queryString = `${paramsString.length ? '?' : ''}${paramsString}`;
 
-  return `${pathname}${queryString}`;
+  console.log(`${locale ? `/${locale}` : ''}${pathname}${queryString}`);
+
+  return `${locale ? `/${locale}` : ''}${pathname}${queryString}`;
 };
 
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
