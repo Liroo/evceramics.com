@@ -23,8 +23,6 @@ function LocaleSwitcher() {
   const params = useParams();
   const searchParams = useSearchParams();
 
-  console.log(params);
-
   const switchLocale = (nextLocale: string) => {
     if (locale !== nextLocale) {
       const queryObject: any = {};
@@ -62,7 +60,7 @@ function LocaleSwitcher() {
 }
 
 function MainMenu({ menu }: Props) {
-  let pathname = usePathname();
+  const pathname = usePathname();
   const locale = useLocale();
 
   return (
@@ -80,7 +78,7 @@ function MainMenu({ menu }: Props) {
 }
 
 export default function LayoutNavbar({ menu }: Props) {
-  let pathname = usePathname();
+  const pathname = usePathname();
   const t = useTranslations('menu');
 
   // Mobile menu
@@ -116,6 +114,7 @@ export default function LayoutNavbar({ menu }: Props) {
     return () => {
       window.removeEventListener<any>('intro:animation', onIntroAnimation);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
