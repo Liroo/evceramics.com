@@ -9,7 +9,7 @@ import { SessionStorage } from 'lib/storage';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { useParams, useSearchParams } from 'next/navigation';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, Suspense, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type Props = {
@@ -149,7 +149,9 @@ export default function LayoutNavbar({ menu }: Props) {
               <MainMenu menu={menu} />
             </div>
             <div className="col-span-2 col-start-3 flex flex-col gap-[6px]">
-              <LocaleSwitcher />
+              <Suspense>
+                <LocaleSwitcher />
+              </Suspense>
               <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
                 INSTAGRAM
               </a>

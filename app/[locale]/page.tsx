@@ -2,6 +2,7 @@ import Home from 'components/home';
 import Intro from 'components/intro';
 import { getCollectionProducts } from 'lib/shopify';
 import { unstable_setRequestLocale } from 'next-intl/server';
+import { Suspense } from 'react';
 
 export const metadata = {
   description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
@@ -27,7 +28,9 @@ export default async function HomePage({
   return (
     <>
       <Intro>
-        <Home products={collectionProducts} />
+        <Suspense>
+          <Home products={collectionProducts} />
+        </Suspense>
       </Intro>
     </>
   );

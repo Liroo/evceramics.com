@@ -8,7 +8,7 @@ import { Product } from 'lib/shopify/types';
 import { createUrl, getProductMetafieldByIdentifier } from 'lib/utils';
 import { useLocale, useTranslations } from 'next-intl';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export default function Home({ products }: { products: Product[] }) {
@@ -65,11 +65,13 @@ export default function Home({ products }: { products: Product[] }) {
       <div className="fixed top-[40px] z-10 h-[80px] w-full bg-white px-[var(--grid-col-px)] pt-[34px]">
         <EVCeramicsHorizontalSvg className="w-[300px] laptop:hidden" />
       </div>
-      <CollectionBreadcrumb
-        prefix="category"
-        name={serializedType ? serializedType : t('all')}
-        onClick={() => setMenuIsOpen(!menuIsOpen)}
-      />
+      <Suspense>
+        <CollectionBreadcrumb
+          prefix="category"
+          name={serializedType ? serializedType : t('all')}
+          onClick={() => setMenuIsOpen(!menuIsOpen)}
+        />
+      </Suspense>
       <CollectionMenu
         open={menuIsOpen}
         menu={[
