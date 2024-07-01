@@ -1,5 +1,5 @@
+import { collectionFragment } from './collection';
 import imageFragment from './image';
-import seoFragment from './seo';
 
 const productFragment = /* GraphQL */ `
   fragment product on Product {
@@ -13,6 +13,13 @@ const productFragment = /* GraphQL */ `
       id
       name
       values
+    }
+    collections(first: 100) {
+      edges {
+        node {
+          ...collection
+        }
+      }
     }
     priceRange {
       maxVariantPrice {
@@ -54,7 +61,39 @@ const productFragment = /* GraphQL */ `
     seo {
       ...seo
     }
+    availableForSale
+    totalInventory
     tags
+    type: metafield(namespace: "custom", key: "type") {
+      namespace
+      key
+      value
+      id
+    }
+    color: metafield(namespace: "custom", key: "color") {
+      namespace
+      key
+      value
+      id
+    }
+    size: metafield(namespace: "custom", key: "size") {
+      namespace
+      key
+      value
+      id
+    }
+    material: metafield(namespace: "custom", key: "material") {
+      namespace
+      key
+      value
+      id
+    }
+    drop: metafield(namespace: "custom", key: "drop") {
+      namespace
+      key
+      value
+      id
+    }
     updatedAt
     metafield(namespace: "product", key: "material") {
       description
@@ -65,7 +104,7 @@ const productFragment = /* GraphQL */ `
     }
   }
   ${imageFragment}
-  ${seoFragment}
+  ${collectionFragment}
 `;
 
 export default productFragment;

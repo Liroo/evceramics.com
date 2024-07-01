@@ -303,10 +303,12 @@ export async function getCollectionProducts({
   collection,
   reverse,
   sortKey,
+  locale,
 }: {
   collection: string;
   reverse?: boolean;
   sortKey?: string;
+  locale: string;
 }): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
@@ -315,6 +317,7 @@ export async function getCollectionProducts({
       handle: collection,
       reverse,
       sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey,
+      locale,
     },
   });
 

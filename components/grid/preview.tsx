@@ -20,7 +20,7 @@ export default function GridPreview() {
   if (!showGrid) return null;
 
   return (
-    <div className="fixed left-0 top-0 z-50 flex h-dvh w-full justify-center">
+    <div className="pointer-events-none fixed left-0 top-0 z-50 flex h-dvh w-full justify-center">
       <div className="hidden h-full w-full grid-cols-12 items-center gap-[16px] px-[32px] laptop:grid">
         {Array.from({ length: 12 })
           .fill(null)

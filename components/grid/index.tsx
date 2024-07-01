@@ -9,7 +9,7 @@ export default function Grid({ className, children }: GridProps) {
   return (
     <div
       className={twMerge(
-        'grid grid-cols-4 gap-[10px] px-[10px] laptop:grid-cols-12 laptop:gap-[16px] laptop:px-[32px]',
+        'grid grid-cols-[repeat(var(--grid-col-nb),minmax(0,1fr))] gap-[var(--grid-col-gap)] px-[var(--grid-col-px)]',
         className,
       )}
     >

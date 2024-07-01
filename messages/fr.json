@@ -32,5 +32,11 @@
       "5": "Les informations de suivi sont fournies avec chaque commande, mais l'acheteur accepte d’assumer toute la responsabilité une fois que la commande a été traitée et a quitté nos locaux.",
       "6": "Si un colis est perdu, volé ou endommagé lors de l'expédition, une réclamation doit être déposée auprès du prestataire de services d'expédition utilisé et non auprès d'EV Ceramics®. Si un colis indique qu'il a été livré grâce au numéro de suivi et que le client ne parvient pas à localiser son colis, nous ne sommes pas responsables et n'émettrons pas de remboursement ou de crédit sur le site. Les produits couverts par chaque contrat (c'est-à-dire la commande acceptée) sont à vos risques et périls dès la remise de la commande au transporteur. Nous ne pouvons être tenus responsables des retards ou des absences de livraison."
     }
+  },
+  "product": {
+    "available": "Disponible",
+    "all": "Tous",
+    "sold-out": "épuisé",
+    "category": "Catégorie"
   }
 }

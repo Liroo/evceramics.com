@@ -8,8 +8,8 @@ import { Menu } from 'lib/shopify/types';
 import { SessionStorage } from 'lib/storage';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import { Fragment, useEffect, useState } from 'react';
+import { useParams, useSearchParams } from 'next/navigation';
+import { Fragment, Suspense, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type Props = {
@@ -21,14 +21,22 @@ function LocaleSwitcher() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useParams();
+  const searchParams = useSearchParams();
+
+  console.log(params);
 
   const switchLocale = (nextLocale: string) => {
     if (locale !== nextLocale) {
+      const queryObject: any = {};
+      Array.from(searchParams.entries()).forEach(([key, value]) => {
+        queryObject[key] = value;
+      });
       router.replace(
-        // @ts-expect-error -- TypeScript will validate that only known `params`
-        // are used in combination with a given `pathname`. Since the two will
-        // always match for the current route, we can skip runtime checks.
-        { pathname, params },
+        {
+          pathname,
+          params,
+          query: queryObject,
+        } as any,
         { locale: nextLocale },
       );
     }
@@ -56,8 +64,6 @@ function LocaleSwitcher() {
 function MainMenu({ menu }: Props) {
   let pathname = usePathname();
   const locale = useLocale();
-
-  console.log(pathname, menu);
 
   return (
     <div className="flex select-none flex-col gap-[6px] text-clay-dark laptop:flex-row laptop:gap-0">
@@ -143,7 +149,9 @@ export default function LayoutNavbar({ menu }: Props) {
               <MainMenu menu={menu} />
             </div>
             <div className="col-span-2 col-start-3 flex flex-col gap-[6px]">
-              <LocaleSwitcher />
+              <Suspense>
+                <LocaleSwitcher />
+              </Suspense>
               <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
                 INSTAGRAM
               </a>

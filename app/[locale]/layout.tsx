@@ -5,7 +5,7 @@ import { ensureStartsWith } from 'lib/utils';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import localFont from 'next/font/local';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import '../globals.css';
 
 const { TWITTER_CREATOR, TWITTER_SITE, SITE_NAME } = process.env;
@@ -75,11 +75,13 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="h-full">
       <body className={`${brutGrotesque.variable} h-full font-sans text-mud`}>
-        <NextIntlClientProvider messages={messages}>
-          <LayoutNavbar menu={mainMenu} />
-          <main className="h-full">{children}</main>
-          <GridPreview />
-        </NextIntlClientProvider>
+        <Suspense>
+          <NextIntlClientProvider messages={messages}>
+            <LayoutNavbar menu={mainMenu} />
+            <main className="h-full overflow-x-hidden">{children}</main>
+            <GridPreview />
+          </NextIntlClientProvider>
+        </Suspense>
       </body>
     </html>
   );

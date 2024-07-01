@@ -32,5 +32,11 @@
       "5": "Tracking info will be provided with every order, though the buyer assumes all responsibility once the order has left our premises.",
       "6": "If a package is lost, stolen or damaged in shipment a claim needs to be filed with the shipping service provider used and not with EV Ceramics®. If a package shows that it has been delivered through the tracking number and the customer is unable to locate their package, we are not responsible and will not issue a refund or store credit. The products covered by each contract (i.e. accepted order) are at your risk upon delivery of the order to the carrier. We cannot be held responsible for late or missing deliveries."
     }
+  },
+  "product": {
+    "available": "Available",
+    "all": "All",
+    "sold-out": "Sold out",
+    "category": "Category"
   }
 }

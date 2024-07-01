@@ -1,10 +1,16 @@
 import { ReadonlyURLSearchParams } from 'next/navigation';
 
-export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
+export const createUrl = (
+  pathname: string,
+  params: URLSearchParams | ReadonlyURLSearchParams,
+  locale?: string,
+) => {
   const paramsString = params.toString();
   const queryString = `${paramsString.length ? '?' : ''}${paramsString}`;
 
-  return `${pathname}${queryString}`;
+  console.log(`${locale ? `/${locale}` : ''}${pathname}${queryString}`);
+
+  return `${locale ? `/${locale}` : ''}${pathname}${queryString}`;
 };
 
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
@@ -23,8 +29,8 @@ export const validateEnvironmentVariables = () => {
   if (missingEnvironmentVariables.length) {
     throw new Error(
       `The following environment variables are missing. Your site will not work without them. Read more: https://vercel.com/docs/integrations/shopify#configure-environment-variables\n\n${missingEnvironmentVariables.join(
-        '\n'
-      )}\n`
+        '\n',
+      )}\n`,
     );
   }
 
@@ -33,7 +39,7 @@ export const validateEnvironmentVariables = () => {
     process.env.SHOPIFY_STORE_DOMAIN?.includes(']')
   ) {
     throw new Error(
-      'Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.'
+      'Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.',
     );
   }
 };

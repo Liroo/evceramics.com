@@ -1,18 +1,5 @@
+import { collectionFragment } from '../fragments/collection';
 import productFragment from '../fragments/product';
-import seoFragment from '../fragments/seo';
-
-const collectionFragment = /* GraphQL */ `
-  fragment collection on Collection {
-    handle
-    title
-    description
-    seo {
-      ...seo
-    }
-    updatedAt
-  }
-  ${seoFragment}
-`;
 
 export const getCollectionQuery = /* GraphQL */ `
   query getCollection($handle: String!) {
@@ -41,7 +28,8 @@ export const getCollectionProductsQuery = /* GraphQL */ `
     $handle: String!
     $sortKey: ProductCollectionSortKeys
     $reverse: Boolean
-  ) {
+    $locale: LanguageCode
+  ) @inContext(language: $locale) {
     collection(handle: $handle) {
       products(sortKey: $sortKey, reverse: $reverse, first: 100) {
         edges {
