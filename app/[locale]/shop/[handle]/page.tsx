@@ -1,8 +1,8 @@
 import Intro from 'components/intro';
+import Shop from 'components/shop';
 import { getCollectionProducts, getMenu } from 'lib/shopify';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
 
 export const metadata = {
   description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
@@ -12,9 +12,9 @@ export const metadata = {
 };
 
 export default async function ShopPage({
-  params: { locale, collectionHandle },
+  params: { locale, handle },
 }: {
-  params: { locale: string; collectionHandle: string };
+  params: { locale: string; handle: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   unstable_setRequestLocale(locale);
@@ -24,22 +24,20 @@ export default async function ShopPage({
     handle: item.path.replace('/collections/', ''),
   }));
 
-  if (!shopMenu.some((item) => item.handle === collectionHandle)) {
+  if (!shopMenu.some((item) => item.handle === handle)) {
     return notFound();
   }
 
   // Get all products from the collection
   const collectionProducts = await getCollectionProducts({
-    collection: collectionHandle,
+    collection: handle,
     locale: locale.toUpperCase(),
   });
-
-  console.log(collectionProducts);
 
   return (
     <>
       <Intro>
-        <Suspense></Suspense>
+        <Shop menu={shopMenu} products={collectionProducts} />
       </Intro>
     </>
   );

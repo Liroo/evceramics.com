@@ -69,7 +69,16 @@ function MainMenu({ menu }: Props) {
         <Fragment key={index}>
           {index > 0 ? <p className="mx-[10px] hidden laptop:block">/</p> : null}
           <Link href={item.path} locale={locale} className="uppercase">
-            <p className={twMerge(pathname === item.path ? 'text-mud' : '')}>{item.title}</p>
+            <p
+              className={twMerge(
+                pathname === item.path ||
+                  (item.path === '/shop' && pathname.startsWith('/shop') && pathname)
+                  ? 'text-mud'
+                  : '',
+              )}
+            >
+              {item.title}
+            </p>
           </Link>
         </Fragment>
       ))}

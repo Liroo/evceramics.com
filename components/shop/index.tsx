@@ -4,22 +4,29 @@ import CollectionBreadcrumb from 'components/collection/breadcrumb';
 import CollectionMenu from 'components/collection/menu';
 import CollectionProducts from 'components/collection/products';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
-import { Product } from 'lib/shopify/types';
+import { usePathname } from 'lib/navigation';
+import { Menu, Product } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import { useLocale, useTranslations } from 'next-intl';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-export default function Home({ products }: { products: Product[] }) {
+type ShopMenu = {
+  handle: string;
+} & Menu;
+
+export default function Shop({ menu, products }: { menu: ShopMenu[]; products: Product[] }) {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const params = useParams();
   const category = searchParams.get('category'); // category
   const a = searchParams.get('a'); // a = available
 
   // Get the type and availability filters
   let filteredProducts = products;
 
-  // Filter by type
+  // Filter by category
   const productsTypes = products.reduce((acc, product) => {
     const productType = product.category?.value;
     if (a !== 'all' && !product.availableForSale) return acc;
@@ -55,7 +62,8 @@ export default function Home({ products }: { products: Product[] }) {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.delete('category');
     if (value) newParams.set('category', value);
-    router.push(createUrl('/', newParams, locale));
+    const path: string = pathname.replace('[handle]', `${value}`);
+    router.push(createUrl(path, newParams, locale));
   };
 
   return (
@@ -65,7 +73,7 @@ export default function Home({ products }: { products: Product[] }) {
       </div>
       <Suspense>
         <CollectionBreadcrumb
-          prefix="category"
+          prefix="drop"
           name={serializedType ? serializedType : t('all')}
           onClick={() => setMenuIsOpen(!menuIsOpen)}
         />
@@ -73,11 +81,10 @@ export default function Home({ products }: { products: Product[] }) {
       <CollectionMenu
         open={menuIsOpen}
         menu={[
-          { value: null, label: t('all'), active: !category },
-          ...productsTypes.map((productType) => ({
-            value: productType.replace(' ', '-').toLowerCase(),
-            label: productType,
-            active: productType === serializedType,
+          ...menu.map((menu) => ({
+            value: menu.handle,
+            label: menu.title,
+            active: params.handle === menu.handle,
           })),
         ]}
         onClick={onClickMenu}

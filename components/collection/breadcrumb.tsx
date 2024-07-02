@@ -2,9 +2,10 @@
 
 import Grid from 'components/grid';
 import ArrowRightSvg from 'icons/arrow-right.svg';
+import { usePathname } from 'lib/navigation';
 import { createUrl } from 'lib/utils';
 import { useLocale, useTranslations } from 'next-intl';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 
 type CollectionBreadcrumbProps = {
@@ -17,6 +18,8 @@ export default function CollectionBreadcrumb({ prefix, name, onClick }: Collecti
   const searchParams = useSearchParams();
   const all = searchParams.get('a') === 'all';
   const router = useRouter();
+  const pathname = usePathname();
+  const params = useParams();
 
   const locale = useLocale();
   const changeASearchParams = (a: string) => {
@@ -25,7 +28,11 @@ export default function CollectionBreadcrumb({ prefix, name, onClick }: Collecti
     newParams.delete('a');
     newParams.delete('t');
     if (a) newParams.set('a', a);
-    router.push(createUrl('/', newParams, locale));
+    let path: string = pathname;
+    if (params.handle) {
+      path = pathname.replace('[handle]', `${params.handle}`);
+    }
+    router.push(createUrl(path, newParams, locale));
   };
 
   const t = useTranslations('product');

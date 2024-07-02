@@ -34,6 +34,7 @@
     }
   },
   "product": {
+    "drop": "DROP",
     "available": "Available",
     "all": "All",
     "sold-out": "Sold out",
