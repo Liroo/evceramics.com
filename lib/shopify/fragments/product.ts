@@ -95,13 +95,6 @@ const productFragment = /* GraphQL */ `
       id
     }
     updatedAt
-    metafield(namespace: "product", key: "material") {
-      description
-      id
-      key
-      value
-      namespace
-    }
   }
   ${imageFragment}
   ${collectionFragment}

@@ -62,7 +62,7 @@ export default async function ProductPage({ params }: { params: { handle: string
     },
   };
 
-  console.log(product);
+  console.log(product.collections.edges[0]);
 
   return (
     <>
@@ -77,28 +77,40 @@ export default async function ProductPage({ params }: { params: { handle: string
           <p>{product.title}</p>
         </div>
 
-        <div className="w-90 h-80">
-          <img src={product.images[0]?.url} alt={product.title} className="w-90 object-cover" />
+        <div className="h-90 m-2.5 w-[95%]">
+          <img src={product.images[0]?.url} alt={product.title} className="object-cover" />
         </div>
 
-        <div className="">
-          <div>
-            {product.availableForSale ? '/ READY TO SHIP /' : '/ OUT OF STOCK /'}
-            <p>€{product.priceRange.minVariantPrice.amount}</p>
-            <a href="#">Add to cart</a>
+        <div className="ml-2.5 mr-2.5 text-[14px] laptop:text-[12px]">
+          <div className="mb-2.5 flex justify-between p-1">
+            {product.availableForSale ? (
+              <div className="p-1">/ READY TO SHIP /</div>
+            ) : (
+              <div className="p-1">/ OUT OF STOCK /</div>
+            )}
+            <div className="flex ">
+              <p className="p-1">€{product.priceRange.minVariantPrice.amount}</p>
+              <a href="#" className="p-1">
+                Add to cart
+              </a>
+            </div>
           </div>
-          <div className="">
-            <h2>DESCRIPTION :</h2>
+          <div className="mb-4">
+            <h2 className="mb-1.5">DESCRIPTION :</h2>
             <p>{product.description}</p>
           </div>
           <div className="">
-            <p>DROP / {}</p>
+            <p>DROP / {product.drop?.value}</p>
             <p>MODEL / {}</p>
             <p>CATEGORY / {}</p>
-            <p>COLOR / {}</p>
-            <p>MATERIAL / {}</p>
-            <p>DIMENSIONS / {}</p>
+            <p>COLORIS / {product.color?.value}</p>
+            <p>MATERIAL / {product.material?.value}</p>
+            <p>DIMENSIONS / {product.size?.value}</p>
           </div>
+        </div>
+        <div className="m-2.5">
+          {<div className="">{product.collections.edges[0].node.title}</div>}
+          <div className="">{product.collections.edges[0].node.description}</div>
         </div>
       </div>
     </>
