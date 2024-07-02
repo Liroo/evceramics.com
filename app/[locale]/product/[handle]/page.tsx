@@ -62,7 +62,7 @@ export default async function ProductPage({ params }: { params: { handle: string
     },
   };
 
-  console.log(product.collections.edges[0]);
+  console.log(product);
 
   return (
     <>
@@ -101,16 +101,16 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
           <div className="">
             <p>DROP / {product.drop?.value}</p>
-            <p>MODEL / {}</p>
-            <p>CATEGORY / {}</p>
+            <p>MODEL / {product.model?.value}</p>
+            <p>CATEGORY / {product.category?.value}</p>
             <p>COLORIS / {product.color?.value}</p>
             <p>MATERIAL / {product.material?.value}</p>
             <p>DIMENSIONS / {product.size?.value}</p>
           </div>
         </div>
         <div className="m-2.5">
-          {<div className="">{product.collections.edges[0].node.title}</div>}
-          <div className="">{product.collections.edges[0].node.description}</div>
+          <div className="">{product.model?.value}</div>
+          <div className="">{product.modeldescription?.value}</div>
         </div>
       </div>
     </>

@@ -64,7 +64,7 @@ const productFragment = /* GraphQL */ `
     availableForSale
     totalInventory
     tags
-    type: metafield(namespace: "custom", key: "type") {
+    category: metafield(namespace: "custom", key: "category") {
       namespace
       key
       value
@@ -94,19 +94,13 @@ const productFragment = /* GraphQL */ `
       value
       id
     }
-    category: metafield(namespace: "custom", key: "drop") {
+    model: metafield(namespace: "custom", key: "model") {
       namespace
       key
       value
       id
     }
-    model: metafield(namespace: "custom", key: "drop") {
-      namespace
-      key
-      value
-      id
-    }
-    modeldescription: metafield(namespace: "custom", key: "drop") {
+    modeldescription: metafield(namespace: "custom", key: "modeldescription") {
       namespace
       key
       value
