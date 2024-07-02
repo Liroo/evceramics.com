@@ -15,6 +15,9 @@
   .text-menu {
     @apply text-[14px] font-medium leading-[110%] laptop:text-[12px];
   }
+  .text-heading-5 {
+    @apply font-romie text-[35px] font-normal leading-[38px] laptop:text-[32px] laptop:leading-[35px];
+  }
 }
 
 :root {

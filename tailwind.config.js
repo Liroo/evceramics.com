@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-brut)'],
+        romie: ['var(--font-romie)'],
       },
       colors: {
         clay: {

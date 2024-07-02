@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import Grid from 'components/grid';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct } from 'lib/shopify';
 export async function generateMetadata({
@@ -62,7 +63,7 @@ export default async function ProductPage({ params }: { params: { handle: string
     },
   };
 
-  console.log(product);
+  console.log(product.modeldescription);
 
   return (
     <>
@@ -72,34 +73,29 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd),
         }}
       />
-      <div className="grid laptop:h-40 laptop:w-20">
-        <div className="w-100 h-auto">
-          <p>{product.title}</p>
-        </div>
-
-        <div className="h-90 m-2.5 w-[95%]">
-          <img src={product.images[0]?.url} alt={product.title} className="object-cover" />
-        </div>
-
-        <div className="ml-2.5 mr-2.5 text-[14px] laptop:text-[12px]">
-          <div className="mb-2.5 flex justify-between p-1">
-            {product.availableForSale ? (
-              <div className="p-1">/ READY TO SHIP /</div>
-            ) : (
-              <div className="p-1">/ OUT OF STOCK /</div>
-            )}
-            <div className="flex ">
-              <p className="p-1">€{product.priceRange.minVariantPrice.amount}</p>
-              <a href="#" className="p-1">
-                Add to cart
-              </a>
-            </div>
+      <Grid className="text-body min-h-full pt-[40px] laptop:pt-[134px]">
+        <div className=" laptop:col-span-3 laptop:col-start-1 ">
+          <div className="text-heading-5 mt-[30px] italic text-[#241409] laptop:mt-0">
+            <div>{product.category?.value}</div>
+            <p>{product.title}</p>
           </div>
-          <div className="mb-4">
-            <h2 className="mb-1.5">DESCRIPTION :</h2>
+          {product.availableForSale ? (
+            <p className="p-1">/ READY TO SHIP /</p>
+          ) : (
+            <p className="p-1">/ OUT OF STOCK /</p>
+          )}
+          <div className="flex ">
+            <p className="p-1">€{product.priceRange.minVariantPrice.amount}</p>
+            <a href="#" className=" p-1 underline">
+              ADD TO CART
+            </a>
+          </div>
+
+          <div>
+            <h2 className="pt-[16px]">DESCRIPTION :</h2>
             <p>{product.description}</p>
           </div>
-          <div className="">
+          <div className="pt-[16px]">
             <p>DROP / {product.drop?.value}</p>
             <p>MODEL / {product.model?.value}</p>
             <p>CATEGORY / {product.category?.value}</p>
@@ -108,11 +104,15 @@ export default async function ProductPage({ params }: { params: { handle: string
             <p>DIMENSIONS / {product.size?.value}</p>
           </div>
         </div>
-        <div className="m-2.5">
-          <div className="">{product.model?.value}</div>
+
+        <div className="laptop:col-span-4 laptop:col-start-5">
+          <img src={product.images[0]?.url} alt={product.title} />
+        </div>
+        <div className="laptop:col-span-3 laptop:col-start-10">
+          <div className="mb-2 uppercase">{product.model?.value}</div>
           <div className="">{product.modeldescription?.value}</div>
         </div>
-      </div>
+      </Grid>
     </>
   );
 }
