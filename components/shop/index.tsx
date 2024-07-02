@@ -5,8 +5,7 @@ import CollectionProducts from 'components/collection/products';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
 import { usePathname, useRouter } from 'lib/navigation';
 import { Menu, Product } from 'lib/shopify/types';
-import { useTranslations } from 'next-intl';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -14,10 +13,17 @@ type ShopMenu = {
   handle: string;
 } & Menu;
 
-export default function Shop({ menu, products }: { menu: ShopMenu[]; products: Product[] }) {
+export default function Shop({
+  collectionHandle,
+  menu,
+  products,
+}: {
+  collectionHandle: string;
+  menu: ShopMenu[];
+  products: Product[];
+}) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const params = useParams();
   const category = searchParams.get('category'); // category
   const a = searchParams.get('a'); // a = available
 
@@ -53,12 +59,11 @@ export default function Shop({ menu, products }: { menu: ShopMenu[]; products: P
   // Menu logic
   const router = useRouter();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-  const t = useTranslations('product');
 
   const onClickMenu = (value: string | null) => {
     const newParams = new URLSearchParams(searchParams.toString());
-    newParams.delete('category');
-    if (value) newParams.set('category', value);
+    newParams.delete('drop');
+    if (value) newParams.set('drop', value);
     router.push(`${pathname}?${newParams.toString()}`);
   };
 
@@ -72,7 +77,7 @@ export default function Shop({ menu, products }: { menu: ShopMenu[]; products: P
       <Suspense>
         <CollectionBreadcrumb
           prefix="drop"
-          name={serializedType ? serializedType : t('all')}
+          name={menu.find((menu) => menu.handle === collectionHandle)?.title || ''}
           onClick={() => setMenuIsOpen(!menuIsOpen)}
         />
       </Suspense>
@@ -82,7 +87,7 @@ export default function Shop({ menu, products }: { menu: ShopMenu[]; products: P
           ...menu.map((menu) => ({
             value: menu.handle,
             label: menu.title,
-            active: params.handle === menu.handle,
+            active: collectionHandle === menu.handle,
           })),
         ]}
         onClick={onClickMenu}
