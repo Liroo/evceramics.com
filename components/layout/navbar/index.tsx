@@ -3,12 +3,11 @@
 import { cubicBezier, motion, useAnimate } from 'framer-motion';
 
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
-import { usePathname, useRouter } from 'lib/navigation';
+import { Link, usePathname, useRouter } from 'lib/navigation';
 import { Menu } from 'lib/shopify/types';
 import { SessionStorage } from 'lib/storage';
 import { useLocale, useTranslations } from 'next-intl';
-import Link from 'next/link';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Fragment, Suspense, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -20,25 +19,11 @@ function LocaleSwitcher() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
   const searchParams = useSearchParams();
-
-  console.log(params);
 
   const switchLocale = (nextLocale: string) => {
     if (locale !== nextLocale) {
-      const queryObject: any = {};
-      Array.from(searchParams.entries()).forEach(([key, value]) => {
-        queryObject[key] = value;
-      });
-      router.replace(
-        {
-          pathname,
-          params,
-          query: queryObject,
-        } as any,
-        { locale: nextLocale },
-      );
+      router.replace(`${pathname}?${searchParams.toString()}`, { locale: nextLocale });
     }
   };
 
@@ -62,16 +47,24 @@ function LocaleSwitcher() {
 }
 
 function MainMenu({ menu }: Props) {
-  let pathname = usePathname();
-  const locale = useLocale();
+  const pathname = usePathname();
 
   return (
     <div className="flex select-none flex-col gap-[6px] text-clay-dark laptop:flex-row laptop:gap-0">
       {menu.map((item, index) => (
         <Fragment key={index}>
           {index > 0 ? <p className="mx-[10px] hidden laptop:block">/</p> : null}
-          <Link href={item.path} locale={locale} className="uppercase">
-            <p className={twMerge(pathname === item.path ? 'text-mud' : '')}>{item.title}</p>
+          <Link href={item.path} className="uppercase">
+            <p
+              className={twMerge(
+                pathname === item.path ||
+                  (item.path === '/shop' && pathname.startsWith('/shop') && pathname)
+                  ? 'text-mud'
+                  : '',
+              )}
+            >
+              {item.title}
+            </p>
           </Link>
         </Fragment>
       ))}
@@ -80,7 +73,7 @@ function MainMenu({ menu }: Props) {
 }
 
 export default function LayoutNavbar({ menu }: Props) {
-  let pathname = usePathname();
+  const pathname = usePathname();
   const t = useTranslations('menu');
 
   // Mobile menu
@@ -116,6 +109,7 @@ export default function LayoutNavbar({ menu }: Props) {
     return () => {
       window.removeEventListener<any>('intro:animation', onIntroAnimation);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

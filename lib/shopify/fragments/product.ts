@@ -70,6 +70,18 @@ const productFragment = /* GraphQL */ `
       value
       id
     }
+    model: metafield(namespace: "custom", key: "model") {
+      namespace
+      key
+      value
+      id
+    }
+    modelDescription: metafield(namespace: "custom", key: "model_description") {
+      namespace
+      key
+      value
+      id
+    }
     color: metafield(namespace: "custom", key: "color") {
       namespace
       key
@@ -94,18 +106,7 @@ const productFragment = /* GraphQL */ `
       value
       id
     }
-    model: metafield(namespace: "custom", key: "model") {
-      namespace
-      key
-      value
-      id
-    }
-    modeldescription: metafield(namespace: "custom", key: "modeldescription") {
-      namespace
-      key
-      value
-      id
-    }
+
     updatedAt
   }
   ${imageFragment}
