@@ -24,6 +24,8 @@ export default async function ShopPage({
     handle: item.path.replace('/collections/', ''),
   }));
 
+  console.log(shopMenu, handle);
+
   if (!shopMenu.some((item) => item.handle === handle)) {
     return notFound();
   }

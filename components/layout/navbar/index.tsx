@@ -3,12 +3,11 @@
 import { cubicBezier, motion, useAnimate } from 'framer-motion';
 
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
-import { usePathname, useRouter } from 'lib/navigation';
+import { Link, usePathname, useRouter } from 'lib/navigation';
 import { Menu } from 'lib/shopify/types';
 import { SessionStorage } from 'lib/storage';
 import { useLocale, useTranslations } from 'next-intl';
-import Link from 'next/link';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Fragment, Suspense, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -20,23 +19,11 @@ function LocaleSwitcher() {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
   const searchParams = useSearchParams();
 
   const switchLocale = (nextLocale: string) => {
     if (locale !== nextLocale) {
-      const queryObject: any = {};
-      Array.from(searchParams.entries()).forEach(([key, value]) => {
-        queryObject[key] = value;
-      });
-      router.replace(
-        {
-          pathname,
-          params,
-          query: queryObject,
-        } as any,
-        { locale: nextLocale },
-      );
+      router.replace(`${pathname}?${searchParams.toString()}`, { locale: nextLocale });
     }
   };
 
@@ -61,14 +48,13 @@ function LocaleSwitcher() {
 
 function MainMenu({ menu }: Props) {
   const pathname = usePathname();
-  const locale = useLocale();
 
   return (
     <div className="flex select-none flex-col gap-[6px] text-clay-dark laptop:flex-row laptop:gap-0">
       {menu.map((item, index) => (
         <Fragment key={index}>
           {index > 0 ? <p className="mx-[10px] hidden laptop:block">/</p> : null}
-          <Link href={item.path} locale={locale} className="uppercase">
+          <Link href={item.path} className="uppercase">
             <p
               className={twMerge(
                 pathname === item.path ||

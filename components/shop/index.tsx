@@ -4,11 +4,10 @@ import CollectionBreadcrumb from 'components/collection/breadcrumb';
 import CollectionMenu from 'components/collection/menu';
 import CollectionProducts from 'components/collection/products';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
-import { usePathname } from 'lib/navigation';
+import { usePathname, useRouter } from 'lib/navigation';
 import { Menu, Product } from 'lib/shopify/types';
-import { createUrl } from 'lib/utils';
-import { useLocale, useTranslations } from 'next-intl';
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useParams, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -57,14 +56,14 @@ export default function Shop({ menu, products }: { menu: ShopMenu[]; products: P
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const t = useTranslations('product');
 
-  const locale = useLocale();
   const onClickMenu = (value: string | null) => {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.delete('category');
     if (value) newParams.set('category', value);
-    const path: string = pathname.replace('[handle]', `${value}`);
-    router.push(createUrl(path, newParams, locale));
+    router.push(`${pathname}?${newParams.toString()}`);
   };
+
+  console.log('filteredProducts', filteredProducts);
 
   return (
     <div className="text-body flex-col pb-[20px] pt-[40px] laptop:pt-[74px]">

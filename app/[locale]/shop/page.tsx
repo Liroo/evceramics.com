@@ -11,5 +11,7 @@ export default async function ShopPage({ params: { locale } }: { params: { local
     return notFound();
   }
 
+  console.log(`/shop/${shopMenu[0]?.handle}`);
+
   redirect(`/shop/${shopMenu[0]?.handle}`);
 }

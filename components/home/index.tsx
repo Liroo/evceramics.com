@@ -4,10 +4,10 @@ import CollectionBreadcrumb from 'components/collection/breadcrumb';
 import CollectionMenu from 'components/collection/menu';
 import CollectionProducts from 'components/collection/products';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
+import { useRouter } from 'lib/navigation';
 import { Product } from 'lib/shopify/types';
-import { createUrl } from 'lib/utils';
-import { useLocale, useTranslations } from 'next-intl';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -50,12 +50,11 @@ export default function Home({ products }: { products: Product[] }) {
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const t = useTranslations('product');
 
-  const locale = useLocale();
   const onClickMenu = (value: string | null) => {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.delete('category');
     if (value) newParams.set('category', value);
-    router.push(createUrl('/', newParams, locale));
+    router.push(`/?${newParams.toString()}`);
   };
 
   return (
