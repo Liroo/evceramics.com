@@ -94,6 +94,24 @@ const productFragment = /* GraphQL */ `
       value
       id
     }
+    category: metafield(namespace: "custom", key: "drop") {
+      namespace
+      key
+      value
+      id
+    }
+    model: metafield(namespace: "custom", key: "drop") {
+      namespace
+      key
+      value
+      id
+    }
+    modeldescription: metafield(namespace: "custom", key: "drop") {
+      namespace
+      key
+      value
+      id
+    }
     updatedAt
   }
   ${imageFragment}
