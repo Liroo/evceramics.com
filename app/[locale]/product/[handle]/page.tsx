@@ -1,9 +1,9 @@
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-
+import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer';
 import Grid from 'components/grid';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct } from 'lib/shopify';
+import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 export async function generateMetadata({
   params,
 }: {
@@ -63,7 +63,7 @@ export default async function ProductPage({ params }: { params: { handle: string
     },
   };
 
-  console.log(product.modeldescription);
+  console.log(product);
 
   return (
     <>
@@ -74,19 +74,19 @@ export default async function ProductPage({ params }: { params: { handle: string
         }}
       />
       <Grid className="text-body min-h-full pt-[40px] laptop:pt-[134px]">
-        <div className=" laptop:col-span-3 laptop:col-start-1 ">
-          <div className="text-heading-5 mt-[30px] italic text-[#241409] laptop:mt-0">
+        <div className="col-span-4 laptop:col-span-3 laptop:col-start-1 ">
+          <div className="text-heading-5 mt-[30px] hidden italic text-[#241409] laptop:mt-0 laptop:block">
             <div>{product.category?.value}</div>
             <p>{product.title}</p>
           </div>
           {product.availableForSale ? (
-            <p className="p-1">/ READY TO SHIP /</p>
+            <p className="p-[4px]">/ READY TO SHIP /</p>
           ) : (
-            <p className="p-1">/ OUT OF STOCK /</p>
+            <p className="p-[4px]">/ OUT OF STOCK /</p>
           )}
           <div className="flex ">
-            <p className="p-1">€{product.priceRange.minVariantPrice.amount}</p>
-            <a href="#" className=" p-1 underline">
+            <p className="p-[4px]">€{product.priceRange.minVariantPrice.amount}</p>
+            <a href="#" className=" p-[4px] underline">
               ADD TO CART
             </a>
           </div>
@@ -105,12 +105,17 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
         </div>
 
-        <div className="laptop:col-span-4 laptop:col-start-5">
+        <div className="col-span-4 laptop:col-span-4 laptop:col-start-5">
           <img src={product.images[0]?.url} alt={product.title} />
         </div>
-        <div className="laptop:col-span-3 laptop:col-start-10">
+        <div className="col-span-4 laptop:col-span-3 laptop:col-start-10">
           <div className="mb-2 uppercase">{product.model?.value}</div>
-          <div className="">{product.modeldescription?.value}</div>
+          <div
+            className="html"
+            dangerouslySetInnerHTML={{
+              __html: convertSchemaToHtml(product.modelDescription?.value),
+            }}
+          />
         </div>
       </Grid>
     </>

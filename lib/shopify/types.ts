@@ -139,7 +139,6 @@ export type ShopifyProduct = {
   size?: Metafield;
   material?: Metafield;
   drop?: Metafield;
-  modeldescription?: Metafield;
   totalInventory: number;
   updatedAt: string;
 };
