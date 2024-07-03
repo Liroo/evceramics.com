@@ -5,6 +5,7 @@ import CollectionProducts from 'components/collection/products';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
 import { usePathname, useRouter } from 'lib/navigation';
 import { Menu, Product } from 'lib/shopify/types';
+import { useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -26,12 +27,13 @@ export default function Shop({
   const pathname = usePathname();
   const category = searchParams.get('category'); // category
   const a = searchParams.get('a'); // a = available
+  const t = useTranslations('product');
 
   // Get the type and availability filters
   let filteredProducts = products;
 
   // Filter by category
-  const productsTypes = products.reduce((acc, product) => {
+  const productsCategories = products.reduce((acc, product) => {
     const productType = product.category?.value;
     if (a !== 'all' && !product.availableForSale) return acc;
     if (productType) {
@@ -39,16 +41,16 @@ export default function Shop({
     }
     return acc;
   }, [] as string[]);
-  let serializedType = null;
+  let serializedCategory = null;
   if (category) {
     // ensure t is a valid type
-    const foundType = productsTypes.find(
+    const foundType = productsCategories.find(
       (productType) => productType.replace(' ', '-').toLowerCase() === decodeURIComponent(category),
     );
-    if (foundType) serializedType = foundType;
+    if (foundType) serializedCategory = foundType;
   }
   filteredProducts = filteredProducts.filter((product) =>
-    serializedType ? product.category?.value === serializedType : true,
+    serializedCategory ? product.category?.value === serializedCategory : true,
   );
 
   // Filter by availability
@@ -60,14 +62,14 @@ export default function Shop({
   const router = useRouter();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
-  const onClickMenu = (value: string | null) => {
+  const onClickMenu = (drop: string | null, category?: string | null) => {
     const newParams = new URLSearchParams(searchParams.toString());
     newParams.delete('drop');
-    if (value) newParams.set('drop', value);
+    if (drop) newParams.set('drop', drop);
+    newParams.delete('category');
+    if (category) newParams.set('category', category);
     router.push(`${pathname}?${newParams.toString()}`);
   };
-
-  console.log('filteredProducts', filteredProducts);
 
   return (
     <div className="text-body flex-col pb-[20px] pt-[40px] laptop:pt-[74px]">
@@ -88,6 +90,21 @@ export default function Shop({
             value: menu.handle,
             label: menu.title,
             active: collectionHandle === menu.handle,
+            children:
+              collectionHandle === menu.handle
+                ? [
+                    {
+                      value: null,
+                      label: t('all'),
+                      active: !category,
+                    },
+                    ...productsCategories.map((category) => ({
+                      value: category.replace(' ', '-').toLowerCase(),
+                      label: category,
+                      active: category === serializedCategory,
+                    })),
+                  ]
+                : undefined,
           })),
         ]}
         onClick={onClickMenu}
