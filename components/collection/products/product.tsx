@@ -13,9 +13,13 @@ export default function CollectionProduct({ product }: CollectionProps) {
   const t = useTranslations('product');
 
   return (
-    <Link className="col-span-4 laptop:col-span-3" href={`/product/${product.handle}`}>
+    <Link className="col-span-4 mb-[10px] laptop:col-span-3" href={`/product/${product.handle}`}>
       <div className="aspect-[332/442] w-full bg-clay">
-        <img src={product.featuredImage.url} className="h-full w-full object-cover" />
+        <img
+          src={product.featuredImage.url}
+          alt="thumbnail-product"
+          className="h-full w-full object-cover"
+        />
       </div>
       <div className="mt-[15px] laptop:mt-[10px]">
         <h3 aria-label="title" className="uppercase">
