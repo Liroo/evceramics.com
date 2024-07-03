@@ -74,8 +74,12 @@ export default async function ProductPage({ params }: { params: { handle: string
         }}
       />
       <Grid className="text-body min-h-full pt-[40px] laptop:pt-[134px]">
-        <div className="col-span-4 laptop:col-span-3 laptop:col-start-1 ">
-          <div className="text-heading-5 mt-[30px] hidden italic text-[#241409] laptop:mt-0 laptop:block">
+        <div className="text-heading-5 col-span-4 mt-[32px] block italic text-[#241409]  laptop:mt-0 laptop:hidden">
+          <div>{product.category?.value}</div>
+          <p>{product.title}</p>
+        </div>
+        <div className="order-2 col-span-4 laptop:order-1 laptop:col-span-3 laptop:col-start-1 laptop:flex laptop:flex-col">
+          <div className="text-heading-5 mt-[30px] hidden italic text-[#241409] laptop:mb-[32px] laptop:mt-0 laptop:block">
             <div>{product.category?.value}</div>
             <p>{product.title}</p>
           </div>
@@ -84,7 +88,7 @@ export default async function ProductPage({ params }: { params: { handle: string
           ) : (
             <p className="p-[4px]">/ OUT OF STOCK /</p>
           )}
-          <div className="flex ">
+          <div className="laptop: order-none flex laptop:order-4 laptop:justify-between">
             <p className="p-[4px]">€{product.priceRange.minVariantPrice.amount}</p>
             <a href="#" className=" p-[4px] underline">
               ADD TO CART
@@ -95,7 +99,7 @@ export default async function ProductPage({ params }: { params: { handle: string
             <h2 className="pt-[16px]">DESCRIPTION :</h2>
             <p>{product.description}</p>
           </div>
-          <div className="pt-[16px]">
+          <div className="pb-[16px] pt-[16px]">
             <p>DROP / {product.drop?.value}</p>
             <p>MODEL / {product.model?.value}</p>
             <p>CATEGORY / {product.category?.value}</p>
@@ -105,10 +109,10 @@ export default async function ProductPage({ params }: { params: { handle: string
           </div>
         </div>
 
-        <div className="col-span-4 laptop:col-span-4 laptop:col-start-5">
+        <div className="order-1 col-span-4 laptop:order-2 laptop:col-span-4 laptop:col-start-5">
           <img src={product.images[0]?.url} alt={product.title} />
         </div>
-        <div className="col-span-4 laptop:col-span-3 laptop:col-start-10">
+        <div className="order-3 col-span-4 laptop:order-3 laptop:col-span-3 laptop:col-start-10">
           <div className="mb-2 uppercase">{product.model?.value}</div>
           <div
             className="html"
