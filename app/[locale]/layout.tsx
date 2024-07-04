@@ -78,7 +78,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className="h-full">
-      <body className={`${brutGrotesque.variable} ${romie.variable} h-full font-sans text-mud`}>
+      <body className={`${brutGrotesque.variable} h-full font-sans text-mud antialiased`}>
         <Suspense>
           <NextIntlClientProvider messages={messages}>
             <LayoutNavbar menu={mainMenu} />
