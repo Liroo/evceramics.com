@@ -29,12 +29,12 @@ export default function ComingSoonGif() {
   const [index, setIndex] = useState<number>(0);
 
   useEffect(() => {
-    animate(0, 4, {
+    animate(0, images.length, {
       onUpdate: (value) => {
         const nextIndex = Math.floor(value) % images.length;
         if (nextIndex !== index) setIndex(nextIndex);
       },
-      duration: 2.5,
+      duration: 4,
       ease: 'linear',
       delay: 1.6,
     });
