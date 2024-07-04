@@ -134,7 +134,7 @@ export default function LayoutNavbar({ menu }: Props) {
           </div>
           <div className="col-span-1">
             <p className="cursor-pointer select-none uppercase" onClick={onToggleCart}>
-              {t('cart')} ({cart.lines?.length})
+              {t('cart')} ({cart.totalQuantity ?? 0})
             </p>
           </div>
           <div
@@ -142,28 +142,6 @@ export default function LayoutNavbar({ menu }: Props) {
             onClick={toggleMobileMenu}
           >
             <p className="uppercase">MENU</p>
-          </div>
-        </div>
-        <div
-          className={twMerge(
-            'fixed left-0 top-[40px] grid w-full bg-[#F4F4F4] transition-all laptop:hidden',
-            mobileMenuOpen ? 'grid grid-rows-[1fr]' : 'grid-rows-[0fr]',
-          )}
-        >
-          <div className="overflow-hidden">
-            <div className="mx-[10px] mb-[6px] mt-[6px] grid grid-cols-4 items-start gap-[10px]">
-              <div className="col-span-2 col-start-1 flex flex-col">
-                <MainMenu menu={menu} />
-              </div>
-              <div className="col-span-2 col-start-3 flex flex-col gap-[6px]">
-                <Suspense>
-                  <LocaleSwitcher />
-                </Suspense>
-                <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
-                  INSTAGRAM
-                </a>
-              </div>
-            </div>
           </div>
         </div>
         <div className="hidden grid-cols-12 items-center gap-[16px] px-[32px] laptop:grid">
@@ -191,10 +169,32 @@ export default function LayoutNavbar({ menu }: Props) {
             onClick={onToggleCart}
           >
             <p>{t('cart')}</p>
-            <p>({cart.lines?.length})</p>
+            <p>({cart.totalQuantity ?? 0})</p>
           </div>
         </div>
       </motion.nav>
+      <div
+        className={twMerge(
+          'fixed left-0 top-[40px] z-[4000] grid w-full bg-[#F4F4F4] transition-all laptop:hidden',
+          mobileMenuOpen ? 'grid grid-rows-[1fr]' : 'grid-rows-[0fr]',
+        )}
+      >
+        <div className="overflow-hidden">
+          <div className="mx-[10px] mb-[6px] mt-[6px] grid grid-cols-4 items-start gap-[10px]">
+            <div className="col-span-2 col-start-1 flex flex-col">
+              <MainMenu menu={menu} />
+            </div>
+            <div className="col-span-2 col-start-3 flex flex-col gap-[6px]">
+              <Suspense>
+                <LocaleSwitcher />
+              </Suspense>
+              <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
+                INSTAGRAM
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
       <Cart open={cartOpen} onCloseCart={() => setCartOpen(false)} />
     </>
   );

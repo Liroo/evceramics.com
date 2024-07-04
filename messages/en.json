@@ -39,5 +39,10 @@
     "all": "All",
     "sold-out": "Sold out",
     "category": "Category"
+  },
+  "cart": {
+    "close": "Close",
+    "checkout": "Checkout",
+    "subtotal": "Subtotal"
   }
 }

@@ -39,5 +39,10 @@
     "all": "Tous",
     "sold-out": "épuisé",
     "category": "Catégorie"
+  },
+  "cart": {
+    "close": "Fermer",
+    "checkout": "Commander",
+    "subtotal": "Sous-total"
   }
 }

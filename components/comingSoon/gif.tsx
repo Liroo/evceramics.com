@@ -8,10 +8,21 @@ import IntroGif1Jpg from 'public/images/intro/intro-gif-1.jpg';
 import IntroGif2Jpg from 'public/images/intro/intro-gif-2.jpg';
 import IntroGif3Jpg from 'public/images/intro/intro-gif-3.jpg';
 import IntroGif4Jpg from 'public/images/intro/intro-gif-4.jpg';
+import IntroGif5Jpg from 'public/images/intro/intro-gif-5.jpg';
+import IntroGif6Jpg from 'public/images/intro/intro-gif-6.jpg';
+import IntroGif7Jpg from 'public/images/intro/intro-gif-7.jpg';
 import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-const images = [IntroGif1Jpg, IntroGif2Jpg, IntroGif3Jpg, IntroGif4Jpg];
+const images = [
+  IntroGif1Jpg,
+  IntroGif2Jpg,
+  IntroGif3Jpg,
+  IntroGif4Jpg,
+  IntroGif5Jpg,
+  IntroGif6Jpg,
+  IntroGif7Jpg,
+];
 
 export default function ComingSoonGif() {
   const { ref, rect } = useResizeObserver<HTMLDivElement>();
