@@ -83,16 +83,17 @@ export default async function ProductPage({ params }: { params: { handle: string
             <div>{product.category?.value}</div>
             <p>{product.title}</p>
           </div>
-          {product.availableForSale ? (
-            <p className="p-[4px]">/ READY TO SHIP /</p>
-          ) : (
-            <p className="p-[4px]">/ OUT OF STOCK /</p>
-          )}
+          <p className="p-[4px]">
+            {product.availableForSale ? '/ READY TO SHIP /' : '/ OUT OF STOCK /'}
+          </p>
+
           <div className="laptop: order-none flex laptop:order-4 laptop:justify-between">
             <p className="p-[4px]">€{product.priceRange.minVariantPrice.amount}</p>
-            <a href="#" className=" p-[4px] underline">
+            <button>{product.availableForSale ? 'ADD TO CART' : 'OUT OF STOCK'}</button>
+
+            {/* <a href="#" className=" p-[4px] underline">
               ADD TO CART
-            </a>
+            </a> */}
           </div>
 
           <div>
