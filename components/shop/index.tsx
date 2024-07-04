@@ -1,5 +1,4 @@
 'use client';
-
 import CollectionBreadcrumb from 'components/collection/breadcrumb';
 import CollectionMenu from 'components/collection/menu';
 import CollectionProducts from 'components/collection/products';
@@ -7,7 +6,7 @@ import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
 import { usePathname, useRouter } from 'lib/navigation';
 import { Menu, Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -15,18 +14,26 @@ type ShopMenu = {
   handle: string;
 } & Menu;
 
-export default function Shop({ menu, products }: { menu: ShopMenu[]; products: Product[] }) {
+export default function Shop({
+  collectionHandle,
+  menu,
+  products,
+}: {
+  collectionHandle: string;
+  menu: ShopMenu[];
+  products: Product[];
+}) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const params = useParams();
   const category = searchParams.get('category'); // category
   const a = searchParams.get('a'); // a = available
+  const t = useTranslations('product');
 
   // Get the type and availability filters
   let filteredProducts = products;
 
   // Filter by category
-  const productsTypes = products.reduce((acc, product) => {
+  const productsCategories = products.reduce((acc, product) => {
     const productType = product.category?.value;
     if (a !== 'all' && !product.availableForSale) return acc;
     if (productType) {
@@ -34,16 +41,16 @@ export default function Shop({ menu, products }: { menu: ShopMenu[]; products: P
     }
     return acc;
   }, [] as string[]);
-  let serializedType = null;
+  let serializedCategory = null;
   if (category) {
     // ensure t is a valid type
-    const foundType = productsTypes.find(
+    const foundType = productsCategories.find(
       (productType) => productType.replace(' ', '-').toLowerCase() === decodeURIComponent(category),
     );
-    if (foundType) serializedType = foundType;
+    if (foundType) serializedCategory = foundType;
   }
   filteredProducts = filteredProducts.filter((product) =>
-    serializedType ? product.category?.value === serializedType : true,
+    serializedCategory ? product.category?.value === serializedCategory : true,
   );
 
   // Filter by availability
@@ -54,16 +61,15 @@ export default function Shop({ menu, products }: { menu: ShopMenu[]; products: P
   // Menu logic
   const router = useRouter();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
-  const t = useTranslations('product');
 
-  const onClickMenu = (value: string | null) => {
+  const onClickMenu = (drop: string | null, category?: string | null) => {
     const newParams = new URLSearchParams(searchParams.toString());
+    newParams.delete('drop');
+    if (drop) newParams.set('drop', drop);
     newParams.delete('category');
-    if (value) newParams.set('category', value);
+    if (category) newParams.set('category', category);
     router.push(`${pathname}?${newParams.toString()}`);
   };
-
-  console.log('filteredProducts', filteredProducts);
 
   return (
     <div className="text-body flex-col pb-[20px] pt-[40px] laptop:pt-[74px]">
@@ -73,7 +79,7 @@ export default function Shop({ menu, products }: { menu: ShopMenu[]; products: P
       <Suspense>
         <CollectionBreadcrumb
           prefix="drop"
-          name={serializedType ? serializedType : t('all')}
+          name={menu.find((menu) => menu.handle === collectionHandle)?.title || ''}
           onClick={() => setMenuIsOpen(!menuIsOpen)}
         />
       </Suspense>
@@ -83,7 +89,22 @@ export default function Shop({ menu, products }: { menu: ShopMenu[]; products: P
           ...menu.map((menu) => ({
             value: menu.handle,
             label: menu.title,
-            active: params.handle === menu.handle,
+            active: collectionHandle === menu.handle,
+            children:
+              collectionHandle === menu.handle
+                ? [
+                    {
+                      value: null,
+                      label: t('all'),
+                      active: !category,
+                    },
+                    ...productsCategories.map((category) => ({
+                      value: category.replace(' ', '-').toLowerCase(),
+                      label: category,
+                      active: category === serializedCategory,
+                    })),
+                  ]
+                : undefined,
           })),
         ]}
         onClick={onClickMenu}

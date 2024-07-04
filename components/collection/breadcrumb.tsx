@@ -31,14 +31,18 @@ export default function CollectionBreadcrumb({ prefix, name, onClick }: Collecti
 
   const t = useTranslations('product');
 
+  const prefixTranslated = t(prefix);
+
   return (
     <Grid className="fixed top-[120px] z-10 h-[73px] w-full bg-white pb-[10px] pt-[50px] laptop:top-[74px]">
       <div
         className="col-span-2 flex cursor-pointer select-none overflow-hidden uppercase laptop:col-span-3"
         onClick={onClick}
       >
-        <p className="text-mud laptop:hidden">{t(prefix).substring(0, 3)}:</p>
-        <p className="hidden text-mud laptop:block">{t(prefix)}:</p>
+        <p className="text-mud laptop:hidden">
+          {prefixTranslated.length > 4 ? prefixTranslated.substring(0, 3) : prefixTranslated}:
+        </p>
+        <p className="hidden text-mud laptop:block">{prefixTranslated}:</p>
         <ArrowRightSvg className="ml-[6px] mr-[2px] w-[11px] shrink-0 fill-current text-clay-dark" />
         <p className="truncate text-clay-dark">{name}</p>
       </div>

@@ -8,8 +8,6 @@ export const createUrl = (
   const paramsString = params.toString();
   const queryString = `${paramsString.length ? '?' : ''}${paramsString}`;
 
-  console.log(`${locale ? `/${locale}` : ''}${pathname}${queryString}`);
-
   return `${locale ? `/${locale}` : ''}${pathname}${queryString}`;
 };
 

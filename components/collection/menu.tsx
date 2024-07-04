@@ -5,12 +5,13 @@ type MenuItem = {
   value: string | null;
   label: string;
   active: boolean;
+  children?: Omit<MenuItem, 'children'>[];
 };
 
 type CollectionMenuProps = {
   open: boolean;
   menu: MenuItem[];
-  onClick: (value: string | null) => void;
+  onClick: (_value: string | null, _childValue?: string | null) => void;
 };
 
 export default function CollectionMenu({ open, menu, onClick }: CollectionMenuProps) {
@@ -32,13 +33,31 @@ export default function CollectionMenu({ open, menu, onClick }: CollectionMenuPr
                   'mb-[2px] flex cursor-pointer select-none overflow-x-hidden',
                   item.active ? 'text-mud' : 'text-clay-dark',
                 )}
-                onClick={() => onClick(item.value)}
+                onClick={() => onClick(item.value, null)}
               >
                 {item.active && (
                   <ArrowRightSvg className="mr-[2px] w-[11px] shrink-0 fill-current" />
                 )}
                 <p className="truncate whitespace-nowrap uppercase">{item.label}</p>
               </div>
+              {item.children && (
+                <div className="ml-[13px]">
+                  {item.children?.map((child) => {
+                    return (
+                      <div
+                        key={child.value}
+                        className={twMerge(
+                          'mb-[1px] flex cursor-pointer select-none overflow-x-hidden',
+                          child.active ? 'text-mud' : 'text-clay-dark',
+                        )}
+                        onClick={() => onClick(item.value, child.value)}
+                      >
+                        <p className="truncate whitespace-nowrap lowercase">{child.label}</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           );
         })}
