@@ -1,6 +1,7 @@
 import ComingSoon from 'components/comingSoon';
 import GridPreview from 'components/grid/preview';
 import LayoutNavbar from 'components/layout/navbar';
+import LayoutProvider from 'components/layout/provider';
 import { getMenu } from 'lib/shopify';
 import { ensureStartsWith } from 'lib/utils';
 import { NextIntlClientProvider } from 'next-intl';
@@ -83,9 +84,11 @@ export default async function RootLayout({
         ) : (
           <Suspense>
             <NextIntlClientProvider messages={messages}>
-              <LayoutNavbar menu={mainMenu} />
-              <main className="h-full overflow-x-hidden">{children}</main>
-              <GridPreview />
+              <LayoutProvider>
+                <LayoutNavbar menu={mainMenu} />
+                <main className="h-full overflow-x-hidden">{children}</main>
+                <GridPreview />
+              </LayoutProvider>
             </NextIntlClientProvider>
           </Suspense>
         )}

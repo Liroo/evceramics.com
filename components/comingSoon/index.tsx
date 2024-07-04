@@ -16,7 +16,7 @@ export default function ComingSoon() {
         }}
       >
         <div className="relative z-20 mx-auto mt-[10%]">
-          <AnimationOpacityIn className="mb-[30px] laptop:mb-[50px]" delay={4.2}>
+          <AnimationOpacityIn className="mb-[30px] laptop:mb-[50px]" delay={1}>
             <ComingSoonSvg className="w-[80vw] laptop:w-[30vw]" />
           </AnimationOpacityIn>
         </div>

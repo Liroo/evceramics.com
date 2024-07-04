@@ -1,5 +1,7 @@
 'use client';
 
+import { useCart } from '@shopify/hydrogen-react';
+import Cart from 'components/cart';
 import { cubicBezier, motion, useAnimate } from 'framer-motion';
 
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
@@ -76,6 +78,11 @@ export default function LayoutNavbar({ menu }: Props) {
   const pathname = usePathname();
   const t = useTranslations('menu');
 
+  // Cart
+  const [cartOpen, setCartOpen] = useState<boolean>(false);
+  const cart = useCart();
+  const onToggleCart = () => setCartOpen((prev) => !prev);
+
   // Mobile menu
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
@@ -113,71 +120,82 @@ export default function LayoutNavbar({ menu }: Props) {
   }, []);
 
   return (
-    <motion.nav
-      ref={scope}
-      className="text-menu fixed left-0 top-0 z-50 flex h-[40px] w-full flex-col items-stretch justify-center bg-[#F4F4F4] laptop:h-[74px]"
-      initial={{
-        y: pathname === '/' ? '100dvh' : 0,
-      }}
-    >
-      <div className="mx-[10px] grid grid-cols-4 items-center gap-[10px] laptop:hidden">
-        <div className="col-span-2">
-          <p className="uppercase">EVCERAMICS</p>
-        </div>
-        <div className="col-span-1">
-          <p className="uppercase">{t('cart')} (0)</p>
-        </div>
-        <div className="col-span-1 m-[-10px] justify-self-end p-[10px]" onClick={toggleMobileMenu}>
-          <p className="uppercase">MENU</p>
-        </div>
-      </div>
-      <div
-        className={twMerge(
-          'fixed left-0 top-[40px] grid w-full bg-[#F4F4F4] transition-all laptop:hidden',
-          mobileMenuOpen ? 'grid grid-rows-[1fr]' : 'grid-rows-[0fr]',
-        )}
+    <>
+      <motion.nav
+        ref={scope}
+        className="text-menu fixed left-0 top-0 z-50 flex h-[40px] w-full flex-col items-stretch justify-center bg-[#F4F4F4] laptop:h-[74px]"
+        initial={{
+          y: pathname === '/' ? '100dvh' : 0,
+        }}
       >
-        <div className="overflow-hidden">
-          <div className="mx-[10px] mb-[6px] mt-[6px] grid grid-cols-4 items-start gap-[10px]">
-            <div className="col-span-2 col-start-1 flex flex-col">
-              <MainMenu menu={menu} />
-            </div>
-            <div className="col-span-2 col-start-3 flex flex-col gap-[6px]">
-              <Suspense>
-                <LocaleSwitcher />
-              </Suspense>
-              <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
-                INSTAGRAM
-              </a>
+        <div className="mx-[10px] grid grid-cols-4 items-center gap-[10px] laptop:hidden">
+          <div className="col-span-2">
+            <p className="uppercase">EVCERAMICS</p>
+          </div>
+          <div className="col-span-1">
+            <p className="cursor-pointer select-none uppercase" onClick={onToggleCart}>
+              {t('cart')} ({cart.lines?.length})
+            </p>
+          </div>
+          <div
+            className="col-span-1 m-[-10px] cursor-pointer select-none justify-self-end p-[10px]"
+            onClick={toggleMobileMenu}
+          >
+            <p className="uppercase">MENU</p>
+          </div>
+        </div>
+        <div
+          className={twMerge(
+            'fixed left-0 top-[40px] grid w-full bg-[#F4F4F4] transition-all laptop:hidden',
+            mobileMenuOpen ? 'grid grid-rows-[1fr]' : 'grid-rows-[0fr]',
+          )}
+        >
+          <div className="overflow-hidden">
+            <div className="mx-[10px] mb-[6px] mt-[6px] grid grid-cols-4 items-start gap-[10px]">
+              <div className="col-span-2 col-start-1 flex flex-col">
+                <MainMenu menu={menu} />
+              </div>
+              <div className="col-span-2 col-start-3 flex flex-col gap-[6px]">
+                <Suspense>
+                  <LocaleSwitcher />
+                </Suspense>
+                <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
+                  INSTAGRAM
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="hidden grid-cols-12 items-center gap-[16px] px-[32px] laptop:grid">
-        <EVCeramicsHorizontalSvg className="col-span-2" />
+        <div className="hidden grid-cols-12 items-center gap-[16px] px-[32px] laptop:grid">
+          <EVCeramicsHorizontalSvg className="col-span-2" />
 
-        <div className="col-span-3 col-start-4 flex flex-col gap-[2px]">
-          <p>EVCERAMICS</p>
-          <MainMenu menu={menu} />
-        </div>
+          <div className="col-span-3 col-start-4 flex flex-col gap-[2px]">
+            <p>EVCERAMICS</p>
+            <MainMenu menu={menu} />
+          </div>
 
-        <div className="col-span-3 col-start-7 flex flex-col gap-[2px]">
-          <p className="uppercase">{t('handmade-ceramics')}</p>
-          <p className="uppercase">{t('based-in-france')}</p>
-        </div>
+          <div className="col-span-3 col-start-7 flex flex-col gap-[2px]">
+            <p className="uppercase">{t('handmade-ceramics')}</p>
+            <p className="uppercase">{t('based-in-france')}</p>
+          </div>
 
-        <div className="col-span-2 col-start-10 flex flex-col gap-[2px]">
-          <LocaleSwitcher />
-          <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
-            INSTAGRAM
-          </a>
-        </div>
+          <div className="col-span-2 col-start-10 flex flex-col gap-[2px]">
+            <LocaleSwitcher />
+            <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
+              INSTAGRAM
+            </a>
+          </div>
 
-        <div className="col-span-1 col-start-12 flex flex-col gap-[2px] justify-self-end">
-          <p>{t('cart')}</p>
-          <p>(0)</p>
+          <div
+            className="col-span-1 col-start-12 flex cursor-pointer select-none flex-col gap-[2px] justify-self-end"
+            onClick={onToggleCart}
+          >
+            <p>{t('cart')}</p>
+            <p>({cart.lines?.length})</p>
+          </div>
         </div>
-      </div>
-    </motion.nav>
+      </motion.nav>
+      <Cart open={cartOpen} onCloseCart={() => setCartOpen(false)} />
+    </>
   );
 }
