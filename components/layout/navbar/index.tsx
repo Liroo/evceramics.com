@@ -115,7 +115,7 @@ export default function LayoutNavbar({ menu }: Props) {
   return (
     <motion.nav
       ref={scope}
-      className="text-menu fixed left-0 top-0 z-50 flex h-[40px] w-full flex-col items-stretch justify-center bg-white laptop:h-[74px]"
+      className="text-menu fixed left-0 top-0 z-50 flex h-[40px] w-full flex-col items-stretch justify-center bg-[#F4F4F4] laptop:h-[74px]"
       initial={{
         y: pathname === '/' ? '100dvh' : 0,
       }}
@@ -133,7 +133,7 @@ export default function LayoutNavbar({ menu }: Props) {
       </div>
       <div
         className={twMerge(
-          'fixed left-0 top-[40px] grid w-full bg-white transition-all laptop:hidden',
+          'fixed left-0 top-[40px] grid w-full bg-[#F4F4F4] transition-all laptop:hidden',
           mobileMenuOpen ? 'grid grid-rows-[1fr]' : 'grid-rows-[0fr]',
         )}
       >

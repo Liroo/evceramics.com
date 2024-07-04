@@ -77,6 +77,7 @@ export default function Intro({ children }: Props) {
       );
       setAnimationCompleted(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

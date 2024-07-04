@@ -59,7 +59,7 @@ export default function Home({ products }: { products: Product[] }) {
 
   return (
     <div className="text-body flex-col pb-[20px] pt-[40px] laptop:pt-[74px]">
-      <div className="fixed top-[40px] z-10 h-[80px] w-full bg-white px-[var(--grid-col-px)] pt-[34px]">
+      <div className="fixed top-[40px] z-10 h-[80px] w-full bg-[#F4F4F4] px-[var(--grid-col-px)] pt-[34px]">
         <EVCeramicsHorizontalSvg className="w-[300px] laptop:hidden" />
       </div>
       <Suspense>

@@ -13,7 +13,7 @@ import { twMerge } from 'tailwind-merge';
 
 const images = [IntroGif1Jpg, IntroGif2Jpg, IntroGif3Jpg, IntroGif4Jpg];
 
-export default function IntroGif() {
+export default function ComingSoonGif() {
   const { ref, rect } = useResizeObserver<HTMLDivElement>();
   const [index, setIndex] = useState<number>(0);
 
