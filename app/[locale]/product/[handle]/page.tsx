@@ -3,7 +3,10 @@ import Grid from 'components/grid';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct } from 'lib/shopify';
 import type { Metadata } from 'next';
+import { useTranslations } from 'next-intl';
+import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+
 export async function generateMetadata({
   params,
 }: {
@@ -42,8 +45,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: { params: { handle: string } }) {
-  const product = await getProduct(params.handle);
+export default async function ProductPage({
+  params: { handle, locale },
+}: {
+  params: { handle: string; locale: string };
+}) {
+  unstable_setRequestLocale(locale);
+
+  const product = await getProduct(handle);
   if (!product) return notFound();
 
   const productJsonLd = {
@@ -64,65 +73,77 @@ export default async function ProductPage({ params }: { params: { handle: string
   };
 
   console.log(product);
+  const ProductComponent = () => {
+    const t = useTranslations('product');
 
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(productJsonLd),
-        }}
-      />
-      <Grid className="text-body min-h-full pt-[40px] laptop:pt-[134px]">
-        <div className="text-heading-5 col-span-4 mt-[32px] block italic text-[#241409]  laptop:mt-0 laptop:hidden">
-          <div>{product.category?.value}</div>
-          <p>{product.title}</p>
-        </div>
-        <div className="order-2 col-span-4 laptop:order-1 laptop:col-span-3 laptop:col-start-1 laptop:flex laptop:flex-col">
-          <div className="text-heading-5 mt-[30px] hidden italic text-[#241409] laptop:mb-[32px] laptop:mt-0 laptop:block">
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(productJsonLd),
+          }}
+        />
+        <Grid className="text-body min-h-full pt-[40px] laptop:pt-[134px]">
+          <div className="text-heading-5 col-span-4 mt-[32px] block italic text-[#241409]  laptop:mt-0 laptop:hidden">
             <div>{product.category?.value}</div>
             <p>{product.title}</p>
           </div>
-          <p className="p-[4px]">
-            {product.availableForSale ? '/ READY TO SHIP /' : '/ OUT OF STOCK /'}
-          </p>
+          <div className="order-2 col-span-4 laptop:order-1 laptop:col-span-3 laptop:col-start-1 laptop:flex laptop:flex-col">
+            <div className="text-heading-5 mt-[30px] hidden italic text-[#241409] laptop:mb-[32px] laptop:mt-0 laptop:block">
+              <div>{product.category?.value}</div>
+              <p>{product.title}</p>
+            </div>
+            <p className="p-[4px]">{t(product.availableForSale ? 'ready' : 'out-of-stock')}</p>
 
-          <div className="laptop: order-none flex laptop:order-4 laptop:justify-between">
-            <p className="p-[4px]">€{product.priceRange.minVariantPrice.amount}</p>
-            <button>{product.availableForSale ? 'ADD TO CART' : 'OUT OF STOCK'}</button>
+            <div className="laptop: order-none flex laptop:order-4 laptop:justify-between">
+              <p className="p-[4px]">€{product.priceRange.minVariantPrice.amount}</p>
+              <button className="p-[4px] underline">
+                {t(product.availableForSale ? 'add-cart' : 'out-cart')}
+              </button>
+            </div>
 
-            {/* <a href="#" className=" p-[4px] underline">
-              ADD TO CART
-            </a> */}
+            <div>
+              <h2 className="pb-[5px] pt-[16px]">DESCRIPTION :</h2>
+              <p className="">{product.description}</p>
+            </div>
+            <div className="pb-[16px] pt-[16px] laptop:pb-[16px]">
+              <p className="pb-[8px] laptop:pb-[2px]">
+                {t('drop')} / {product.drop?.value}
+              </p>
+              <p className="pb-[8px] laptop:pb-[2px]">
+                {t('model')} / {product.model?.value}
+              </p>
+              <p className="pb-[8px] laptop:pb-[2px]">
+                {t('product-category')} / {product.category?.value}
+              </p>
+              <p className="pb-[8px] laptop:pb-[2px]">
+                {t('color')} / {product.color?.value}
+              </p>
+              <p className="pb-[8px] laptop:pb-[2px]">
+                {t('material')} / {product.material?.value}
+              </p>
+              <p className="pb-[8px] laptop:pb-[2px]">
+                {t('dimensions')} / {product.size?.value}
+              </p>
+            </div>
           </div>
 
-          <div>
-            <h2 className="pt-[16px]">DESCRIPTION :</h2>
-            <p>{product.description}</p>
+          <div className="order-1 col-span-4 laptop:order-2 laptop:col-span-4 laptop:col-start-5">
+            <img src={product.images[0]?.url} alt={product.title} />
           </div>
-          <div className="pb-[16px] pt-[16px]">
-            <p>DROP / {product.drop?.value}</p>
-            <p>MODEL / {product.model?.value}</p>
-            <p>CATEGORY / {product.category?.value}</p>
-            <p>COLORIS / {product.color?.value}</p>
-            <p>MATERIAL / {product.material?.value}</p>
-            <p>DIMENSIONS / {product.size?.value}</p>
+          <div className="order-3 col-span-4 laptop:order-3 laptop:col-span-3 laptop:col-start-10">
+            <div className="mb-[5px] uppercase">{product.model?.value}</div>
+            <div
+              className="html"
+              dangerouslySetInnerHTML={{
+                __html: convertSchemaToHtml(product.modelDescription?.value),
+              }}
+            />
           </div>
-        </div>
-
-        <div className="order-1 col-span-4 laptop:order-2 laptop:col-span-4 laptop:col-start-5">
-          <img src={product.images[0]?.url} alt={product.title} />
-        </div>
-        <div className="order-3 col-span-4 laptop:order-3 laptop:col-span-3 laptop:col-start-10">
-          <div className="mb-2 uppercase">{product.model?.value}</div>
-          <div
-            className="html"
-            dangerouslySetInnerHTML={{
-              __html: convertSchemaToHtml(product.modelDescription?.value),
-            }}
-          />
-        </div>
-      </Grid>
-    </>
-  );
+        </Grid>
+      </>
+    );
+  };
+  return <ProductComponent />;
 }
