@@ -24,7 +24,7 @@ const images = [
   IntroGif7Jpg,
 ];
 
-export default function IntroGif() {
+export default function ComingSoonGif() {
   const { ref, rect } = useResizeObserver<HTMLDivElement>();
   const [index, setIndex] = useState<number>(0);
 
@@ -34,7 +34,7 @@ export default function IntroGif() {
         const nextIndex = Math.floor(value) % images.length;
         if (nextIndex !== index) setIndex(nextIndex);
       },
-      duration: 2.5,
+      duration: 4,
       ease: 'linear',
       delay: 1.6,
     });

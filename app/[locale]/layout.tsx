@@ -1,5 +1,7 @@
+import ComingSoon from 'components/comingSoon';
 import GridPreview from 'components/grid/preview';
 import LayoutNavbar from 'components/layout/navbar';
+import LayoutProvider from 'components/layout/provider';
 import { getMenu } from 'lib/shopify';
 import { ensureStartsWith } from 'lib/utils';
 import { NextIntlClientProvider } from 'next-intl';
@@ -76,18 +78,26 @@ export default async function RootLayout({
   const messages = await getMessages();
   const mainMenu = await getMenu('main-menu', locale.toUpperCase());
 
+  const showComingSoon: boolean = process.env.NODE_ENV !== 'development';
+
   return (
-    <html lang={locale} className="h-full">
+    <html lang={locale} className="h-full bg-[#F4F4F4]">
       <body
-        className={`${brutGrotesque.variable} ${romie.variable} h-full font-sans text-mud antialiased`}
+        className={`${brutGrotesque.variable}${romie.variable} h-full font-sans text-mud antialiased`}
       >
-        <Suspense>
-          <NextIntlClientProvider messages={messages}>
-            <LayoutNavbar menu={mainMenu} />
-            <main className="h-full overflow-x-hidden">{children}</main>
-            <GridPreview />
-          </NextIntlClientProvider>
-        </Suspense>
+        {showComingSoon ? (
+          <ComingSoon />
+        ) : (
+          <Suspense>
+            <NextIntlClientProvider messages={messages}>
+              <LayoutProvider>
+                <LayoutNavbar menu={mainMenu} />
+                <main className="h-full overflow-x-hidden">{children}</main>
+                <GridPreview />
+              </LayoutProvider>
+            </NextIntlClientProvider>
+          </Suspense>
+        )}
       </body>
     </html>
   );

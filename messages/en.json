@@ -38,7 +38,6 @@
     "available": "Available",
     "all": "All",
     "sold-out": "Sold out",
-    "category": "Category",
     "ready": "/ READY TO SHIP /",
     "out-of-stock": "/ OUT OF STOCK /",
     "add-cart": "ADD TO CART",
@@ -48,6 +47,12 @@
     "color": "COLOR",
     "material": "MATERIAL",
     "dimensions": "DIMENSIONS",
-    "related-product": "Related products"
+    "related-product": "Related products",
+    "category": "Category"
+  },
+  "cart": {
+    "close": "Close",
+    "checkout": "Checkout",
+    "subtotal": "Subtotal"
   }
 }

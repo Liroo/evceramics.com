@@ -38,7 +38,6 @@
     "available": "Disponible",
     "all": "Tous",
     "sold-out": "épuisé",
-    "category": "Catégorie",
     "ready": "/ PRET À L'ENVOI /",
     "out-of-stock": "/ RUPTURE DE STOCK /",
     "add-cart": "AJOUTER AU PANIER",
@@ -48,6 +47,12 @@
     "color": "COLORIS",
     "material": "MATÉRIAUX",
     "dimensions": "DIMENSIONS",
-    "associated-product": "Produits associés"
+    "associated-product": "Produits associés",
+    "category": "Catégorie"
+  },
+  "cart": {
+    "close": "Fermer",
+    "checkout": "Commander",
+    "subtotal": "Sous-total"
   }
 }

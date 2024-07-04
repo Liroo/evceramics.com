@@ -34,7 +34,7 @@ export default function CollectionBreadcrumb({ prefix, name, onClick }: Collecti
   const prefixTranslated = t(prefix);
 
   return (
-    <Grid className="fixed top-[120px] z-10 h-[73px] w-full bg-white pb-[10px] pt-[50px] laptop:top-[74px]">
+    <Grid className="fixed top-[120px] z-10 h-[73px] w-full bg-[#F4F4F4] pb-[10px] pt-[50px] laptop:top-[74px]">
       <div
         className="col-span-2 flex cursor-pointer select-none overflow-hidden uppercase laptop:col-span-3"
         onClick={onClick}

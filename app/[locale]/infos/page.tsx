@@ -11,7 +11,7 @@ export default function InfosPage({ params: { locale } }: { params: { locale: st
   const t = useTranslations('infos');
 
   return (
-    <Grid className="text-body min-h-full pt-[40px] laptop:pt-[74px]">
+    <Grid className="text-body min-h-full pt-[40px] laptop:h-full laptop:pt-[74px]">
       <div className="col-span-4 pb-[20px] laptop:col-span-3 laptop:col-start-1 laptop:mt-[60px]">
         <EvCeramicsHorizontalSvg className="mt-[30px] w-[300px] laptop:hidden" />
         <Image
@@ -28,7 +28,7 @@ export default function InfosPage({ params: { locale } }: { params: { locale: st
       <div className="col-span-4 hidden pb-[20px] laptop:col-span-4 laptop:col-start-5 laptop:mt-[60px] laptop:block">
         <Image src={EmilieJpg} alt="emilie-jpg" />
       </div>
-      <div className="col-span-4 pb-[20px] laptop:col-span-3 laptop:col-start-10 laptop:mt-[60px]">
+      <div className="col-span-4 overflow-y-scroll pb-[20px] laptop:col-span-3 laptop:col-start-10 laptop:mt-[60px]">
         <InfosCollapsable
           className="mt-[40px] laptop:mt-0"
           localeKey="terms-conditions"
