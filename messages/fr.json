@@ -53,6 +53,10 @@
   "cart": {
     "close": "Fermer",
     "checkout": "Commander",
-    "subtotal": "Sous-total"
+    "subtotal": "Sous-total",
+    "shipping-fees": "Les frais d'expédition sont calculés à la caisse.",
+    "taxes-duty": "Les taxes et les frais de douane ne sont pas inclus.",
+    "accept-terms": "J'ai accepté les termes et conditions du site web.",
+    "empty": "Votre panier est vide."
   }
 }

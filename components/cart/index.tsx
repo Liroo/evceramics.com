@@ -3,6 +3,7 @@ import { RemoveScroll } from 'react-remove-scroll';
 import { twMerge } from 'tailwind-merge';
 import CartFooter from './footer';
 import CartHeader from './header';
+import CartLines from './lines';
 
 type CartProps = {
   open: boolean;
@@ -28,8 +29,9 @@ export default function Cart({ open = false, onCloseCart }: CartProps) {
           open ? '' : 'w-0 laptop:w-0',
         )}
       >
-        <div className="flex h-[calc(100dvh-40px)] w-screen flex-col overflow-y-scroll bg-white pb-[16px] pt-[16px] laptop:h-dvh laptop:w-[396px] laptop:pb-[24px] laptop:pt-[24px]">
+        <div className="text-body flex h-[calc(100dvh-40px)] w-screen flex-col overflow-y-scroll bg-white pb-[16px] pt-[16px] laptop:h-dvh laptop:w-[396px] laptop:pb-[24px] laptop:pt-[24px]">
           <CartHeader onCloseCart={onCloseCart} />
+          <CartLines />
           <CartFooter />
         </div>
       </div>

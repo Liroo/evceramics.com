@@ -53,6 +53,10 @@
   "cart": {
     "close": "Close",
     "checkout": "Checkout",
-    "subtotal": "Subtotal"
+    "subtotal": "Subtotal",
+    "shipping-fees": "Shipping fees are calculated at the checkout.",
+    "taxes-duty": "Taxes and duties are not included.",
+    "accept-terms": "I agreed the terms and conditions of the website.",
+    "empty": "Your cart is empty."
   }
 }
