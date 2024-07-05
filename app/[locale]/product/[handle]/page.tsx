@@ -6,7 +6,6 @@ import type { Metadata } from 'next';
 import { useTranslations } from 'next-intl';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-
 export async function generateMetadata({
   params,
 }: {
