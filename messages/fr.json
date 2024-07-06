@@ -38,7 +38,8 @@
     "available": "Disponible",
     "all": "Tous",
     "sold-out": "épuisé",
-    "category": "Catégorie"
+    "category": "Catégorie",
+    "no-products": "Aucun produit disponible avec ces filtres."
   },
   "cart": {
     "close": "Fermer",
