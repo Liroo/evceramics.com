@@ -23,18 +23,18 @@ export default function ProductView({ product }: ProductProps) {
   };
   console.log(product.images);
   return (
-    <Grid className="text-body min-h-full pt-[40px]  laptop:pt-[134px]">
-      <div className="text-heading-5 col-span-4 mt-[32px] block italic text-[#241409] laptop:mt-0 laptop:hidden">
+    <Grid className=" text-body min-h-full pt-[40px] laptop:h-full laptop:pt-[134px]">
+      <div className="text-heading-5 col-span-4 mt-[32px]  block italic text-[#241409]  laptop:mt-0 laptop:hidden">
         <div>{product.category?.value}</div>
         <p>{product.title}</p>
       </div>
-      <div className="order-2 col-span-4 laptop:static laptop:order-1 laptop:col-span-3 laptop:col-start-1 laptop:flex laptop:flex-col">
+      <div className="order-2 col-span-4 h-auto laptop:order-1 laptop:col-span-3 laptop:col-start-1 laptop:flex laptop:flex-col">
         <div className="text-heading-5 mt-[30px] hidden italic text-[#241409] laptop:mb-[32px] laptop:mt-0 laptop:block">
           <div>{product.category?.value}</div>
           <p>{product.title}</p>
         </div>
         {/* Laptop view */}
-        <p className="hidden laptop:block laptop:p-[4px]">
+        <p className="hidden laptop:block  laptop:p-[4px]">
           {t(product.availableForSale ? 'ready' : 'out-of-stock')}
         </p>
 
@@ -94,8 +94,7 @@ export default function ProductView({ product }: ProductProps) {
         </div>
       </div>
 
-      <div className="order-1 col-span-4 laptop:order-2 laptop:col-span-4 laptop:col-start-5">
-        {/* <img src={product.images[0]?.url} alt={product.title} /> */}
+      <div className="order-1 col-span-4 overflow-y-scroll laptop:order-2 laptop:col-span-4 laptop:col-start-5 laptop:h-full">
         <Caroussel imageInfo={product} />
         <Animation imageInfo={product} />
       </div>
