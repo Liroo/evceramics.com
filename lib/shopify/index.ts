@@ -7,6 +7,7 @@ import {
   getCollectionsQuery,
 } from './queries/collection';
 import { getMenuQuery } from './queries/menu';
+import { getMetaobjectQuery } from './queries/metaobject';
 import {
   getProductQuery,
   getProductRecommendationsQuery,
@@ -17,12 +18,15 @@ import {
   Connection,
   Image,
   Menu,
+  Metaobject,
   Product,
   ShopifyCollection,
   ShopifyCollectionOperation,
   ShopifyCollectionProductsOperation,
   ShopifyCollectionsOperation,
   ShopifyMenuOperation,
+  ShopifyMetaobject,
+  ShopifyMetaobjectOperation,
   ShopifyProduct,
   ShopifyProductOperation,
   ShopifyProductRecommendationsOperation,
@@ -166,7 +170,33 @@ const reshapeProducts = (products: ShopifyProduct[]) => {
   return reshapedProducts;
 };
 
-export async function getMenu(handle: string, locale: string): Promise<Menu[]> {
+const reshapeMetaobject = (metaobject: ShopifyMetaobject) => {
+  if (!metaobject) {
+    return undefined;
+  }
+
+  const { gallery, ...rest } = metaobject;
+
+  let reshapedGallery = [];
+  if (gallery) {
+    const flattened = removeEdgesAndNodes(gallery.references);
+
+    reshapedGallery = flattened.map(({ image }) => {
+      const filename = image.url.match(/.*\/(.*)\..*/)[1];
+      return {
+        ...image,
+        altText: image.altText || `${metaobject.handle} - ${filename}`,
+      };
+    });
+  }
+
+  return {
+    ...rest,
+    gallery: reshapedGallery,
+  };
+};
+
+export async function getMenu(handle: string, locale: string = 'EN'): Promise<Menu[]> {
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
     tags: [TAGS.collections],
@@ -205,7 +235,7 @@ export async function getCollectionProducts({
   collection,
   reverse,
   sortKey,
-  locale,
+  locale = 'EN',
 }: {
   collection: string;
   reverse?: boolean;
@@ -303,4 +333,16 @@ export async function getProducts({
   });
 
   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+}
+
+export async function getMetaobject(handle: string, type: string): Promise<Metaobject | undefined> {
+  const res = await shopifyFetch<ShopifyMetaobjectOperation>({
+    query: getMetaobjectQuery,
+    variables: {
+      handle,
+      type,
+    },
+  });
+
+  return reshapeMetaobject(res.body.data.metaobject);
 }
