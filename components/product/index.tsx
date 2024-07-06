@@ -8,6 +8,7 @@ import Animation from 'components/product/gallery/animation';
 import Caroussel from 'components/product/gallery/caroussel';
 import { Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
+import { UIEvent, useEffect } from 'react';
 
 type ProductProps = {
   product: Product;
@@ -21,7 +22,18 @@ export default function ProductView({ product }: ProductProps) {
   const addToCart = () => {
     linesAdd([merchandise]);
   };
-  console.log(product.images);
+  const onScroll = (evt: UIEvent<HTMLDivElement>) => {
+    const isScroll = (evt.target as HTMLDivElement).scrollTop > 0;
+
+    window.dispatchEvent(new CustomEvent('navbar-visibility', { detail: isScroll }));
+  };
+
+  useEffect(() => {
+    return () => {
+      window.dispatchEvent(new CustomEvent('navbar-visibility', { detail: false }));
+    };
+  }, []);
+
   return (
     <Grid className=" text-body min-h-full pt-[40px] laptop:h-full laptop:pt-[134px]">
       <div className="text-heading-5 col-span-4 mt-[32px]  block italic text-[#241409]  laptop:mt-0 laptop:hidden">
@@ -94,7 +106,10 @@ export default function ProductView({ product }: ProductProps) {
         </div>
       </div>
 
-      <div className="order-1 col-span-4 overflow-y-scroll laptop:order-2 laptop:col-span-4 laptop:col-start-5 laptop:h-full">
+      <div
+        className="order-1 col-span-4 overflow-y-scroll laptop:order-2 laptop:col-span-4 laptop:col-start-5 laptop:h-full"
+        onScroll={onScroll}
+      >
         <Caroussel imageInfo={product} />
         <Animation imageInfo={product} />
       </div>

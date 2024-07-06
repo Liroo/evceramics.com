@@ -83,7 +83,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className="h-full bg-[#F4F4F4]">
       <body
-        className={`${brutGrotesque.variable} ${romie.variable} h-full font-sans text-mud antialiased`}
+        className={`${brutGrotesque.variable} ${romie.variable} relative h-full font-sans text-mud antialiased`}
       >
         {showComingSoon ? (
           <ComingSoon />
