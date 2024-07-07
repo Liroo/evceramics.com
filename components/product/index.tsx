@@ -57,6 +57,7 @@ export default function ProductView({ product }: ProductProps) {
           <button
             className={twMerge('p-[4px] underline', addToCartDisabled ? 'text-clay-dark' : '')}
             onClick={addToCart}
+            disabled={addToCartDisabled}
           >
             {t(product.availableForSale ? 'add-cart' : 'out-cart')}
           </button>
@@ -76,6 +77,7 @@ export default function ProductView({ product }: ProductProps) {
             <button
               className={twMerge('p-[4px] underline', addToCartDisabled ? 'text-clay-dark' : '')}
               onClick={addToCart}
+              disabled={addToCartDisabled}
             >
               {t(product.availableForSale ? 'add-cart' : 'out-cart')}
             </button>

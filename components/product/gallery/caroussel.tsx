@@ -31,10 +31,10 @@ export default function ProductGalleryCaroussel({ gallery }: ProductGalleryCarou
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img className="h-full w-full object-cover" src={gallery[index]?.url} alt="Caroussel image" />
       <div className="absolute flex h-full w-full items-center">
-        <div className="flex-1 px-[14px]" onClick={onPrev}>
+        <div className="flex h-full flex-1 items-center px-[14px]" onClick={onPrev}>
           <Arrow className="rotate-180" />
         </div>
-        <div className="flex-1 px-[14px]" onClick={onNext}>
+        <div className="flex h-full flex-1 items-center px-[14px]" onClick={onNext}>
           <Arrow className="ml-auto" />
         </div>
       </div>
