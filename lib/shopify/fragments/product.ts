@@ -106,6 +106,7 @@ const productFragment = /* GraphQL */ `
       value
       id
     }
+
     updatedAt
   }
   ${imageFragment}

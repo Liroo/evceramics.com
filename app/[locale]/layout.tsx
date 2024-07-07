@@ -43,6 +43,10 @@ const brutGrotesque = localFont({
   variable: '--font-brut',
 });
 
+const romie = localFont({
+  src: '../../fonts/Romie-Regular-Italic.woff2',
+  variable: '--font-romie',
+});
 export const metadata = {
   metadataBase: new URL(baseUrl),
   title: {
@@ -77,8 +81,10 @@ export default async function RootLayout({
   const showComingSoon: boolean = process.env.NODE_ENV !== 'development';
 
   return (
-    <html lang={locale} className="h-full overflow-hidden bg-[#F4F4F4]">
-      <body className={`${brutGrotesque.variable} h-full font-sans text-mud antialiased`}>
+    <html lang={locale} className="h-full bg-[#F4F4F4]">
+      <body
+        className={`${brutGrotesque.variable} ${romie.variable} relative h-full font-sans text-mud antialiased`}
+      >
         {showComingSoon ? (
           <ComingSoon />
         ) : (

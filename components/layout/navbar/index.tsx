@@ -119,6 +119,22 @@ export default function LayoutNavbar({ menu }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Hide navbar
+  const [hideNavbar, setHideNavbar] = useState<boolean>(false);
+
+  useEffect(() => {
+    const onNavbarVisibility = (event: CustomEvent<boolean>) => {
+      setHideNavbar(event.detail);
+    };
+    window.addEventListener<any>('navbar-visibility', onNavbarVisibility);
+    return () => {
+      window.removeEventListener<any>('navbar-visibility', onNavbarVisibility);
+    };
+  }, []);
+
+  console.log(hideNavbar, 'hideNavbar');
+
+  // setHideNavbar(true);
   return (
     <>
       <motion.nav
