@@ -1,8 +1,7 @@
 'use client';
 
-import { useCart } from '@shopify/hydrogen-react';
+import { RichText, useCart } from '@shopify/hydrogen-react';
 import type { CartLineInput } from '@shopify/hydrogen-react/storefront-api-types';
-import { convertSchemaToHtml } from '@thebeyondgroup/shopify-rich-text-renderer';
 import Grid from 'components/grid';
 import Animation from 'components/product/gallery/animation';
 import Caroussel from 'components/product/gallery/caroussel';
@@ -116,12 +115,7 @@ export default function ProductView({ product }: ProductProps) {
 
       <div className="order-3 col-span-4 laptop:order-3 laptop:col-span-3 laptop:col-start-10">
         <div className="mb-[5px] uppercase">{product.model?.value}</div>
-        <div
-          className="html"
-          dangerouslySetInnerHTML={{
-            __html: convertSchemaToHtml(product.modelDescription?.value),
-          }}
-        />
+        <RichText data={product.modelDescription?.value as string} />
       </div>
     </Grid>
   );
