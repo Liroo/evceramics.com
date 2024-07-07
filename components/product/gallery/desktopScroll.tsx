@@ -1,6 +1,6 @@
 import useResizeObserver from 'hooks/useResizeObserver';
 import { Image } from 'lib/shopify/types';
-import { UIEvent, useEffect, useRef } from 'react';
+import { UIEvent, useEffect, useReducer, useRef } from 'react';
 
 type ProductGalleryDesktopScrollProps = {
   gallery: Image[];
@@ -25,6 +25,13 @@ export default function ProductGalleryDesktopScroll({ gallery }: ProductGalleryD
       window.dispatchEvent(new CustomEvent('navbar-visibility', { detail: false }));
     };
   }, [scrollRef, ref]);
+
+  // rerender 0.05s after the page is loaded to avoid the scroll bug
+  const rerender = useReducer((s) => s + 1, 0);
+  useEffect(() => {
+    setTimeout(() => rerender[1](), 50);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>

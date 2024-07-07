@@ -52,11 +52,11 @@ function MainMenu({ menu }: Props) {
   const pathname = usePathname();
 
   return (
-    <div className="flex select-none flex-col gap-[6px] text-clay-dark laptop:flex-row laptop:gap-0">
+    <div className="flex select-none flex-col flex-wrap gap-[6px] text-clay-dark laptop:flex-row laptop:gap-0">
       {menu.map((item, index) => (
         <Fragment key={index}>
           {index > 0 ? <p className="mx-[10px] hidden laptop:block">/</p> : null}
-          <Link href={item.path} className="uppercase">
+          <Link href={item.path} className="whitespace-nowrap uppercase">
             <p
               className={twMerge(
                 pathname === item.path ||
@@ -159,7 +159,9 @@ export default function LayoutNavbar({ menu }: Props) {
           </div>
         </div>
         <div className="hidden grid-cols-12 items-center gap-[16px] px-[32px] laptop:grid">
-          <EVCeramicsHorizontalSvg className="col-span-2" />
+          <Link href="/" className="col-span-2">
+            <EVCeramicsHorizontalSvg />
+          </Link>
 
           <div
             className={twMerge(

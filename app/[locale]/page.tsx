@@ -5,7 +5,8 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
 
 export const metadata = {
-  description: 'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
+  description:
+    'EV Ceramics is a ceramic studio run by Emilie Vizcano. All the pieces she makes are handmade, one by one, using the modelling technique.',
   openGraph: {
     type: 'website',
   },

@@ -6,6 +6,15 @@ import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import EmilieJpg from 'public/images/infos/emilie.jpg';
 
+export const metadata = {
+  title: 'Infos',
+  description:
+    'EV Ceramics is a ceramic studio run by Emilie Vizcano. All the pieces she makes are handmade, one by one, using the modelling technique.',
+  openGraph: {
+    type: 'website',
+  },
+};
+
 export default function InfosPage({ params: { locale } }: { params: { locale: string } }) {
   unstable_setRequestLocale(locale);
   const t = useTranslations('infos');
