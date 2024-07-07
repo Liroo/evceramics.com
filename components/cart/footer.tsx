@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export default function CartFooter() {
-  const { checkoutUrl, cost } = useCart();
+  const { checkoutUrl, cost, totalQuantity = 0 } = useCart();
   const t = useTranslations('cart');
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
 
@@ -42,11 +42,11 @@ export default function CartFooter() {
       <button
         className={twMerge(
           'flex h-[52px] w-full items-center justify-between border border-mud bg-white px-[10px] outline-none laptop:h-[40px] laptop:px-[8px]',
-          checkoutUrl && termsAccepted
+          checkoutUrl && termsAccepted && totalQuantity > 0
             ? 'group hover:bg-mud hover:text-[#F4F4F4]'
             : 'cursor-not-allowed opacity-60',
         )}
-        disabled={!checkoutUrl || !termsAccepted}
+        disabled={!checkoutUrl || !termsAccepted || totalQuantity <= 0}
         onClick={() => window.open(checkoutUrl, '_self')}
       >
         <p className="text-[24px] font-light leading-[31px] laptop:text-[18px] laptop:leading-[24px]">
