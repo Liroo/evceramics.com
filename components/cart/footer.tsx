@@ -47,7 +47,7 @@ export default function CartFooter() {
             : 'cursor-not-allowed opacity-60',
         )}
         disabled={!checkoutUrl || !termsAccepted}
-        onClick={() => window.open(checkoutUrl)}
+        onClick={() => window.open(checkoutUrl, '_self')}
       >
         <p className="text-[24px] font-light leading-[31px] laptop:text-[18px] laptop:leading-[24px]">
           {t('checkout')}
