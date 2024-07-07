@@ -1,3 +1,4 @@
+import { locales as internalLocales } from 'lib/config';
 import { HIDDEN_PRODUCT_TAG, SHOPIFY_GRAPHQL_API_ENDPOINT, TAGS } from 'lib/constants';
 import { isShopifyError } from 'lib/type-guards';
 import { ensureStartsWith } from 'lib/utils';
@@ -198,6 +199,7 @@ const reshapeMetaobject = (metaobject: ShopifyMetaobject) => {
 };
 
 export async function getMenu(handle: string, locale: string = 'EN'): Promise<Menu[]> {
+  internalLocales.includes(locale) || (locale = 'EN');
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
     tags: [TAGS.collections],
@@ -243,6 +245,7 @@ export async function getCollectionProducts({
   sortKey?: string;
   locale: string;
 }): Promise<Product[]> {
+  internalLocales.includes(locale) || (locale = 'EN');
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
@@ -294,6 +297,7 @@ export async function getProduct(
   handle: string,
   locale: string = 'EN',
 ): Promise<Product | undefined> {
+  internalLocales.includes(locale) || (locale = 'EN');
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     tags: [TAGS.products],

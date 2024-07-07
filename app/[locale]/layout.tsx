@@ -7,6 +7,7 @@ import { ensureStartsWith } from 'lib/utils';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import localFont from 'next/font/local';
+import { headers } from 'next/headers';
 import { ReactNode, Suspense } from 'react';
 import '../globals.css';
 
@@ -77,6 +78,11 @@ export default async function RootLayout({
   unstable_setRequestLocale(locale);
   const messages = await getMessages();
   const mainMenu = await getMenu('main-menu', locale.toUpperCase());
+  const headersList = headers();
+  const domain = headersList.get('host') || '';
+  const fullUrl = headersList.get('referer') || '';
+
+  console.log(domain, fullUrl);
 
   const showComingSoon: boolean = process.env.NODE_ENV !== 'development';
 
