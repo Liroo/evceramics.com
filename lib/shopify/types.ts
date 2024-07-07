@@ -274,6 +274,7 @@ export type ShopifyProductOperation = {
   data: { product: ShopifyProduct };
   variables: {
     handle: string;
+    locale: string;
   };
 };
 

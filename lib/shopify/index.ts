@@ -290,12 +290,16 @@ export async function getCollections(): Promise<Collection[]> {
   return collections;
 }
 
-export async function getProduct(handle: string): Promise<Product | undefined> {
+export async function getProduct(
+  handle: string,
+  locale: string = 'EN',
+): Promise<Product | undefined> {
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     tags: [TAGS.products],
     variables: {
       handle,
+      locale,
     },
   });
 

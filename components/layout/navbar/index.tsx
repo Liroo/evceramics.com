@@ -132,8 +132,6 @@ export default function LayoutNavbar({ menu }: Props) {
     };
   }, []);
 
-  console.log(hideNavbar, 'hideNavbar');
-
   // setHideNavbar(true);
   return (
     <>

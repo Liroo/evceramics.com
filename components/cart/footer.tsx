@@ -42,7 +42,9 @@ export default function CartFooter() {
       <button
         className={twMerge(
           'flex h-[52px] w-full items-center justify-between border border-mud bg-white px-[10px] outline-none laptop:h-[40px] laptop:px-[8px]',
-          checkoutUrl ? 'group hover:bg-mud hover:text-[#F4F4F4]' : 'cursor-not-allowed opacity-60',
+          checkoutUrl && termsAccepted
+            ? 'group hover:bg-mud hover:text-[#F4F4F4]'
+            : 'cursor-not-allowed opacity-60',
         )}
         disabled={!checkoutUrl || !termsAccepted}
         onClick={() => window.open(checkoutUrl)}

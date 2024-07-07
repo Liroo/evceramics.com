@@ -7,9 +7,9 @@ import { notFound } from 'next/navigation';
 export async function generateMetadata({
   params,
 }: {
-  params: { handle: string };
+  params: { handle: string; locale: string };
 }): Promise<Metadata> {
-  const product = await getProduct(params.handle);
+  const product = await getProduct(params.handle, params.locale?.toUpperCase?.());
 
   if (!product) return notFound();
 
@@ -49,7 +49,7 @@ export default async function ProductPage({
 }) {
   unstable_setRequestLocale(locale);
 
-  const product = await getProduct(handle);
+  const product = await getProduct(handle, locale.toUpperCase());
   if (!product) return notFound();
 
   return (

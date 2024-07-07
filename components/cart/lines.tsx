@@ -1,6 +1,99 @@
 import { useCart } from '@shopify/hydrogen-react';
+import { CartLine } from '@shopify/hydrogen-react/storefront-api-types';
 import GridCart from 'components/grid/cart';
-import { useTranslations } from 'next-intl';
+import CrossSvg from 'icons/cross.svg';
+import { Link } from 'lib/navigation';
+import { getProduct } from 'lib/shopify';
+import { Product } from 'lib/shopify/types';
+import { useLocale, useTranslations } from 'next-intl';
+import { useEffect, useState } from 'react';
+import { twMerge } from 'tailwind-merge';
+
+function Line({ line }: { line: CartLine }) {
+  const locale = useLocale();
+  const cart = useCart();
+  const [product, setProduct] = useState<Product | null>(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const product = await getProduct(line.merchandise.product.handle, locale.toUpperCase());
+
+      if (product) setProduct(product);
+    };
+
+    fetchProduct();
+  }, [locale, line.merchandise.product.handle]);
+
+  const merchandise = line.merchandise;
+
+  const onClickRemoveLine = () => {
+    cart.linesRemove([line.id]);
+  };
+  const onClickUpdateQuantity = (quantity: number) => {
+    cart.linesUpdate([{ id: line.id, quantity }]);
+  };
+
+  return (
+    <GridCart className="text-body">
+      <Link
+        href={`/product/${merchandise.product.handle}`}
+        className="col-span-1 aspect-[95/127] bg-clay"
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={merchandise?.image?.url || ''}
+          alt={merchandise?.image?.altText || ''}
+          className="h-full w-full object-cover"
+        />
+      </Link>
+      <div className="col-span-3 flex flex-col items-stretch justify-between laptop:col-span-2">
+        <div className="flex items-start justify-between">
+          <div>
+            <p className="uppercase">
+              {merchandise.product.title} {product?.category && ` - ${product?.category.value}`}
+            </p>
+            {product?.color && <p className="capitalize">{product?.color.value}</p>}
+          </div>
+          <div className="m-[-10px] cursor-pointer p-[10px]" onClick={onClickRemoveLine}>
+            <CrossSvg className="w-[9px] fill-current text-mud" />
+          </div>
+        </div>
+        <div className="flex items-end justify-between">
+          <div className="flex gap-[20px]">
+            <button
+              className="m-[-10px] p-[10px] outline-none"
+              onClick={() => {
+                line.quantity > 1 ? onClickUpdateQuantity(line.quantity - 1) : onClickRemoveLine();
+              }}
+            >
+              <p>-</p>
+            </button>
+            <div>
+              <p>{line.quantity}</p>
+            </div>
+            <button
+              disabled={!product || line.quantity >= product?.totalInventory}
+              className={twMerge(
+                'outline-none',
+                !product || line.quantity >= product?.totalInventory ? 'text-clay-dark' : '',
+              )}
+              onClick={() => onClickUpdateQuantity(line.quantity + 1)}
+            >
+              <p>+</p>
+            </button>
+          </div>
+          <p>
+            {new Intl.NumberFormat('en-EN', {
+              maximumSignificantDigits: 3,
+              style: 'currency',
+              currency: merchandise.price.currencyCode ?? 'EUR',
+            }).format(~~(merchandise.price.amount ?? 0))}
+          </p>
+        </div>
+      </div>
+    </GridCart>
+  );
+}
 
 export default function CartLines() {
   const cart = useCart();
@@ -14,14 +107,9 @@ export default function CartLines() {
     );
 
   return (
-    <div className="flex flex-col gap-[16px] pb-[16px] pt-[16px] laptop:pb-[24px] laptop:pt-[24px]">
+    <div className="flex flex-col gap-[16px] pb-[16px] pt-[16px] laptop:pb-[24px] laptop:pt-[80px]">
       {cart.lines.map((line, index) => (
-        <div key={index} className="flex items-center gap-[16px]">
-          <div className="h-[64px] w-[64px] bg-gray-200" />
-          <div className="flex flex-col gap-[4px]">
-            <p>{line?.merchandise?.title}</p>
-          </div>
-        </div>
+        <Line key={index} line={line as CartLine} />
       ))}
     </div>
   );

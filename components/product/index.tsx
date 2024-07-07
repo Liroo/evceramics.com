@@ -19,7 +19,14 @@ export default function ProductView({ product }: ProductProps) {
   const { linesAdd, lines } = useCart();
 
   const addToCart = () => {
-    linesAdd([{ merchandiseId: product.variants[0]?.id as string }]);
+    linesAdd([
+      {
+        merchandiseId: product.variants[0]?.id as string,
+        attributes: [product.category, product.model, product.color, product.material, product.size]
+          .filter((attr) => attr && attr.value && attr.key)
+          .map((attr) => ({ key: attr?.key as string, value: attr?.value as string })),
+      },
+    ]);
   };
 
   const variantInCart = lines?.find((line) => line?.merchandise?.product?.id === product.id);
