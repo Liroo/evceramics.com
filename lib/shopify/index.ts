@@ -43,14 +43,14 @@ const key = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
 
 export async function shopifyFetch<T>({
-  cache = 'force-cache',
+  // cache = 'force-cache',
   headers,
   query,
 
-  tags,
+  // tags,
   variables,
 }: {
-  cache?: RequestCache;
+  // cache?: RequestCache;
   headers?: HeadersInit;
   query: string;
   tags?: string[];
@@ -68,8 +68,8 @@ export async function shopifyFetch<T>({
         ...(query && { query }),
         ...(variables && { variables }),
       }),
-      cache,
-      ...(tags && { next: { tags } }),
+      // cache,
+      // ...(tags && { next: { tags } }),
     });
 
     const body = await result.json();

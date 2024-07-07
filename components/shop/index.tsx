@@ -32,6 +32,8 @@ export default function Shop({
   // Get the type and availability filters
   let filteredProducts = products;
 
+  console.log(products);
+
   // Filter by category
   const productsCategories = products.reduce((acc, product) => {
     const productType = product.category?.value;
