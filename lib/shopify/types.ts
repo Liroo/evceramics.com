@@ -90,6 +90,10 @@ export type ProductVariant = {
   price: Money;
 };
 
+export type Metaobject = Omit<ShopifyMetaobject, 'gallery'> & {
+  gallery: Image[];
+};
+
 export type SEO = {
   title: string;
   description: string;
@@ -141,6 +145,17 @@ export type ShopifyProduct = {
   drop?: Metafield;
   totalInventory: number;
   updatedAt: string;
+};
+
+export type ShopifyMetaobject = {
+  id: string;
+  handle: string;
+  gallery: {
+    type: string;
+    value: string;
+    key: string;
+    references: Connection<Image>;
+  };
 };
 
 export type ShopifyCartOperation = {
@@ -279,5 +294,13 @@ export type ShopifyProductsOperation = {
     query?: string;
     reverse?: boolean;
     sortKey?: string;
+  };
+};
+
+export type ShopifyMetaobjectOperation = {
+  data: { metaobject: ShopifyMetaobject };
+  variables: {
+    handle: string;
+    type: string;
   };
 };

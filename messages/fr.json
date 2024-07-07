@@ -48,7 +48,8 @@
     "material": "MATÉRIAUX",
     "dimensions": "DIMENSIONS",
     "associated-product": "Produits associés",
-    "category": "Catégorie"
+    "category": "Catégorie",
+    "no-products": "Aucun produit disponible avec ces filtres."
   },
   "cart": {
     "close": "Fermer",
