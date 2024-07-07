@@ -1,30 +1,26 @@
 import useResizeObserver from 'hooks/useResizeObserver';
 import { Image } from 'lib/shopify/types';
-import { UIEvent, useEffect, useReducer, useRef } from 'react';
+import { useEffect, useReducer, useRef } from 'react';
 
 type ProductGalleryDesktopScrollProps = {
   gallery: Image[];
+  scrollTop: number;
+  onScrollHeightChange?: (_height: number) => void;
 };
 
-export default function ProductGalleryDesktopScroll({ gallery }: ProductGalleryDesktopScrollProps) {
+export default function ProductGalleryDesktopScroll({
+  gallery,
+  scrollTop,
+  onScrollHeightChange,
+}: ProductGalleryDesktopScrollProps) {
   const { ref, rect } = useResizeObserver<HTMLDivElement>();
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  // navbar visibility for animation
-  const onScroll = (evt: UIEvent<HTMLDivElement>) => {
-    if (!scrollRef.current || !ref.current) return;
-
-    scrollRef.current.scrollTop = (evt.target as HTMLDivElement).scrollTop;
-
-    const isScroll = (evt.target as HTMLDivElement).scrollTop > 74;
-
-    window.dispatchEvent(new CustomEvent('navbar-visibility', { detail: isScroll }));
-  };
   useEffect(() => {
-    return () => {
-      window.dispatchEvent(new CustomEvent('navbar-visibility', { detail: false }));
-    };
-  }, [scrollRef, ref]);
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollTop;
+    }
+  }, [scrollTop]);
 
   // rerender 0.05s after the page is loaded to avoid the scroll bug
   const rerender = useReducer((s) => s + 1, 0);
@@ -33,12 +29,17 @@ export default function ProductGalleryDesktopScroll({ gallery }: ProductGalleryD
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    onScrollHeightChange?.(scrollRef?.current?.scrollHeight ?? 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scrollRef?.current?.scrollHeight]);
+
   return (
     <>
-      <div className="h-full w-full overflow-y-scroll" ref={ref} onScroll={onScroll}>
+      <div className="h-full w-full overflow-y-scroll" ref={ref}>
         <div
           className="w-full"
-          style={{ height: (scrollRef?.current?.scrollHeight ?? 0) + 'px' }}
+          // style={{ height: (scrollRef?.current?.scrollHeight ?? 0) + 'px' }}
         />
       </div>
       <div

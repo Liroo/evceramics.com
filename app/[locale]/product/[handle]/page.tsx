@@ -1,6 +1,6 @@
 import Product from 'components/product/index';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-import { getProduct } from 'lib/shopify';
+import { getProduct, getProductRecommendations } from 'lib/shopify';
 import type { Metadata } from 'next';
 import { unstable_setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -52,9 +52,20 @@ export default async function ProductPage({
   const product = await getProduct(handle, locale.toUpperCase());
   if (!product) return notFound();
 
+  const productRecommendations = await getProductRecommendations(
+    product.id,
+    locale?.toUpperCase?.(),
+  );
+
+  // remove products that have as collection disabled_evceramics
+  const filteredProductRecommendations = productRecommendations.filter(
+    (product) =>
+      !product.collections.edges.some((edge) => edge.node.handle === 'disabled_evceramics'),
+  );
+
   return (
     <>
-      <Product product={product} />
+      <Product product={product} productRecommendations={filteredProductRecommendations} />
     </>
   );
 }

@@ -23,7 +23,8 @@ export const getProductsQuery = /* GraphQL */ `
 `;
 
 export const getProductRecommendationsQuery = /* GraphQL */ `
-  query getProductRecommendations($productId: ID!) {
+  query getProductRecommendations($productId: ID!, $locale: LanguageCode)
+  @inContext(language: $locale) {
     productRecommendations(productId: $productId) {
       ...product
     }

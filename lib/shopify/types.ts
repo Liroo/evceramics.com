@@ -123,6 +123,7 @@ export type ShopifyProduct = {
   id: string;
   handle: string;
   availableForSale: boolean;
+  collections: Connection<ShopifyCollection>;
   title: string;
   description: string;
   descriptionHtml: string;
@@ -284,6 +285,7 @@ export type ShopifyProductRecommendationsOperation = {
   };
   variables: {
     productId: string;
+    locale: string;
   };
 };
 

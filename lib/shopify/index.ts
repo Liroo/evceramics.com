@@ -310,12 +310,17 @@ export async function getProduct(
   return reshapeProduct(res.body.data.product, false);
 }
 
-export async function getProductRecommendations(productId: string): Promise<Product[]> {
+export async function getProductRecommendations(
+  productId: string,
+  locale: string = 'EN',
+): Promise<Product[]> {
+  internalLocales.includes(locale) || (locale = 'EN');
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     tags: [TAGS.products],
     variables: {
       productId,
+      locale,
     },
   });
 
