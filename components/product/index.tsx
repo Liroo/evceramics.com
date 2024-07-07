@@ -1,13 +1,12 @@
 'use client';
 
 import { RichText, useCart } from '@shopify/hydrogen-react';
-import type { CartLineInput } from '@shopify/hydrogen-react/storefront-api-types';
 import Grid from 'components/grid';
-import Animation from 'components/product/gallery/animation';
-import Caroussel from 'components/product/gallery/caroussel';
+import ProductGalleryCaroussel from 'components/product/gallery/caroussel';
+import ProductGalleryDesktopScroll from 'components/product/gallery/desktopScroll';
 import { Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
-import { UIEvent, useEffect } from 'react';
+import { twMerge } from 'tailwind-merge';
 
 type ProductProps = {
   product: Product;
@@ -16,32 +15,29 @@ type ProductProps = {
 export default function ProductView({ product }: ProductProps) {
   const t = useTranslations('product');
 
-  const { linesAdd } = useCart();
-  const merchandise: CartLineInput = { merchandiseId: product.variants[0]?.id as string };
+  // Cart
+  const { linesAdd, lines } = useCart();
+
   const addToCart = () => {
-    linesAdd([merchandise]);
-  };
-  const onScroll = (evt: UIEvent<HTMLDivElement>) => {
-    const isScroll = (evt.target as HTMLDivElement).scrollTop > 0;
-
-    window.dispatchEvent(new CustomEvent('navbar-visibility', { detail: isScroll }));
+    linesAdd([{ merchandiseId: product.variants[0]?.id as string }]);
   };
 
-  useEffect(() => {
-    return () => {
-      window.dispatchEvent(new CustomEvent('navbar-visibility', { detail: false }));
-    };
-  }, []);
+  const variantInCart = lines?.find((line) => line?.merchandise?.product?.id === product.id);
+  const addToCartDisabled =
+    !product.availableForSale ||
+    (variantInCart && (variantInCart.quantity as number) >= product.totalInventory);
 
   return (
-    <Grid className=" text-body min-h-full pt-[40px] laptop:h-full laptop:pt-[134px]">
-      <div className="text-heading-5 col-span-4 mt-[32px]  block italic text-[#241409]  laptop:mt-0 laptop:hidden">
-        <div>{product.category?.value}</div>
+    <Grid className="text-body min-h-full pt-[40px] laptop:h-full laptop:pt-[134px]">
+      {/* mobile top */}
+      <div className="text-heading-5 col-span-4 mt-[32px] block italic text-mud laptop:mt-0 laptop:hidden">
+        <p>{product.category?.value}</p>
         <p>{product.title}</p>
       </div>
+      {/* First cell desktop */}
       <div className="order-2 col-span-4 h-auto laptop:order-1 laptop:col-span-3 laptop:col-start-1 laptop:flex laptop:flex-col">
-        <div className="text-heading-5 mt-[30px] hidden italic text-[#241409] laptop:mb-[32px] laptop:mt-0 laptop:block">
-          <div>{product.category?.value}</div>
+        <div className="text-heading-5 mt-[30px] hidden italic text-mud laptop:mb-[32px] laptop:mt-0 laptop:block">
+          <p>{product.category?.value}</p>
           <p>{product.title}</p>
         </div>
         {/* Laptop view */}
@@ -58,7 +54,10 @@ export default function ProductView({ product }: ProductProps) {
             }).format(~~product.priceRange.minVariantPrice.amount)}
           </p>
 
-          <button className="p-[4px] underline" onClick={addToCart}>
+          <button
+            className={twMerge('p-[4px] underline', addToCartDisabled ? 'text-clay-dark' : '')}
+            onClick={addToCart}
+          >
             {t(product.availableForSale ? 'add-cart' : 'out-cart')}
           </button>
         </div>
@@ -74,48 +73,66 @@ export default function ProductView({ product }: ProductProps) {
                 currency: product.priceRange.minVariantPrice.currencyCode,
               }).format(~~product.priceRange.minVariantPrice.amount)}
             </p>
-            <button className="p-[4px] underline" onClick={addToCart}>
+            <button
+              className={twMerge('p-[4px] underline', addToCartDisabled ? 'text-clay-dark' : '')}
+              onClick={addToCart}
+            >
               {t(product.availableForSale ? 'add-cart' : 'out-cart')}
             </button>
           </div>
         </div>
         <div>
           <h2 className="pb-[5px] pt-[16px]">DESCRIPTION :</h2>
-          <p className="">{product.description}</p>
+          {product.description && <p>{product.description}</p>}
         </div>
-        <div className="pb-[16px] pt-[16px] laptop:pb-[16px]">
-          <p className="pb-[8px] laptop:pb-[2px]">
-            {t('drop')} / {product.drop?.value}
-          </p>
-          <p className="pb-[8px] laptop:pb-[2px]">
-            {t('model')} / {product.model?.value}
-          </p>
-          <p className="pb-[8px] laptop:pb-[2px]">
-            {t('product-category')} / {product.category?.value}
-          </p>
-          <p className="pb-[8px] laptop:pb-[2px]">
-            {t('color')} / {product.color?.value}
-          </p>
-          <p className="pb-[8px] laptop:pb-[2px]">
-            {t('material')} / {product.material?.value}
-          </p>
-          <p className="pb-[8px] laptop:pb-[2px]">
-            {t('dimensions')} / {product.size?.value}
-          </p>
+        <div className="flex flex-col gap-[8px] pb-[16px] pt-[16px] laptop:gap-[2px] laptop:pb-[16px]">
+          {product.drop && (
+            <p>
+              {t('drop')} / {product.drop?.value}
+            </p>
+          )}
+          {product.model && (
+            <p>
+              {t('model')} / {product.model?.value}
+            </p>
+          )}
+          {product.category && (
+            <p>
+              {t('product-category')} / {product.category?.value}
+            </p>
+          )}
+          {product.color && (
+            <p>
+              {t('color')} / {product.color?.value}
+            </p>
+          )}
+          {product.material && (
+            <p>
+              {t('material')} / {product.material?.value}
+            </p>
+          )}
+          {product.size && (
+            <p>
+              {t('dimensions')} / {product.size?.value}
+            </p>
+          )}
         </div>
       </div>
 
-      <div
-        className="order-1 col-span-4 overflow-y-scroll laptop:order-2 laptop:col-span-4 laptop:col-start-5 laptop:h-full"
-        onScroll={onScroll}
-      >
-        <Caroussel imageInfo={product} />
-        <Animation imageInfo={product} />
+      <div className="order-1 col-span-4 overflow-y-scroll laptop:col-span-4 laptop:col-start-5 laptop:h-full">
+        <div className="contents laptop:hidden">
+          <ProductGalleryCaroussel gallery={product.images} />
+        </div>
+        <div className="hidden laptop:contents">
+          <ProductGalleryDesktopScroll gallery={product.images} />
+        </div>
       </div>
 
-      <div className="order-3 col-span-4 laptop:order-3 laptop:col-span-3 laptop:col-start-10">
+      <div className="order-3 col-span-4 pb-[20px] laptop:col-span-3 laptop:col-start-10">
         <div className="mb-[5px] uppercase">{product.model?.value}</div>
-        <RichText data={product.modelDescription?.value as string} />
+        {product.modelDescription ? (
+          <RichText data={product.modelDescription?.value as string} />
+        ) : null}
       </div>
     </Grid>
   );

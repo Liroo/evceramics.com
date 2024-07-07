@@ -1,31 +1,41 @@
-import LeftArrow from 'icons/arrowLeft-Caroussel.svg';
-import { Product } from 'lib/shopify/types';
+import ArrowRightSvg from 'icons/arrow-right.svg';
+import { Image } from 'lib/shopify/types';
 import { useState } from 'react';
+import { twMerge } from 'tailwind-merge';
 
-type CarousselProps = {
-  imageInfo: Product;
+type ProductGalleryCarousselProps = {
+  gallery: Image[];
 };
 
-export default function Caroussel({ imageInfo }: CarousselProps) {
+function Arrow({ className }: { className?: string }) {
+  return (
+    <div
+      className={twMerge(
+        'flex h-[24px] w-[24px] items-center justify-center rounded-full bg-white',
+        className,
+      )}
+    >
+      <ArrowRightSvg className="fill-currant w-[13px] text-black" />
+    </div>
+  );
+}
+
+export default function ProductGalleryCaroussel({ gallery }: ProductGalleryCarousselProps) {
+  // handle image index
   const [index, setIndex] = useState<number>(0);
-
-  const handleArrowNext = () => {
-    setIndex((index + 1) % imageInfo.images.length);
-  };
-
-  const handleArrowPrev = () => {
-    setIndex((index + imageInfo.images.length - 1) % imageInfo.images.length);
-  };
+  const onNext = () => setIndex((index + 1) % gallery.length);
+  const onPrev = () => setIndex((index + gallery.length - 1) % gallery.length);
 
   return (
-    <div className=" relative flex h-[550px] w-full items-center justify-center laptop:hidden">
-      <img className="h-full w-full" src={imageInfo.images[index]?.url} alt="Caroussel image" />
-      <div className="absolute flex w-full  justify-between ">
-        <div className="targeting-action p-[12px]" onClick={() => handleArrowPrev()}>
-          <LeftArrow className=" h-[23px] w-[23px] rotate-180 rounded-full bg-white fill-current " />
+    <div className=" relative flex aspect-[410/547] w-full items-center justify-center laptop:hidden">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="h-full w-full object-cover" src={gallery[index]?.url} alt="Caroussel image" />
+      <div className="absolute flex h-full w-full items-center">
+        <div className="flex-1 px-[14px]" onClick={onPrev}>
+          <Arrow className="rotate-180" />
         </div>
-        <div className="targeting-action p-[12px]" onClick={() => handleArrowNext()}>
-          <LeftArrow className=" h-[23px] w-[23px] rounded-full bg-white fill-current " />
+        <div className="flex-1 px-[14px]" onClick={onNext}>
+          <Arrow className="ml-auto" />
         </div>
       </div>
     </div>

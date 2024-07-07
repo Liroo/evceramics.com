@@ -163,12 +163,22 @@ export default function LayoutNavbar({ menu }: Props) {
         <div className="hidden grid-cols-12 items-center gap-[16px] px-[32px] laptop:grid">
           <EVCeramicsHorizontalSvg className="col-span-2" />
 
-          <div className="col-span-3 col-start-4 flex flex-col gap-[2px]">
+          <div
+            className={twMerge(
+              'col-span-3 col-start-4 flex flex-col gap-[2px] transition-opacity duration-200',
+              hideNavbar ? 'laptop:pointer-events-none laptop:opacity-0' : '',
+            )}
+          >
             <p>EVCERAMICS</p>
             <MainMenu menu={menu} />
           </div>
 
-          <div className="col-span-3 col-start-7 flex flex-col gap-[2px]">
+          <div
+            className={twMerge(
+              'col-span-3 col-start-7 flex flex-col gap-[2px] transition-opacity duration-200',
+              hideNavbar ? 'laptop:pointer-events-none laptop:opacity-0' : '',
+            )}
+          >
             <p className="uppercase">{t('handmade-ceramics')}</p>
             <p className="uppercase">{t('based-in-france')}</p>
           </div>
