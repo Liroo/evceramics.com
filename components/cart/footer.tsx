@@ -13,7 +13,7 @@ export default function CartFooter() {
 
   return (
     <div className="text-menu mt-auto flex flex-col px-[var(--grid-col-px)]">
-      <div className="mb-[50px] mt-[20px] text-[14px] font-medium leading-[16px] laptop:mb-[40px] laptop:text-[10px] laptop:leading-[11px]">
+      <div className="mb-[50px] mt-[20px] text-[14px] font-medium leading-[16px] laptop:mb-[40px] laptop:text-[11px] laptop:leading-[12px]">
         <p>{t('shipping-fees')}</p>
         <p>{t('taxes-duty')}</p>
 

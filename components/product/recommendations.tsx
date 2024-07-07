@@ -19,7 +19,7 @@ export default function ProductRecommendations({
               <Link
                 key={i}
                 href={`/product/${product.handle}`}
-                className="aspect-[62/82] w-[calc((100vw-20px)/4*3)] min-w-[calc((100vw-20px)/4*3)] bg-clay laptop:w-[calc((100%-var(--grid-col-gap)*2)/3)]"
+                className="aspect-[62/82] w-[calc((100vw-20px)/4*3)] min-w-[calc((100vw-20px)/4*3)] bg-clay laptop:w-[calc((100%-var(--grid-col-gap)*2)/3)] laptop:min-w-px"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
