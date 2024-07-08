@@ -6,7 +6,7 @@ import ProductGalleryCaroussel from 'components/product/gallery/caroussel';
 import ProductGalleryDesktopScroll from 'components/product/gallery/desktopScroll';
 import { Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
-import { UIEvent, useEffect, useState } from 'react';
+import { Fragment, UIEvent, useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import ProductRecommendations from './recommendations';
 
@@ -70,15 +70,27 @@ export default function ProductView({ product, productRecommendations }: Product
       >
         {/* mobile top */}
         <div className="text-heading-5 col-span-4 mt-[32px] block italic text-mud laptop:mt-0 laptop:hidden">
-          <p>{product.category?.value}</p>
-          <p>{product.title}</p>
+          <p>
+            {product.title.split(' / ').map((word, index, arr) => (
+              <Fragment key={index}>
+                <span>{word}</span>
+                {index < arr.length - 1 && <br />}
+              </Fragment>
+            ))}
+          </p>
         </div>
 
         {/* First cell desktop */}
         <div className="order-2 col-span-4 h-auto laptop:sticky laptop:top-[134px] laptop:order-1 laptop:col-span-3 laptop:col-start-1 laptop:flex laptop:flex-col">
           <div className="text-heading-5 mt-[30px] hidden italic text-mud laptop:mb-[32px] laptop:mt-0 laptop:block">
-            <p>{product.category?.value}</p>
-            <p>{product.title}</p>
+            <p>
+              {product.title.split(' / ').map((word, index, arr) => (
+                <Fragment key={index}>
+                  <span>{word}</span>
+                  {index < arr.length - 1 && <br />}
+                </Fragment>
+              ))}
+            </p>
           </div>
           {/* Laptop view */}
           <p className="hidden laptop:block  laptop:p-[4px]">

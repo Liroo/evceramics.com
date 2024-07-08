@@ -30,8 +30,8 @@ export default function CollectionMenu({ open, menu, onClick }: CollectionMenuPr
             <div key={item.value}>
               <div
                 className={twMerge(
-                  'targeting-action mb-[2px] flex select-none overflow-x-hidden',
-                  item.active ? 'text-mud' : 'text-clay-dark',
+                  'targeting-action mb-[2px] flex select-none overflow-x-hidden transition-colors duration-200',
+                  item.active ? 'text-mud' : 'text-clay-dark hover:text-mud',
                 )}
                 onClick={() => onClick(item.value, null)}
               >
