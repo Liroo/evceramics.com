@@ -30,7 +30,7 @@ export default function CollectionMenu({ open, menu, onClick }: CollectionMenuPr
             <div key={item.value}>
               <div
                 className={twMerge(
-                  'mb-[2px] flex cursor-pointer select-none overflow-x-hidden',
+                  'targeting-action mb-[2px] flex select-none overflow-x-hidden',
                   item.active ? 'text-mud' : 'text-clay-dark',
                 )}
                 onClick={() => onClick(item.value, null)}
@@ -47,7 +47,7 @@ export default function CollectionMenu({ open, menu, onClick }: CollectionMenuPr
                       <div
                         key={child.value}
                         className={twMerge(
-                          'mb-[1px] flex cursor-pointer select-none overflow-x-hidden',
+                          'targeting-action mb-[1px] flex select-none overflow-x-hidden',
                           child.active ? 'text-mud' : 'text-clay-dark',
                         )}
                         onClick={() => onClick(item.value, child.value)}

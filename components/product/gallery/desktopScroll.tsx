@@ -22,10 +22,10 @@ export default function ProductGalleryDesktopScroll({
     }
   }, [scrollTop]);
 
-  // rerender 0.05s after the page is loaded to avoid the scroll bug
+  // rerender 0.1s after the page is loaded to avoid the scroll bug
   const rerender = useReducer((s) => s + 1, 0);
   useEffect(() => {
-    setTimeout(() => rerender[1](), 50);
+    setTimeout(() => rerender[1](), 100);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

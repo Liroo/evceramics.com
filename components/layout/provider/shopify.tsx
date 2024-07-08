@@ -2,11 +2,11 @@
 
 import { CartProvider, ShopifyProvider, useShopifyCookies } from '@shopify/hydrogen-react';
 
-type LayoutProviderProps = {
+type LayoutProviderShopifyProps = {
   children: React.ReactNode;
 };
 
-export default function LayoutProvider({ children }: LayoutProviderProps) {
+export default function LayoutProviderShopify({ children }: LayoutProviderShopifyProps) {
   useShopifyCookies();
 
   return (

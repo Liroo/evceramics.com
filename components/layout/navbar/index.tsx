@@ -2,6 +2,7 @@
 
 import { useCart } from '@shopify/hydrogen-react';
 import Cart from 'components/cart';
+import Cursor from 'components/cursor';
 import { cubicBezier, motion, useAnimate } from 'framer-motion';
 
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
@@ -33,14 +34,14 @@ function LocaleSwitcher() {
     <div className="flex select-none gap-[10px] text-clay-dark">
       <div
         onClick={() => switchLocale('en')}
-        className={twMerge('cursor-pointer select-none', locale === 'en' ? 'text-mud' : '')}
+        className={twMerge('targeting-action select-none', locale === 'en' ? 'text-mud' : '')}
       >
         EN
       </div>
       <p>/</p>
       <div
         onClick={() => switchLocale('fr')}
-        className={twMerge('cursor-pointer select-none', locale === 'fr' ? 'text-mud' : '')}
+        className={twMerge('targeting-action select-none', locale === 'fr' ? 'text-mud' : '')}
       >
         FR
       </div>
@@ -56,7 +57,7 @@ function MainMenu({ menu }: Props) {
       {menu.map((item, index) => (
         <Fragment key={index}>
           {index > 0 ? <p className="mx-[10px] hidden laptop:block">/</p> : null}
-          <Link href={item.path} className="whitespace-nowrap uppercase">
+          <Link href={item.path} className="targeting-action whitespace-nowrap uppercase">
             <p
               className={twMerge(
                 pathname === item.path ||
@@ -147,19 +148,19 @@ export default function LayoutNavbar({ menu }: Props) {
             <p className="uppercase">EVCERAMICS</p>
           </div>
           <div className="col-span-1">
-            <p className="cursor-pointer select-none uppercase" onClick={onToggleCart}>
+            <p className="targeting-action select-none uppercase" onClick={onToggleCart}>
               {t('cart')} ({cart.totalQuantity ?? 0})
             </p>
           </div>
           <div
-            className="col-span-1 m-[-10px] cursor-pointer select-none justify-self-end p-[10px]"
+            className="targeting-action col-span-1 m-[-10px] select-none justify-self-end p-[10px]"
             onClick={toggleMobileMenu}
           >
             <p className="uppercase">MENU</p>
           </div>
         </div>
         <div className="hidden grid-cols-12 items-center gap-[16px] px-[32px] laptop:grid">
-          <Link href="/" className="col-span-2">
+          <Link href="/" className="targeting-action col-span-2">
             <EVCeramicsHorizontalSvg />
           </Link>
 
@@ -185,13 +186,17 @@ export default function LayoutNavbar({ menu }: Props) {
 
           <div className="col-span-2 col-start-10 flex flex-col gap-[2px]">
             <LocaleSwitcher />
-            <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
+            <a
+              href="https://www.instagram.com/ev_ceramiques"
+              target="_blank"
+              className="targeting-action"
+            >
               INSTAGRAM
             </a>
           </div>
 
           <div
-            className="col-span-1 col-start-12 flex cursor-pointer select-none flex-col gap-[2px] justify-self-end"
+            className="targeting-action col-span-1 col-start-12 flex select-none flex-col gap-[2px] justify-self-end"
             onClick={onToggleCart}
           >
             <p>{t('cart')}</p>
@@ -214,7 +219,11 @@ export default function LayoutNavbar({ menu }: Props) {
               <Suspense>
                 <LocaleSwitcher />
               </Suspense>
-              <a href="https://www.instagram.com/ev_ceramiques" target="_blank">
+              <a
+                href="https://www.instagram.com/ev_ceramiques"
+                target="_blank"
+                className="targeting-action"
+              >
                 INSTAGRAM
               </a>
             </div>
@@ -222,6 +231,7 @@ export default function LayoutNavbar({ menu }: Props) {
         </div>
       </div>
       <Cart open={cartOpen} onCloseCart={() => setCartOpen(false)} />
+      <Cursor />
     </>
   );
 }

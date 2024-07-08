@@ -4,6 +4,7 @@ import AnimationOpacityIn from 'components/animation/opacityIn';
 import ArrowRightSvg from 'icons/arrow-right.svg';
 import { Image } from 'lib/shopify/types';
 import { WheelEvent, useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { twMerge } from 'tailwind-merge';
 
 type ArchivesProps = {
@@ -19,17 +20,16 @@ export default function Archives({ gallery }: ArchivesProps) {
     if (!event.deltaY) return;
     if (galleryScrollElement.current) {
       galleryScrollElement.current.scrollLeft += event.deltaY + event.deltaX;
-      event.preventDefault();
     }
   };
 
   return (
     <div className="relative flex h-full flex-col items-center">
-      <div className="flex w-full flex-1 items-end justify-center overflow-hidden px-[var(--grid-col-px)] pt-[40px] laptop:pt-[max(74px,25dvh)]">
+      <div className="flex w-full flex-1 items-end justify-center overflow-hidden px-[var(--grid-col-px)] pt-[40px] laptop:pt-[74px]">
         {hoveredImageIndex !== null ? (
           <div
             className={twMerge(
-              'pointer-events-none aspect-[100/133] h-full w-full pb-[80px] laptop:pb-[50px]',
+              'pointer-events-none aspect-[100/133] h-full w-full pb-[80px] laptop:pb-[80px] laptop:pt-[80px]',
             )}
           >
             {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
@@ -45,7 +45,7 @@ export default function Archives({ gallery }: ArchivesProps) {
       ) : null}
       <div
         ref={galleryScrollElement}
-        className="mt-auto flex w-full gap-[var(--grid-col-gap)] overflow-x-scroll p-[var(--grid-col-px)]"
+        className="mt-auto flex w-full gap-[10px] overflow-x-scroll p-[var(--grid-col-px)] laptop:gap-[5px]"
         onWheel={onWheel}
       >
         {gallery.map((image, index) => (
@@ -54,7 +54,9 @@ export default function Archives({ gallery }: ArchivesProps) {
             key={index}
             onClick={() => setHoveredImageIndex(index % gallery.length)}
             onMouseEnter={() => setHoveredImageIndex(index % gallery.length)}
-            onMouseLeave={() => setHoveredImageIndex(null)}
+            onMouseLeave={() => {
+              if (!isMobile) setHoveredImageIndex(null);
+            }}
           >
             <AnimationOpacityIn delay={index * 0.1}>
               {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}

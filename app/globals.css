@@ -42,3 +42,16 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+
+html,
+body,
+#__next {
+  @apply h-full;
+  @apply w-full;
+  position: relative;
+  cursor: none !important;
+}
+
+* {
+  cursor: none !important;
+}

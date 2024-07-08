@@ -37,7 +37,7 @@ function Line({ line }: { line: CartLine }) {
     <GridCart className="text-body">
       <Link
         href={`/product/${merchandise.product.handle}`}
-        className="col-span-1 aspect-[95/127] bg-clay"
+        className="targeting-action col-span-1 aspect-[95/127] bg-clay"
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -54,14 +54,14 @@ function Line({ line }: { line: CartLine }) {
             </p>
             {product?.color && <p className="capitalize">{product?.color.value}</p>}
           </div>
-          <div className="m-[-10px] cursor-pointer p-[10px]" onClick={onClickRemoveLine}>
+          <div className="targeting-action m-[-10px] p-[10px]" onClick={onClickRemoveLine}>
             <CrossSvg className="w-[9px] fill-current text-mud" />
           </div>
         </div>
         <div className="flex items-end justify-between">
           <div className="flex gap-[20px]">
             <button
-              className="m-[-10px] p-[10px] outline-none"
+              className="targeting-action m-[-10px] p-[10px] outline-none"
               onClick={() => {
                 line.quantity > 1 ? onClickUpdateQuantity(line.quantity - 1) : onClickRemoveLine();
               }}
@@ -75,7 +75,9 @@ function Line({ line }: { line: CartLine }) {
               disabled={!product || line.quantity >= product?.totalInventory}
               className={twMerge(
                 'outline-none',
-                !product || line.quantity >= product?.totalInventory ? 'text-clay-dark' : '',
+                !product || line.quantity >= product?.totalInventory
+                  ? 'text-clay-dark'
+                  : 'targeting-action',
               )}
               onClick={() => onClickUpdateQuantity(line.quantity + 1)}
             >

@@ -1,8 +1,8 @@
 'use client';
 
+import { Link } from 'lib/navigation';
 import { Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 
 type CollectionProps = {
@@ -13,8 +13,9 @@ export default function CollectionProduct({ product }: CollectionProps) {
   const t = useTranslations('product');
 
   return (
-    <Link className="col-span-4 mb-[10px] laptop:col-span-3" href={`/product/${product.handle}`}>
+    <Link className="targeting-action mb-[10px] w-full" href={`/product/${product.handle}`}>
       <div className="aspect-[332/442] w-full bg-clay">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={product.featuredImage.url}
           alt="thumbnail-product"

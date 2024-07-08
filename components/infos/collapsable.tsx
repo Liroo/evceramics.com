@@ -19,7 +19,7 @@ export default function InfosCollapsable({
   return (
     <div className={twMerge('', className)}>
       <p
-        className={twMerge('cursor-pointer select-none uppercase', open ? '' : 'text-clay-dark')}
+        className={twMerge('targeting-action select-none uppercase', open ? '' : 'text-clay-dark')}
         onClick={() => setOpen((prev) => !prev)}
       >
         {t(`${localeKey}.title`)}

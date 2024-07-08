@@ -36,7 +36,7 @@ export default function CollectionBreadcrumb({ prefix, name, onClick }: Collecti
   return (
     <Grid className="fixed top-[120px] z-10 h-[73px] w-full bg-[#F4F4F4] pb-[10px] pt-[50px] laptop:top-[74px]">
       <div
-        className="col-span-2 flex cursor-pointer select-none overflow-hidden uppercase laptop:col-span-3"
+        className="targeting-action col-span-2 flex select-none overflow-hidden uppercase laptop:col-span-3"
         onClick={onClick}
       >
         <p className="text-mud laptop:hidden">
@@ -49,14 +49,14 @@ export default function CollectionBreadcrumb({ prefix, name, onClick }: Collecti
       <div className="col-span-2 flex select-none gap-[10px] uppercase text-clay-dark laptop:col-span-3">
         <p
           onClick={() => changeASearchParams('')}
-          className={twMerge('cursor-pointer', !all ? 'text-mud' : '')}
+          className={twMerge('targeting-action', !all ? 'text-mud' : '')}
         >
           {t('available')}
         </p>
         <p>/</p>
         <p
           onClick={() => changeASearchParams('all')}
-          className={twMerge('cursor-pointer', all ? 'text-mud' : '')}
+          className={twMerge('targeting-action', all ? 'text-mud' : '')}
         >
           {t('all')}
         </p>

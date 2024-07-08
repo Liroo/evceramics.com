@@ -18,7 +18,7 @@ export default function CartFooter() {
         <p>{t('taxes-duty')}</p>
 
         <div
-          className="mt-[13px] flex cursor-pointer select-none laptop:mt-[10px]"
+          className="targeting-action mt-[13px] flex select-none laptop:mt-[10px]"
           onClick={() => setTermsAccepted(!termsAccepted)}
         >
           {termsAccepted ? (
@@ -43,8 +43,8 @@ export default function CartFooter() {
         className={twMerge(
           'flex h-[52px] w-full items-center justify-between border border-mud bg-white px-[10px] outline-none laptop:h-[40px] laptop:px-[8px]',
           checkoutUrl && termsAccepted && totalQuantity > 0
-            ? 'group hover:bg-mud hover:text-[#F4F4F4]'
-            : 'cursor-not-allowed opacity-60',
+            ? 'targeting-action group hover:bg-mud hover:text-[#F4F4F4]'
+            : 'opacity-60',
         )}
         disabled={!checkoutUrl || !termsAccepted || totalQuantity <= 0}
         onClick={() => window.open(checkoutUrl, '_self')}

@@ -96,7 +96,10 @@ export default function ProductView({ product, productRecommendations }: Product
 
             {product.availableForSale && (
               <button
-                className={twMerge('p-[4px] underline', addToCartDisabled ? 'text-clay-dark' : '')}
+                className={twMerge(
+                  'p-[4px] underline',
+                  addToCartDisabled ? 'text-clay-dark' : 'targeting-action',
+                )}
                 onClick={addToCart}
                 disabled={addToCartDisabled}
               >
@@ -120,7 +123,7 @@ export default function ProductView({ product, productRecommendations }: Product
                 <button
                   className={twMerge(
                     'p-[4px] underline',
-                    addToCartDisabled ? 'text-clay-dark' : '',
+                    addToCartDisabled ? 'text-clay-dark' : 'targeting-action',
                   )}
                   onClick={addToCart}
                   disabled={addToCartDisabled}
@@ -195,11 +198,14 @@ export default function ProductView({ product, productRecommendations }: Product
               />
             ) : null}
           </div>
-          <div className="mt-auto laptop:mb-[60px]">
+          <div className="mt-auto hidden laptop:mb-[60px] laptop:block">
             <ProductRecommendations productRecommendations={productRecommendations} />
           </div>
         </div>
       </Grid>
+      <div className="mt-auto laptop:hidden">
+        <ProductRecommendations productRecommendations={productRecommendations} />
+      </div>
     </div>
   );
 }

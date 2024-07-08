@@ -13,11 +13,11 @@ export default function CartHeader({ onCloseCart }: CartHeaderProps) {
 
   return (
     <GridCart className="text-menu hidden uppercase laptop:grid">
-      <div className="col-span-1 cursor-pointer select-none" onClick={onCloseCart}>
+      <div className="targeting-action col-span-1 select-none" onClick={onCloseCart}>
         <p>{tCart('close')}</p>
       </div>
       <div
-        className="col-span-1 col-start-3 flex cursor-pointer select-none flex-col gap-[2px] justify-self-end"
+        className="targeting-action col-span-1 col-start-3 flex select-none flex-col gap-[2px] justify-self-end"
         onClick={onCloseCart}
       >
         <p>{tMenu('cart')}</p>

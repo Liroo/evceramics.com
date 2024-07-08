@@ -64,8 +64,10 @@ export default function Shop({
 
   const onClickMenu = (drop: string | null, category?: string | null) => {
     const newParams = new URLSearchParams(searchParams.toString());
-    newParams.delete('drop');
-    if (drop) newParams.set('drop', drop);
+    if (drop !== collectionHandle) {
+      router.push(`/shop/${drop}`);
+      return;
+    }
     newParams.delete('category');
     if (category) newParams.set('category', category);
     router.push(`${pathname}?${newParams.toString()}`);

@@ -18,7 +18,7 @@ export default function Cart({ open = false, onCloseCart }: CartProps) {
       <div
         onClick={onCloseCart}
         className={twMerge(
-          'fixed left-0 top-0 z-[7000] hidden h-dvh w-screen cursor-pointer bg-black bg-opacity-10 transition-all duration-300 laptop:block',
+          'targeting-action fixed left-0 top-0 z-[7000] hidden h-dvh w-screen bg-black bg-opacity-10 transition-all duration-300 laptop:block',
           open ? 'opacity-100' : 'pointer-events-none opacity-0',
         )}
       />
