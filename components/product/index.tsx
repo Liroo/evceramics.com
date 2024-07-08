@@ -59,7 +59,7 @@ export default function ProductView({ product, productRecommendations }: Product
 
   return (
     <div
-      className="contents laptop:block laptop:h-full laptop:overflow-y-scroll"
+      className="contents text-mud laptop:block laptop:h-full laptop:overflow-y-scroll"
       onScroll={onScroll}
     >
       <Grid

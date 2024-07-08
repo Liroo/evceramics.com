@@ -69,6 +69,9 @@ export async function shopifyFetch<T>({
         ...(variables && { variables }),
       }),
       cache: 'no-store',
+      next: {
+        revalidate: 0,
+      },
       // ...(tags && { next: { tags } }),
     });
 

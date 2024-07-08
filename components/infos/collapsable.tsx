@@ -26,7 +26,7 @@ export default function InfosCollapsable({
       </p>
       <div
         className={twMerge(
-          'grid transition-all',
+          'grid transition-all duration-500',
           open ? 'grid grid-rows-[1fr]' : 'grid-rows-[0fr]',
         )}
       >
