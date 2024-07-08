@@ -49,9 +49,7 @@ function Line({ line }: { line: CartLine }) {
       <div className="col-span-3 flex flex-col items-stretch justify-between laptop:col-span-2">
         <div className="flex items-start justify-between">
           <div>
-            <p className="uppercase">
-              {merchandise.product.title} {product?.category && ` - ${product?.category.value}`}
-            </p>
+            <p className="uppercase">{merchandise.product.title.split('/').join('-')}</p>
             {product?.color && <p className="capitalize">{product?.color.value}</p>}
           </div>
           <div className="targeting-action m-[-10px] p-[10px]" onClick={onClickRemoveLine}>
