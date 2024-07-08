@@ -20,8 +20,8 @@ export default function CollectionMenu({ open, menu, onClick }: CollectionMenuPr
       className={twMerge(
         'fixed left-[var(--grid-col-px)] top-[193px] overflow-hidden transition-all duration-300 laptop:top-[147px]',
         open
-          ? 'w-[calc((100vw-2*var(--grid-col-px)-(var(--grid-col-nb)-1)*var(--grid-col-gap))/var(--grid-col-nb)*2+var(--grid-col-gap))]'
-          : 'w-[0px]',
+          ? 'w-[calc((100vw-2*var(--grid-col-px)-(var(--grid-col-nb)-1)*var(--grid-col-gap))/var(--grid-col-nb)*2+var(--grid-col-gap))] opacity-100'
+          : 'w-[0px] opacity-0',
       )}
     >
       <div className="w-[calc((100vw-2*var(--grid-col-px)-(var(--grid-col-nb)-1)*var(--grid-col-gap))/var(--grid-col-nb)*2+var(--grid-col-gap))]">

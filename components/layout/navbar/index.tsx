@@ -206,7 +206,7 @@ export default function LayoutNavbar({ menu }: Props) {
       </motion.nav>
       <div
         className={twMerge(
-          'fixed left-0 top-[40px] z-[4000] grid w-full bg-[#F4F4F4] transition-all laptop:hidden',
+          'fixed left-0 top-[40px] z-[4000] grid w-full bg-[#F4F4F4] transition-all duration-300 laptop:hidden',
           mobileMenuOpen ? 'grid grid-rows-[1fr]' : 'grid-rows-[0fr]',
         )}
       >

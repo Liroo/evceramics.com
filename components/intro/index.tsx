@@ -4,6 +4,7 @@ import AnimationOpacityIn from 'components/animation/opacityIn';
 import IntroGif from 'components/intro/gif';
 import { cubicBezier, motion, useAnimate } from 'framer-motion';
 import EvCeramicsVerticalSvg from 'icons/evceramics-vertical.svg';
+import { usePathname } from 'lib/navigation';
 import { SessionStorage } from 'lib/storage';
 import { useEffect, useState } from 'react';
 
@@ -16,11 +17,12 @@ export default function Intro({ children }: Props) {
   const [childrenScope, childrenAnimate] = useAnimate();
   const [gifScope, gifAnimate] = useAnimate();
   const [animationCompleted, setAnimationCompleted] = useState<boolean>(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const introCompleted: boolean = SessionStorage.get('introCompleted');
 
-    if (!introCompleted) {
+    if (!introCompleted && pathname === '/') {
       window.dispatchEvent(new CustomEvent('intro:animation', { detail: true }));
       document.body.classList.add('overflow-y-hidden');
       document.documentElement.classList.add('overflow-y-hidden');
