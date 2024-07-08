@@ -68,7 +68,7 @@ export async function shopifyFetch<T>({
         ...(query && { query }),
         ...(variables && { variables }),
       }),
-      cache: 'no-store',
+      // cache,
       next: {
         revalidate: 0,
       },
