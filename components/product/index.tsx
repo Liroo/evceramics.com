@@ -152,32 +152,33 @@ export default function ProductView({ product, productRecommendations }: Product
           <div className="flex flex-col gap-[8px] pb-[16px] pt-[16px] laptop:gap-[2px] laptop:pb-[16px]">
             {product.drop && (
               <p>
-                {t('drop')} / {product.drop?.value}
+                {t('drop')} <span className="text-clay-dark">/</span> {product.drop?.value}
               </p>
             )}
             {product.model && (
               <p>
-                {t('model')} / {product.model?.value}
+                {t('model')} <span className="text-clay-dark">/</span> {product.model?.value}
               </p>
             )}
             {product.category && (
               <p>
-                {t('product-category')} / {product.category?.value}
+                {t('product-category')} <span className="text-clay-dark">/</span>{' '}
+                {product.category?.value}
               </p>
             )}
             {product.color && (
               <p>
-                {t('color')} / {product.color?.value}
+                {t('color')} <span className="text-clay-dark">/</span> {product.color?.value}
               </p>
             )}
             {product.material && (
               <p>
-                {t('material')} / {product.material?.value}
+                {t('material')} <span className="text-clay-dark">/</span> {product.material?.value}
               </p>
             )}
             {product.size && (
               <p>
-                {t('dimensions')} / {product.size?.value}
+                {t('dimensions')} <span className="text-clay-dark">/</span> {product.size?.value}
               </p>
             )}
           </div>

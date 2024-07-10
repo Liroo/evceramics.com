@@ -29,14 +29,16 @@ export default function Archives({ gallery }: ArchivesProps) {
         {hoveredImageIndex !== null ? (
           <div
             className={twMerge(
-              'pointer-events-none aspect-[100/133] h-full w-full pb-[80px] laptop:pb-[80px] laptop:pt-[80px]',
+              'pointer-events-none flex h-full w-full items-end justify-center overflow-hidden pb-[80px] laptop:pb-[80px] laptop:pt-[80px]',
             )}
           >
-            {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
-            <img
-              src={gallery[hoveredImageIndex]?.url}
-              className="h-full w-full object-contain object-bottom"
-            />
+            <div className="aspect-[332/442] w-full laptop:h-full laptop:w-auto">
+              {/* eslint-disable-next-line jsx-a11y/alt-text, @next/next/no-img-element */}
+              <img
+                src={gallery[hoveredImageIndex]?.url}
+                className="h-full w-full object-cover object-bottom"
+              />
+            </div>
           </div>
         ) : null}
       </div>

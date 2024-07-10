@@ -38,6 +38,7 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
+  icons: [{ rel: 'icon', url: '/favicon.ico' }],
 };
 
 // Since we have a `not-found.tsx` page on the root, a layout file

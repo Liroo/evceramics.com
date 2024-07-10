@@ -37,7 +37,7 @@ export default function Shop({
     const productType = product.category?.value;
     if (a !== 'all' && !product.availableForSale) return acc;
     if (productType) {
-      if (!acc.includes(productType)) acc.push(productType);
+      if (!acc.includes(productType.toLowerCase())) acc.push(productType.toLowerCase());
     }
     return acc;
   }, [] as string[]);

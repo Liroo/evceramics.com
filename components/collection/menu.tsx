@@ -41,7 +41,7 @@ export default function CollectionMenu({ open, menu, onClick }: CollectionMenuPr
                 <p className="truncate whitespace-nowrap uppercase">{item.label}</p>
               </div>
               {item.children && (
-                <div className="ml-[13px]">
+                <div className="mb-[10px] ml-[13px]">
                   {item.children?.map((child) => {
                     return (
                       <div
