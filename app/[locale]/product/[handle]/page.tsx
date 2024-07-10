@@ -58,10 +58,12 @@ export default async function ProductPage({
   );
 
   // remove products that have as collection disabled_evceramics
-  const filteredProductRecommendations = productRecommendations.filter(
-    (product) =>
-      !product.collections.edges.some((edge) => edge.node.handle === 'disabled_evceramics'),
-  );
+  const filteredProductRecommendations = productRecommendations
+    .filter(
+      (product) =>
+        !product.collections.edges.some((edge) => edge.node.handle === 'disabled_evceramics'),
+    )
+    .slice(0, 3);
 
   return (
     <>
