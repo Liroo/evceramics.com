@@ -3,10 +3,10 @@ import CollectionBreadcrumb from 'components/collection/breadcrumb';
 import CollectionMenu from 'components/collection/menu';
 import CollectionProducts from 'components/collection/products';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
-import { usePathname, useRouter } from 'lib/navigation';
 import { Menu, Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
+import { useTransitionRouter } from 'next-transition-router';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -59,7 +59,7 @@ export default function Shop({
   );
 
   // Menu logic
-  const router = useRouter();
+  const router = useTransitionRouter();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
   const onClickMenu = (drop: string | null, category?: string | null) => {

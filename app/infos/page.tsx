@@ -2,7 +2,6 @@ import Grid from 'components/grid';
 import InfosCollapsable from 'components/infos/collapsable';
 import EvCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
 import { useTranslations } from 'next-intl';
-import { unstable_setRequestLocale } from 'next-intl/server';
 import Image from 'next/image';
 import EmilieJpg from 'public/images/infos/emilie.jpg';
 
@@ -15,8 +14,7 @@ export const metadata = {
   },
 };
 
-export default function InfosPage({ params: { locale } }: { params: { locale: string } }) {
-  unstable_setRequestLocale(locale);
+export default function InfosPage() {
   const t = useTranslations('infos');
 
   return (

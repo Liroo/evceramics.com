@@ -2,7 +2,6 @@
 
 import { PropsWithChildren, useContext, useRef } from 'react';
 
-import { usePathname } from 'lib/navigation';
 import { LayoutRouterContext } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 export function FrozenRouter(props: PropsWithChildren<{}>) {
@@ -18,7 +17,7 @@ type LayoutProviderAnimateProps = {
 };
 
 export default function LayoutProviderAnimate({ children }: LayoutProviderAnimateProps) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
 
   return (
     // <AnimatePresence mode="wait">

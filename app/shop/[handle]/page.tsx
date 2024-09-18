@@ -1,7 +1,7 @@
 import Intro from 'components/intro';
 import Shop from 'components/shop';
 import { getCollectionProducts, getMenu } from 'lib/shopify';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
 export const metadata = {
@@ -13,12 +13,9 @@ export const metadata = {
   },
 };
 
-export default async function ShopPage({
-  params: { locale, handle },
-}: {
-  params: { locale: string; handle: string };
-}) {
-  unstable_setRequestLocale(locale);
+export default async function ShopPage({ params: { handle } }: { params: { handle: string } }) {
+  const locale = await getLocale();
+
   const menu = await getMenu('shop', locale.toUpperCase());
   const shopMenu = menu.map((item) => ({
     ...item,

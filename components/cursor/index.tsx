@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 
 export default function Cursor() {
@@ -27,7 +29,7 @@ export default function Cursor() {
 
   return (
     <div
-      className="pointer-events-none fixed z-[10000] hidden pointer-fine:block"
+      className="pointer-events-none fixed left-0 top-0 z-[10000] hidden pointer-fine:block"
       style={{
         transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
         opacity: mouseInWindow ? 1 : 0,

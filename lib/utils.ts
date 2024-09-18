@@ -1,16 +1,3 @@
-import { ReadonlyURLSearchParams } from 'next/navigation';
-
-export const createUrl = (
-  pathname: string,
-  params: URLSearchParams | ReadonlyURLSearchParams,
-  locale?: string,
-) => {
-  const paramsString = params.toString();
-  const queryString = `${paramsString.length ? '?' : ''}${paramsString}`;
-
-  return `${locale ? `/${locale}` : ''}${pathname}${queryString}`;
-};
-
 export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
 

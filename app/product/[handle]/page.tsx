@@ -2,7 +2,7 @@ import Product from 'components/product/index';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import type { Metadata } from 'next';
-import { unstable_setRequestLocale } from 'next-intl/server';
+import { getLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 export async function generateMetadata({
   params,
@@ -42,12 +42,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({
-  params: { handle, locale },
-}: {
-  params: { handle: string; locale: string };
-}) {
-  unstable_setRequestLocale(locale);
+export default async function ProductPage({ params: { handle } }: { params: { handle: string } }) {
+  const locale = await getLocale();
 
   const product = await getProduct(handle, locale.toUpperCase());
   if (!product) return notFound();

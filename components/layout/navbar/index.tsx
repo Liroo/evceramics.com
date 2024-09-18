@@ -2,16 +2,16 @@
 
 import { useCart } from '@shopify/hydrogen-react';
 import Cart from 'components/cart';
-import Cursor from 'components/cursor';
 import { cubicBezier, motion, useAnimate } from 'framer-motion';
 
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
-import { Link, usePathname, useRouter } from 'lib/navigation';
+import { setUserLocale } from 'lib/locale';
 import { Menu } from 'lib/shopify/types';
 import { SessionStorage } from 'lib/storage';
 import { useLocale, useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
-import { Fragment, Suspense, useEffect, useState } from 'react';
+import { Link } from 'next-transition-router';
+import { usePathname } from 'next/navigation';
+import { Fragment, Suspense, useEffect, useState, useTransition } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 type Props = {
@@ -19,16 +19,19 @@ type Props = {
 };
 
 function LocaleSwitcher() {
+  const [isPending, startTransition] = useTransition();
   const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   const switchLocale = (nextLocale: string) => {
     if (locale !== nextLocale) {
-      router.replace(`${pathname}?${searchParams.toString()}`, { locale: nextLocale });
+      startTransition(() => {
+        console.log(locale);
+        setUserLocale(nextLocale);
+      });
     }
   };
+
+  console.log(isPending);
 
   return (
     <div className="flex select-none gap-[10px] text-clay-dark">
@@ -231,7 +234,6 @@ export default function LayoutNavbar({ menu }: Props) {
         </div>
       </div>
       <Cart open={cartOpen} onCloseCart={() => setCartOpen(false)} />
-      <Cursor />
     </>
   );
 }

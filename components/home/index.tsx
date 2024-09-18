@@ -4,9 +4,9 @@ import CollectionBreadcrumb from 'components/collection/breadcrumb';
 import CollectionMenu from 'components/collection/menu';
 import CollectionProducts from 'components/collection/products';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
-import { useRouter } from 'lib/navigation';
 import { Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
+import { useTransitionRouter } from 'next-transition-router';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
@@ -46,7 +46,7 @@ export default function Home({ products }: { products: Product[] }) {
   );
 
   // Menu logic
-  const router = useRouter();
+  const router = useTransitionRouter();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const t = useTranslations('product');
 

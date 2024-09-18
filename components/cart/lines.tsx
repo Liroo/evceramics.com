@@ -2,10 +2,10 @@ import { useCart } from '@shopify/hydrogen-react';
 import { CartLine } from '@shopify/hydrogen-react/storefront-api-types';
 import GridCart from 'components/grid/cart';
 import CrossSvg from 'icons/cross.svg';
-import { Link } from 'lib/navigation';
 import { getProduct } from 'lib/shopify';
 import { Product } from 'lib/shopify/types';
 import { useLocale, useTranslations } from 'next-intl';
+import { Link } from 'next-transition-router';
 import { useEffect, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 

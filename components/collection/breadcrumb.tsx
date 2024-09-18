@@ -2,9 +2,9 @@
 
 import Grid from 'components/grid';
 import ArrowRightSvg from 'icons/arrow-right.svg';
-import { usePathname, useRouter } from 'lib/navigation';
 import { useTranslations } from 'next-intl';
-import { useSearchParams } from 'next/navigation';
+import { useTransitionRouter } from 'next-transition-router';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { twMerge } from 'tailwind-merge';
 
 type CollectionBreadcrumbProps = {
@@ -16,7 +16,7 @@ type CollectionBreadcrumbProps = {
 export default function CollectionBreadcrumb({ prefix, name, onClick }: CollectionBreadcrumbProps) {
   const searchParams = useSearchParams();
   const all = searchParams.get('a') === 'all';
-  const router = useRouter();
+  const router = useTransitionRouter();
   const pathname = usePathname();
 
   // const locale = useLocale();
