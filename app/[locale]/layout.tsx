@@ -79,7 +79,7 @@ export default async function RootLayout({
   const messages = await getMessages();
   const mainMenu = await getMenu('main-menu', locale.toUpperCase());
 
-  const showComingSoon: boolean = process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production';
+  const showComingSoon: boolean = false; // process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production';
 
   return (
     <html lang={locale} className="h-full bg-[#F4F4F4]">
