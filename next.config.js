@@ -1,4 +1,5 @@
 const config = {
+  reactStrictMode: false,
   experimental: {
     turbo: {
       rules: {

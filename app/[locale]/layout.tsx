@@ -83,19 +83,17 @@ export default async function RootLayout({
       <body
         className={`${brutGrotesque.variable} ${romie.variable} relative h-full font-sans text-mud antialiased`}
       >
-        <NextIntlClientProvider messages={messages}>
-          <LayoutProviderShopify>
-            <Suspense>
+        <Suspense>
+          <NextIntlClientProvider messages={messages}>
+            <LayoutProviderShopify>
               <LayoutNavbar menu={mainMenu} />
-            </Suspense>
-            <main className="h-full overflow-x-hidden">
-              <Suspense>
+              <main className="h-full overflow-x-hidden">
                 <LayoutProviderAnimate>{children}</LayoutProviderAnimate>
-              </Suspense>
-            </main>
-            <GridPreview />
-          </LayoutProviderShopify>
-        </NextIntlClientProvider>
+              </main>
+              <GridPreview />
+            </LayoutProviderShopify>
+          </NextIntlClientProvider>
+        </Suspense>
       </body>
     </html>
   );
