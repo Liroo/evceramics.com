@@ -1,4 +1,3 @@
-import ComingSoon from 'components/comingSoon';
 import GridPreview from 'components/grid/preview';
 import LayoutNavbar from 'components/layout/navbar';
 import LayoutProviderAnimate from 'components/layout/provider/animate';
@@ -79,28 +78,24 @@ export default async function RootLayout({
   const messages = await getMessages();
   const mainMenu = await getMenu('main-menu', locale.toUpperCase());
 
-  const showComingSoon: boolean = false; // process.env.NEXT_PUBLIC_DEPLOY_ENV === 'production';
-
   return (
     <html lang={locale} className="h-full bg-[#F4F4F4]">
       <body
         className={`${brutGrotesque.variable} ${romie.variable} relative h-full font-sans text-mud antialiased`}
       >
-        {showComingSoon ? (
-          <ComingSoon />
-        ) : (
-          <Suspense>
-            <NextIntlClientProvider messages={messages}>
-              <LayoutProviderShopify>
-                <LayoutNavbar menu={mainMenu} />
-                <main className="h-full overflow-x-hidden">
-                  <LayoutProviderAnimate>{children}</LayoutProviderAnimate>
-                </main>
-                <GridPreview />
-              </LayoutProviderShopify>
-            </NextIntlClientProvider>
-          </Suspense>
-        )}
+        <NextIntlClientProvider messages={messages}>
+          <LayoutProviderShopify>
+            <Suspense>
+              <LayoutNavbar menu={mainMenu} />
+            </Suspense>
+            <main className="h-full overflow-x-hidden">
+              <Suspense>
+                <LayoutProviderAnimate>{children}</LayoutProviderAnimate>
+              </Suspense>
+            </main>
+            <GridPreview />
+          </LayoutProviderShopify>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
