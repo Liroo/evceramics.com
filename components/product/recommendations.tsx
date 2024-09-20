@@ -1,6 +1,6 @@
 import GridCart from 'components/grid/cart';
 import { Product } from 'lib/shopify/types';
-import { Link } from 'next-transition-router';
+import Link from 'next/link';
 
 export default function ProductRecommendations({
   productRecommendations,

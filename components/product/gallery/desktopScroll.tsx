@@ -53,7 +53,7 @@ export default function ProductGalleryDesktopScroll({
         {gallery.map((image, i) => {
           return (
             // eslint-disable-next-line @next/next/no-img-element
-            <img key={i} src={image.url} alt="gallery image" />
+            <img key={i} src={`${image.url}&width=1024`} alt="gallery image" />
           );
         })}
       </div>

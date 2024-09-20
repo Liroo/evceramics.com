@@ -1,75 +1,80 @@
 'use client';
 
 import { useCart } from '@shopify/hydrogen-react';
+import anime from 'animejs';
 import Cart from 'components/cart';
-import { cubicBezier, motion, useAnimate } from 'framer-motion';
 
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
-import { setUserLocale } from 'lib/locale';
-import { Menu } from 'lib/shopify/types';
 import { SessionStorage } from 'lib/storage';
 import { useLocale, useTranslations } from 'next-intl';
-import { Link } from 'next-transition-router';
-import { usePathname } from 'next/navigation';
-import { Fragment, Suspense, useEffect, useState, useTransition } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Fragment, Suspense, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
-type Props = {
-  menu: Menu[];
-};
+const menu = [
+  {
+    title: 'lastDrop',
+    href: '/',
+  },
+  {
+    title: 'shop',
+    href: '/shop',
+  },
+  {
+    title: 'infos',
+    href: '/infos',
+  },
+  {
+    title: 'archives',
+    href: '/archives',
+  },
+];
 
 function LocaleSwitcher() {
-  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   const locale = useLocale();
-
-  const switchLocale = (nextLocale: string) => {
-    if (locale !== nextLocale) {
-      startTransition(() => {
-        console.log(locale);
-        setUserLocale(nextLocale);
-      });
-    }
-  };
-
-  console.log(isPending);
 
   return (
     <div className="flex select-none gap-[10px] text-clay-dark">
-      <div
-        onClick={() => switchLocale('en')}
+      <Link
+        href={router.pathname}
+        locale={'en'}
         className={twMerge('targeting-action select-none', locale === 'en' ? 'text-mud' : '')}
       >
         EN
-      </div>
+      </Link>
       <p>/</p>
-      <div
-        onClick={() => switchLocale('fr')}
+      <Link
+        href={router.pathname}
+        locale={'fr'}
         className={twMerge('targeting-action select-none', locale === 'fr' ? 'text-mud' : '')}
       >
         FR
-      </div>
+      </Link>
     </div>
   );
 }
 
-function MainMenu({ menu }: Props) {
-  const pathname = usePathname();
+function MainMenu() {
+  const { pathname } = useRouter();
+  const t = useTranslations('menu');
 
   return (
     <div className="flex select-none flex-col flex-wrap gap-[6px] text-clay-dark laptop:flex-row laptop:gap-0">
       {menu.map((item, index) => (
         <Fragment key={index}>
           {index > 0 ? <p className="mx-[10px] hidden laptop:block">/</p> : null}
-          <Link href={item.path} className="targeting-action whitespace-nowrap uppercase">
+          <Link href={item.href} className="targeting-action whitespace-nowrap uppercase">
             <p
               className={twMerge(
-                pathname === item.path ||
-                  (item.path === '/shop' && pathname.startsWith('/shop') && pathname)
+                pathname === item.href ||
+                  (item.href === '/shop' && pathname.startsWith('/shop') && pathname)
                   ? 'text-mud'
                   : '',
               )}
             >
-              {item.title}
+              {t(item.title)}
             </p>
           </Link>
         </Fragment>
@@ -78,8 +83,7 @@ function MainMenu({ menu }: Props) {
   );
 }
 
-export default function LayoutNavbar({ menu }: Props) {
-  const pathname = usePathname();
+export default function LayoutNavbar() {
   const t = useTranslations('menu');
 
   // Cart
@@ -92,7 +96,7 @@ export default function LayoutNavbar({ menu }: Props) {
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
 
   // Intro animation
-  const [scope, animate] = useAnimate();
+  const scope = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // JIC the user navigates away before the intro is completed
@@ -104,17 +108,14 @@ export default function LayoutNavbar({ menu }: Props) {
 
   useEffect(() => {
     const onIntroAnimation = (event: CustomEvent<boolean>) => {
-      animate(
-        scope.current,
-        {
-          y: 0,
-        },
-        {
-          delay: event.detail ? 4.5 : 0,
-          duration: event.detail ? 0.7 : 0,
-          ease: cubicBezier(0.76, 0, 0.24, 1),
-        },
-      );
+      if (event.detail)
+        anime({
+          targets: scope.current,
+          translateY: [window.innerHeight, 0],
+          duration: event.detail ? 700 : 0,
+          delay: event.detail ? 4500 : 0,
+          easing: 'cubicBezier(0.76, 0, 0.24, 1)',
+        });
     };
     window.addEventListener<any>('intro:animation', onIntroAnimation);
     return () => {
@@ -139,12 +140,9 @@ export default function LayoutNavbar({ menu }: Props) {
   // setHideNavbar(true);
   return (
     <>
-      <motion.nav
+      <nav
         ref={scope}
         className="text-menu fixed left-0 top-0 z-50 flex h-[40px] w-full flex-col items-stretch justify-center bg-[#F4F4F4] laptop:h-[74px]"
-        initial={{
-          y: pathname === '/' ? '100dvh' : 0,
-        }}
       >
         <div className="mx-[10px] grid grid-cols-4 items-center gap-[10px] laptop:hidden">
           <div className="col-span-2">
@@ -174,7 +172,7 @@ export default function LayoutNavbar({ menu }: Props) {
             )}
           >
             <p>EVCERAMICS</p>
-            <MainMenu menu={menu} />
+            <MainMenu />
           </div>
 
           <div
@@ -206,7 +204,7 @@ export default function LayoutNavbar({ menu }: Props) {
             <p>({cart.totalQuantity ?? 0})</p>
           </div>
         </div>
-      </motion.nav>
+      </nav>
       <div
         className={twMerge(
           'fixed left-0 top-[40px] z-[4000] grid w-full bg-[#F4F4F4] transition-all laptop:hidden',
@@ -216,7 +214,7 @@ export default function LayoutNavbar({ menu }: Props) {
         <div className="overflow-hidden">
           <div className="mx-[10px] mb-[6px] mt-[6px] grid grid-cols-4 items-start gap-[10px]">
             <div className="col-span-2 col-start-1 flex flex-col">
-              <MainMenu menu={menu} />
+              <MainMenu />
             </div>
             <div className="col-span-2 col-start-3 flex flex-col gap-[6px]">
               <Suspense>

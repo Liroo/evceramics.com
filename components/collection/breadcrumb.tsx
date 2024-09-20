@@ -3,8 +3,7 @@
 import Grid from 'components/grid';
 import ArrowRightSvg from 'icons/arrow-right.svg';
 import { useTranslations } from 'next-intl';
-import { useTransitionRouter } from 'next-transition-router';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { twMerge } from 'tailwind-merge';
 
 type CollectionBreadcrumbProps = {
@@ -14,19 +13,17 @@ type CollectionBreadcrumbProps = {
 };
 
 export default function CollectionBreadcrumb({ prefix, name, onClick }: CollectionBreadcrumbProps) {
-  const searchParams = useSearchParams();
-  const all = searchParams.get('a') === 'all';
-  const router = useTransitionRouter();
-  const pathname = usePathname();
+  const router = useRouter();
+  const all = router.query.a === 'all';
+  const pathname = router.pathname;
 
-  // const locale = useLocale();
   const changeASearchParams = (a: string) => {
-    const newParams = new URLSearchParams(searchParams.toString());
+    const newParams = new URLSearchParams(window.location.search);
 
     newParams.delete('a');
     newParams.delete('category');
     if (a) newParams.set('a', a);
-    router.push(`${pathname}?${newParams.toString()}`);
+    router.replace(`${pathname}?${newParams.toString()}`, undefined, { shallow: true });
   };
 
   const t = useTranslations('product');

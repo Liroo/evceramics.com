@@ -5,8 +5,7 @@ import CollectionProducts from 'components/collection/products';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
 import { Menu, Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
-import { useTransitionRouter } from 'next-transition-router';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -23,10 +22,9 @@ export default function Shop({
   menu: ShopMenu[];
   products: Product[];
 }) {
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const category = searchParams.get('category'); // category
-  const a = searchParams.get('a'); // a = available
+  const router = useRouter();
+  const pathname = router.pathname;
+  const { category, a } = router.query as { category: string; a: string };
   const t = useTranslations('product');
 
   // Get the type and availability filters
@@ -59,18 +57,17 @@ export default function Shop({
   );
 
   // Menu logic
-  const router = useTransitionRouter();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
 
   const onClickMenu = (drop: string | null, category?: string | null) => {
-    const newParams = new URLSearchParams(searchParams.toString());
+    const newParams = new URLSearchParams(window.location.search);
     if (drop !== collectionHandle) {
-      router.push(`/shop/${drop}`);
+      router.replace(`/shop/${drop}`, undefined, { shallow: true });
       return;
     }
     newParams.delete('category');
     if (category) newParams.set('category', category);
-    router.push(`${pathname}?${newParams.toString()}`);
+    router.replace(`${pathname}?${newParams.toString()}`, undefined, { shallow: true });
   };
 
   return (

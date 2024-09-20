@@ -1,3 +1,8 @@
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const defaultLocale = 'en';
+const locales = ['en', 'fr'];
+
 const config = {
   reactStrictMode: false,
   experimental: {
@@ -10,6 +15,12 @@ const config = {
       },
     },
   },
+
+  i18n: {
+    locales,
+    defaultLocale,
+  },
+
   webpack(config) {
     // Grab the existing rule that handles SVG imports
     const fileLoaderRule = config.module.rules.find((rule) => rule.test?.test?.('.svg'));
@@ -61,8 +72,6 @@ const config = {
   },
 };
 
-const createNextIntlPlugin = require('next-intl/plugin');
-
 const withNextIntl = createNextIntlPlugin();
 
-module.exports = withNextIntl(config);
+export default withNextIntl(config);

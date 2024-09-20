@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 function getRect(element: any) {
   if (!element) {
@@ -34,7 +34,7 @@ export default function useResizeObserver<T extends Element>({
     onResize?.(rect);
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const element = ref.current;
     if (!element) {
       return;

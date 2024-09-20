@@ -1,5 +1,9 @@
 {
   "menu": {
+    "lastDrop": "Dernier drop",
+    "shop": "Shop",
+    "infos": "Infos",
+    "archives": "Archives",
     "cart": "PANIER",
     "handmade-ceramics": "céramiques artisanales",
     "based-in-france": "faites en france"
@@ -59,5 +63,15 @@
     "taxes-duty": "Les taxes et les frais de douane ne sont pas inclus.",
     "accept-terms": "J'ai accepté les termes et conditions du site web.",
     "empty": "Votre panier est vide."
+  },
+  "error": {
+    "404": {
+      "title": "404",
+      "content": "La page que vous recherchez n'existe pas."
+    },
+    "500": {
+      "title": "500",
+      "content": "Une erreur s'est produite sur le serveur."
+    }
   }
 }

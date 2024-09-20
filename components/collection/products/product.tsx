@@ -2,7 +2,7 @@
 
 import { Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
-import { Link } from 'next-transition-router';
+import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 
 type CollectionProps = {
@@ -17,7 +17,7 @@ export default function CollectionProduct({ product }: CollectionProps) {
       <div className="aspect-[332/442] w-full bg-clay">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={product.featuredImage.url}
+          src={`${product.featuredImage.url}&width=1024`}
           alt="thumbnail-product"
           className="h-full w-full object-cover"
         />

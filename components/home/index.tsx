@@ -6,15 +6,12 @@ import CollectionProducts from 'components/collection/products';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
 import { Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
-import { useTransitionRouter } from 'next-transition-router';
-import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { Suspense, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
 export default function Home({ products }: { products: Product[] }) {
-  const searchParams = useSearchParams();
-  const category = searchParams.get('category'); // category
-  const a = searchParams.get('a'); // a = available
+  const { category, a } = useRouter().query as { category: string; a: string };
 
   // Get the type and availability filters
   let filteredProducts = products;
@@ -46,15 +43,15 @@ export default function Home({ products }: { products: Product[] }) {
   );
 
   // Menu logic
-  const router = useTransitionRouter();
+  const router = useRouter();
   const [menuIsOpen, setMenuIsOpen] = useState<boolean>(false);
   const t = useTranslations('product');
 
   const onClickMenu = (value: string | null) => {
-    const newParams = new URLSearchParams(searchParams.toString());
+    const newParams = new URLSearchParams(window.location.search);
     newParams.delete('category');
     if (value) newParams.set('category', value);
-    router.push(`/?${newParams.toString()}`);
+    router.replace(`/?${newParams.toString()}`, undefined, { shallow: true });
   };
 
   return (

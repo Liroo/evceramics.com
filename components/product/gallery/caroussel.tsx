@@ -29,7 +29,11 @@ export default function ProductGalleryCaroussel({ gallery }: ProductGalleryCarou
   return (
     <div className=" relative flex aspect-[410/547] w-full items-center justify-center laptop:hidden">
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="h-full w-full object-cover" src={gallery[index]?.url} alt="Caroussel image" />
+      <img
+        className="h-full w-full object-cover"
+        src={`${gallery[index]?.url}&width=1024`}
+        alt="Caroussel image"
+      />
       <div className="absolute flex h-full w-full items-center">
         <div className="flex h-full flex-1 items-center px-[14px]" onClick={onPrev}>
           <Arrow className="rotate-180" />

@@ -1,20 +1,20 @@
 'use client';
 
+import anime from 'animejs';
 import AnimationOpacityIn from 'components/animation/opacityIn';
 import IntroGif from 'components/intro/gif';
-import { cubicBezier, motion, useAnimate } from 'framer-motion';
 import EvCeramicsVerticalSvg from 'icons/evceramics-vertical.svg';
 import { SessionStorage } from 'lib/storage';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Props = {
   children: React.ReactNode;
 };
 
 export default function Intro({ children }: Props) {
-  const [containerScope, containerAnimate] = useAnimate();
-  const [childrenScope, childrenAnimate] = useAnimate();
-  const [gifScope, gifAnimate] = useAnimate();
+  const containerScope = useRef<HTMLDivElement>(null);
+  const childrenScope = useRef<HTMLDivElement>(null);
+  const gifScope = useRef<HTMLDivElement>(null);
   const [animationCompleted, setAnimationCompleted] = useState<boolean>(false);
 
   useEffect(() => {
@@ -25,56 +25,49 @@ export default function Intro({ children }: Props) {
       document.body.classList.add('overflow-y-hidden');
       document.documentElement.classList.add('overflow-y-hidden');
 
-      containerAnimate(
-        containerScope.current,
-        {
-          y: '-100%',
+      const timeline = anime.timeline({
+        complete: () => {
+          setAnimationCompleted(true);
+          SessionStorage.set('introCompleted', true);
+          document.body.classList.remove('overflow-y-hidden');
+          document.documentElement.classList.remove('overflow-y-hidden');
         },
+      });
+      timeline.add(
         {
-          delay: 4.5,
-          duration: 0.7,
-          ease: cubicBezier(0.76, 0, 0.24, 1),
-          onComplete: () => {
-            setAnimationCompleted(true);
-            SessionStorage.set('introCompleted', true);
-            document.body.classList.remove('overflow-y-hidden');
-            document.documentElement.classList.remove('overflow-y-hidden');
-          },
+          targets: containerScope.current,
+          translateY: [0, '-100%'],
+          duration: 700,
+          easing: 'cubicBezier(0.76, 0, 0.24, 1)',
         },
+        4500,
       );
-      gifAnimate(
-        gifScope.current,
+      timeline.add(
         {
-          y: '-30%',
+          targets: gifScope.current,
+          translateY: [0, '-30%'],
+          duration: 700,
+          easing: 'easeInOutQuad',
         },
-        {
-          delay: 4.45,
-          duration: 0.7,
-          ease: 'easeInOut',
-        },
+        '-=50',
       );
-      childrenAnimate(
-        childrenScope.current,
+      timeline.add(
         {
-          y: 0,
+          targets: childrenScope.current,
+          translateY: ['100%', 0],
+          duration: 700,
+          easing: 'cubicBezier(0.76, 0, 0.24, 1)',
         },
-        {
-          delay: 4.5,
-          duration: 0.7,
-          ease: cubicBezier(0.76, 0, 0.24, 1),
-        },
+        4500,
       );
     } else {
       window.dispatchEvent(new CustomEvent('intro:animation', { detail: false }));
-      childrenAnimate(
-        childrenScope.current,
-        {
-          y: 0,
-        },
-        {
-          duration: 0,
-        },
-      );
+      anime({
+        targets: containerScope.current,
+        translateY: 0,
+        duration: 0,
+      });
+
       setAnimationCompleted(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,40 +76,24 @@ export default function Intro({ children }: Props) {
   return (
     <>
       {!animationCompleted && (
-        <motion.div
+        <div
           ref={containerScope}
           className="pointer-events-none absolute top-0 z-50 flex h-dvh w-screen"
-          initial={{
-            y: 0,
-          }}
-          onAnimationComplete={() => setAnimationCompleted(true)}
         >
-          <motion.div
-            ref={gifScope}
-            className="absolute left-0 top-0 z-10 h-full w-full"
-            initial={{
-              y: 0,
-            }}
-          >
+          <div ref={gifScope} className="absolute left-0 top-0 z-10 h-full w-full">
             <IntroGif />
-          </motion.div>
+          </div>
 
           <div className="mx-auto mt-auto w-screen px-[16px] laptop:px-[32px]">
             <AnimationOpacityIn className="mb-[30px] laptop:mb-[50px]" delay={1}>
               <EvCeramicsVerticalSvg className="w-full fill-current text-clay-dark" />
             </AnimationOpacityIn>
           </div>
-        </motion.div>
+        </div>
       )}
-      <motion.div
-        ref={childrenScope}
-        className="h-full"
-        initial={{
-          y: '100%',
-        }}
-      >
+      <div ref={childrenScope} className="h-full">
         {children}
-      </motion.div>
+      </div>
     </>
   );
 }

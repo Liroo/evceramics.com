@@ -1,5 +1,9 @@
 {
   "menu": {
+    "lastDrop": "Last drop",
+    "shop": "Shop",
+    "infos": "Infos",
+    "archives": "Archives",
     "cart": "CART",
     "handmade-ceramics": "HANDMADE CERAMICS",
     "based-in-france": "BASED IN FRANCE"
@@ -59,5 +63,15 @@
     "taxes-duty": "Taxes and duties are not included.",
     "accept-terms": "I agreed the terms and conditions of the website.",
     "empty": "Your cart is empty."
+  },
+  "error": {
+    "404": {
+      "title": "404",
+      "content": "The page you are looking for does not exist."
+    },
+    "500": {
+      "title": "500",
+      "content": "An error occurred on the server."
+    }
   }
 }
