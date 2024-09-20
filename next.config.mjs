@@ -1,5 +1,3 @@
-import createNextIntlPlugin from 'next-intl/plugin';
-
 const defaultLocale = 'en';
 const locales = ['en', 'fr'];
 
@@ -72,6 +70,4 @@ const config = {
   },
 };
 
-const withNextIntl = createNextIntlPlugin();
-
-export default withNextIntl(config);
+export default config;

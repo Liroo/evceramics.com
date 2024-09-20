@@ -1,14 +1,13 @@
 import { TAGS } from 'lib/constants';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { revalidateTag } from 'next/cache';
-import { headers } from 'next/headers';
 
 export async function revalidate(req: NextApiRequest, res: NextApiResponse): Promise<any> {
   // We always need to respond with a 200 status code to Shopify,
   // otherwise it will continue to retry the request.
   const collectionWebhooks = ['collections/create', 'collections/delete', 'collections/update'];
   const productWebhooks = ['products/create', 'products/delete', 'products/update'];
-  const topic = headers().get('x-shopify-topic') || 'unknown';
+  const topic = (req.headers['x-shopify-topic'] as string) || 'unknown';
   const isCollectionUpdate = collectionWebhooks.includes(topic);
   const isProductUpdate = productWebhooks.includes(topic);
 
