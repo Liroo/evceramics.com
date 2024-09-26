@@ -61,11 +61,15 @@ export default function MyApp({ Component, pageProps }: { Component: NextPage; p
   useShopifyCookies();
 
   // Get a key without search
-  let pageKey = (router.asPath || '').split('?')[0];
+  const pageKey = (router.asPath || '').split('?')[0];
 
   return (
     <div className={`${brutGrotesque.variable} ${romie.variable} contents font-sans`}>
-      <NextIntlClientProvider locale={router.locale} messages={pageProps.messages}>
+      <NextIntlClientProvider
+        timeZone="Europe/Paris"
+        locale={router.locale}
+        messages={pageProps.messages}
+      >
         <LayoutProviderShopify>
           <LayoutNavbar />
 

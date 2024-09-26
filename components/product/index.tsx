@@ -30,6 +30,9 @@ export default function ProductView({ product, productRecommendations }: Product
           .map((attr) => ({ key: attr?.key as string, value: attr?.value as string })),
       },
     ]);
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('open:cart', { detail: false }));
+    }, 200);
   };
 
   const variantInCart = lines?.find((line) => line?.merchandise?.product?.id === product.id);

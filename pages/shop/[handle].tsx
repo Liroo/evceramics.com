@@ -63,6 +63,7 @@ export const getServerSideProps = async ({ locale, query }: GetServerSidePropsCo
     props: {
       products,
       shopMenu: serializedShopMenu,
+      handle,
       messages: (await import(`messages/${locale}.json`)).default,
     },
   };

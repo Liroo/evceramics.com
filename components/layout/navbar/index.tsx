@@ -1,14 +1,12 @@
-'use client';
-
 import { useCart } from '@shopify/hydrogen-react';
 import anime from 'animejs';
 import Cart from 'components/cart';
+import { usePathname } from 'i18n/routing';
 
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
 import { SessionStorage } from 'lib/storage';
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { Fragment, Suspense, useEffect, useRef, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 
@@ -32,21 +30,21 @@ const menu = [
 ];
 
 function LocaleSwitcher() {
-  const router = useRouter();
   const locale = useLocale();
+  const pathname = usePathname();
 
   return (
     <div className="flex select-none gap-[10px] text-clay-dark">
       <Link
-        href={router.pathname}
-        locale={'en'}
+        href={pathname}
+        locale={false}
         className={twMerge('targeting-action select-none', locale === 'en' ? 'text-mud' : '')}
       >
         EN
       </Link>
       <p>/</p>
       <Link
-        href={router.pathname}
+        href={pathname}
         locale={'fr'}
         className={twMerge('targeting-action select-none', locale === 'fr' ? 'text-mud' : '')}
       >
@@ -56,8 +54,8 @@ function LocaleSwitcher() {
   );
 }
 
-function MainMenu() {
-  const { pathname } = useRouter();
+function MainMenu({ onClick }: { onClick: () => void }) {
+  const pathname = usePathname();
   const t = useTranslations('menu');
 
   return (
@@ -65,7 +63,11 @@ function MainMenu() {
       {menu.map((item, index) => (
         <Fragment key={index}>
           {index > 0 ? <p className="mx-[10px] hidden laptop:block">/</p> : null}
-          <Link href={item.href} className="targeting-action whitespace-nowrap uppercase">
+          <Link
+            href={item.href}
+            className="targeting-action whitespace-nowrap uppercase"
+            onClick={onClick}
+          >
             <p
               className={twMerge(
                 pathname === item.href ||
@@ -86,14 +88,27 @@ function MainMenu() {
 export default function LayoutNavbar() {
   const t = useTranslations('menu');
 
-  // Cart
-  const [cartOpen, setCartOpen] = useState<boolean>(false);
-  const cart = useCart();
-  const onToggleCart = () => setCartOpen((prev) => !prev);
-
   // Mobile menu
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const toggleMobileMenu = () => setMobileMenuOpen((prev) => !prev);
+
+  // Cart
+  const [cartOpen, setCartOpen] = useState<boolean>(false);
+  const cart = useCart();
+  const onToggleCart = () => {
+    setCartOpen((prev) => !prev);
+    setMobileMenuOpen(false);
+  };
+  useEffect(() => {
+    const onOpenCart = () => {
+      setCartOpen(true);
+    };
+    window.addEventListener<any>('open:cart', onOpenCart);
+    return () => {
+      window.removeEventListener<any>('open:cart', onOpenCart);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Intro animation
   const scope = useRef<HTMLDivElement>(null);
@@ -172,7 +187,7 @@ export default function LayoutNavbar() {
             )}
           >
             <p>EVCERAMICS</p>
-            <MainMenu />
+            <MainMenu onClick={() => setMobileMenuOpen(false)} />
           </div>
 
           <div
@@ -191,6 +206,7 @@ export default function LayoutNavbar() {
               href="https://www.instagram.com/ev_ceramiques"
               target="_blank"
               className="targeting-action"
+              onClick={() => setMobileMenuOpen(false)}
             >
               INSTAGRAM
             </a>
@@ -214,7 +230,7 @@ export default function LayoutNavbar() {
         <div className="overflow-hidden">
           <div className="mx-[10px] mb-[6px] mt-[6px] grid grid-cols-4 items-start gap-[10px]">
             <div className="col-span-2 col-start-1 flex flex-col">
-              <MainMenu />
+              <MainMenu onClick={() => setMobileMenuOpen(false)} />
             </div>
             <div className="col-span-2 col-start-3 flex flex-col gap-[6px]">
               <Suspense>
@@ -224,6 +240,7 @@ export default function LayoutNavbar() {
                 href="https://www.instagram.com/ev_ceramiques"
                 target="_blank"
                 className="targeting-action"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 INSTAGRAM
               </a>

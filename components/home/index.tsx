@@ -19,7 +19,7 @@ export default function Home({ products }: { products: Product[] }) {
   // Filter by type
   const productsTypes = products.reduce((acc, product) => {
     const productType = product.category?.value;
-    if (a !== 'all' && !product.availableForSale) return acc;
+    if (a === 'available' && !product.availableForSale) return acc;
     if (productType) {
       if (!acc.includes(productType)) acc.push(productType);
     }
@@ -39,7 +39,7 @@ export default function Home({ products }: { products: Product[] }) {
 
   // Filter by availability
   filteredProducts = filteredProducts.filter((product) =>
-    a === 'all' ? true : product.availableForSale,
+    a === 'available' ? product.availableForSale : true,
   );
 
   // Menu logic

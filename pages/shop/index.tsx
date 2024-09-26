@@ -23,7 +23,7 @@ export const getServerSideProps = async ({ locale }: GetServerSidePropsContext) 
 
   return {
     redirect: {
-      destination: `/shop/${shopMenu[0]?.handle}`,
+      destination: `/${locale}/shop/${shopMenu[0]?.handle}`,
       permanent: false,
     },
   };

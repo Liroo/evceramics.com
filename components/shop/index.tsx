@@ -2,6 +2,7 @@
 import CollectionBreadcrumb from 'components/collection/breadcrumb';
 import CollectionMenu from 'components/collection/menu';
 import CollectionProducts from 'components/collection/products';
+import { usePathname } from 'i18n/routing';
 import EVCeramicsHorizontalSvg from 'icons/evceramics-horizontal.svg';
 import { Menu, Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
@@ -23,7 +24,7 @@ export default function Shop({
   products: Product[];
 }) {
   const router = useRouter();
-  const pathname = router.pathname;
+  const pathname = usePathname();
   const { category, a } = router.query as { category: string; a: string };
   const t = useTranslations('product');
 
@@ -33,7 +34,7 @@ export default function Shop({
   // Filter by category
   const productsCategories = products.reduce((acc, product) => {
     const productType = product.category?.value;
-    if (a !== 'all' && !product.availableForSale) return acc;
+    if (a === 'available' && !product.availableForSale) return acc;
     if (productType) {
       if (!acc.includes(productType)) acc.push(productType);
     }
@@ -53,7 +54,7 @@ export default function Shop({
 
   // Filter by availability
   filteredProducts = filteredProducts.filter((product) =>
-    a === 'all' ? true : product.availableForSale,
+    a === 'available' ? product.availableForSale : true,
   );
 
   // Menu logic
@@ -62,7 +63,7 @@ export default function Shop({
   const onClickMenu = (drop: string | null, category?: string | null) => {
     const newParams = new URLSearchParams(window.location.search);
     if (drop !== collectionHandle) {
-      router.replace(`/shop/${drop}`, undefined, { shallow: true });
+      router.replace(`/shop/${drop}`, undefined, { shallow: false });
       return;
     }
     newParams.delete('category');

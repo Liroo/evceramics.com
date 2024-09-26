@@ -1,8 +1,8 @@
 'use client';
 
+import { Link } from 'i18n/routing';
 import { Product } from 'lib/shopify/types';
 import { useTranslations } from 'next-intl';
-import Link from 'next/link';
 import { twMerge } from 'tailwind-merge';
 
 type CollectionProps = {

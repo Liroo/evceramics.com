@@ -1,6 +1,7 @@
 'use client';
 
 import Grid from 'components/grid';
+import { usePathname } from 'i18n/routing';
 import ArrowRightSvg from 'icons/arrow-right.svg';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/router';
@@ -14,8 +15,8 @@ type CollectionBreadcrumbProps = {
 
 export default function CollectionBreadcrumb({ prefix, name, onClick }: CollectionBreadcrumbProps) {
   const router = useRouter();
-  const all = router.query.a === 'all';
-  const pathname = router.pathname;
+  const available = router.query.a === 'available';
+  const pathname = usePathname();
 
   const changeASearchParams = (a: string) => {
     const newParams = new URLSearchParams(window.location.search);
@@ -45,15 +46,15 @@ export default function CollectionBreadcrumb({ prefix, name, onClick }: Collecti
       </div>
       <div className="col-span-2 flex select-none gap-[10px] uppercase text-clay-dark laptop:col-span-3">
         <p
-          onClick={() => changeASearchParams('')}
-          className={twMerge('targeting-action', !all ? 'text-mud' : '')}
+          onClick={() => changeASearchParams('available')}
+          className={twMerge('targeting-action', available ? 'text-mud' : '')}
         >
           {t('available')}
         </p>
         <p>/</p>
         <p
-          onClick={() => changeASearchParams('all')}
-          className={twMerge('targeting-action', all ? 'text-mud' : '')}
+          onClick={() => changeASearchParams('')}
+          className={twMerge('targeting-action', !available ? 'text-mud' : '')}
         >
           {t('all')}
         </p>
