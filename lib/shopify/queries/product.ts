@@ -1,7 +1,7 @@
 import productFragment from '../fragments/product';
 
 export const getProductQuery = /* GraphQL */ `
-  query getProduct($handle: String!, $language: LanguageCode) @inContext(language: $language) {
+  query getProduct($handle: String!, $locale: LanguageCode) @inContext(language: $locale) {
     product(handle: $handle) {
       ...product
     }

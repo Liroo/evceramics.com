@@ -199,7 +199,7 @@ const reshapeMetaobject = (metaobject: ShopifyMetaobject) => {
 };
 
 export async function getMenu(handle: string, locale: string = 'EN'): Promise<Menu[]> {
-  internalLocales.includes(locale) || (locale = 'EN');
+  internalLocales.includes(locale.toLowerCase()) || (locale = 'EN');
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
     tags: [TAGS.collections],
@@ -243,7 +243,7 @@ export async function getCollectionProducts({
   reverse?: boolean;
   locale: string;
 }): Promise<Product[]> {
-  internalLocales.includes(locale) || (locale = 'EN');
+  internalLocales.includes(locale.toLowerCase()) || (locale = 'EN');
   const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
     query: getCollectionProductsQuery,
     tags: [TAGS.collections, TAGS.products],
@@ -294,7 +294,7 @@ export async function getProduct(
   handle: string,
   locale: string = 'EN',
 ): Promise<Product | undefined> {
-  internalLocales.includes(locale) || (locale = 'EN');
+  internalLocales.includes(locale.toLowerCase()) || (locale = 'EN');
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     tags: [TAGS.products],
@@ -311,7 +311,7 @@ export async function getProductRecommendations(
   productId: string,
   locale: string = 'EN',
 ): Promise<Product[]> {
-  internalLocales.includes(locale) || (locale = 'EN');
+  internalLocales.includes(locale.toLowerCase()) || (locale = 'EN');
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     tags: [TAGS.products],

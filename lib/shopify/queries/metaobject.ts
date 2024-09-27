@@ -1,6 +1,6 @@
 export const getMetaobjectQuery = /* GraphQL */ `
-  query getMetaobjectQuery($handle: String!, $type: String!, $language: LanguageCode)
-  @inContext(language: $language) {
+  query getMetaobjectQuery($handle: String!, $type: String!, $locale: LanguageCode)
+  @inContext(language: $locale) {
     metaobject(handle: { handle: $handle, type: $type }) {
       gallery: field(key: "gallery") {
         type
