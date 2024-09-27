@@ -52,6 +52,7 @@ export default function Home({ products }: { products: Product[] }) {
     newParams.delete('category');
     if (value) newParams.set('category', value);
     router.replace(`/?${newParams.toString()}`, undefined, { shallow: true });
+    setMenuIsOpen(false);
   };
 
   return (

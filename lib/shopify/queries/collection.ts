@@ -24,14 +24,10 @@ export const getCollectionsQuery = /* GraphQL */ `
 `;
 
 export const getCollectionProductsQuery = /* GraphQL */ `
-  query getCollectionProducts(
-    $handle: String!
-    $sortKey: ProductCollectionSortKeys
-    $reverse: Boolean
-    $locale: LanguageCode
-  ) @inContext(language: $locale) {
+  query getCollectionProducts($handle: String!, $reverse: Boolean, $locale: LanguageCode)
+  @inContext(language: $locale) {
     collection(handle: $handle) {
-      products(sortKey: $sortKey, reverse: $reverse, first: 100) {
+      products(reverse: $reverse, first: 100) {
         edges {
           node {
             ...product

@@ -69,6 +69,7 @@ export default function Shop({
     newParams.delete('category');
     if (category) newParams.set('category', category);
     router.replace(`${pathname}?${newParams.toString()}`, undefined, { shallow: true });
+    setMenuIsOpen(false);
   };
 
   return (

@@ -237,12 +237,10 @@ export async function getCollection(handle: string): Promise<Collection | undefi
 export async function getCollectionProducts({
   collection,
   reverse,
-  sortKey,
   locale = 'EN',
 }: {
   collection: string;
   reverse?: boolean;
-  sortKey?: string;
   locale: string;
 }): Promise<Product[]> {
   internalLocales.includes(locale) || (locale = 'EN');
@@ -252,7 +250,6 @@ export async function getCollectionProducts({
     variables: {
       handle: collection,
       reverse,
-      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey,
       locale,
     },
   });
@@ -330,11 +327,9 @@ export async function getProductRecommendations(
 export async function getProducts({
   query,
   reverse,
-  sortKey,
 }: {
   query?: string;
   reverse?: boolean;
-  sortKey?: string;
 }): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
@@ -342,7 +337,6 @@ export async function getProducts({
     variables: {
       query,
       reverse,
-      sortKey,
     },
   });
 
